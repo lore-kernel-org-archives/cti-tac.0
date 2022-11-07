@@ -1,14 +1,14 @@
 Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049C9803
-	for <gti-tac@lists.linuxfoundation.org>; Fri,  4 Nov 2022 21:00:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9712E15AC
+	for <gti-tac@lists.linuxfoundation.org>; Mon,  7 Nov 2022 02:12:08 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by smtp4.osuosl.org (Postfix) with ESMTP id 90EA341554
-	for <gti-tac@lists.linuxfoundation.org>; Fri,  4 Nov 2022 21:00:08 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 90EA341554
+	by smtp4.osuosl.org (Postfix) with ESMTP id 0F7EA40554
+	for <gti-tac@lists.linuxfoundation.org>; Mon,  7 Nov 2022 02:12:08 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 0F7EA40554
 Authentication-Results: smtp4.osuosl.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aMB77sXH
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=if5tZcch
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
 X-Spam-Score: -2.103
@@ -21,57 +21,59 @@ X-Spam-Status: No, score=-2.103 tagged_above=-999 required=5
 	autolearn=ham autolearn_force=no
 Received: from smtp4.osuosl.org ([127.0.0.1])
 	by localhost (smtp4.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id Xd4e-Rd7k3-b for <gti-tac@lists.linuxfoundation.org>;
-	Fri,  4 Nov 2022 21:00:07 +0000 (UTC)
+	with ESMTP id 5YAcVFBEnbHk for <gti-tac@lists.linuxfoundation.org>;
+	Mon,  7 Nov 2022 02:12:07 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.8.0
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 45B45409B2
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org BE0A04054E
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by smtp4.osuosl.org (Postfix) with ESMTPS id 45B45409B2
-	for <gti-tac@lists.linuxfoundation.org>; Fri,  4 Nov 2022 21:00:07 +0000 (UTC)
+	by smtp4.osuosl.org (Postfix) with ESMTPS id BE0A04054E
+	for <gti-tac@lists.linuxfoundation.org>; Mon,  7 Nov 2022 02:12:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667595606;
+	s=mimecast20190719; t=1667787125;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/A+48rvyq8c3r1NXNzVIlwrwMW8iZraa7AVjvJAd3Gs=;
-	b=aMB77sXHzpsaENmT6yRhUKLjRaPvkbusIEGOkdGTPBwAxTchGwwmdlFgutpzmAab78s/1Z
-	1qUS6Dt8uO0fOSGUoIkueRNR6TZydCYEi82gL/WhYQ6OYOy7Sg5uq4gDvVZDNKLoOcQyvt
-	zkdQ2zV7B52wU3TXCeA9pLpdi1vNx0s=
-Received: from mail-io1-f71.google.com (mail-io1-f71.google.com
- [209.85.166.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=G0Z6HULENe4ldDrGDMWETAruaI0+v6w+sUSMquJOnrs=;
+	b=if5tZcchT7Bj4J8U+ekI8e5yjXTY7JOw+kxIVTQz7j/Ktzs2IhH47b1oD5RluQ9a1DVDWz
+	qrZdiR7PAW2l7lR8uoCtEVA0jHBnHoKxBMLusR2Z6b+456bV/FLMDx4CZKhM8UuXgoiYuG
+	H2tm8pRE+xWkDn3yv5WD0vTO3cGqi5I=
+Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
+ [209.85.166.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-617-lUgjjC2FN_Sj1tpbCg40tw-1; Fri, 04 Nov 2022 17:00:04 -0400
-X-MC-Unique: lUgjjC2FN_Sj1tpbCg40tw-1
-Received: by mail-io1-f71.google.com with SMTP id y5-20020a056602120500b006cf628c14ddso3759404iot.15
-        for <gti-tac@lists.linuxfoundation.org>; Fri, 04 Nov 2022 14:00:04 -0700 (PDT)
+ us-mta-115-DBbLF4HcMPKR8r2BibEubQ-1; Sun, 06 Nov 2022 21:12:04 -0500
+X-MC-Unique: DBbLF4HcMPKR8r2BibEubQ-1
+Received: by mail-il1-f200.google.com with SMTP id a15-20020a056e0208af00b00300806a52b6so7844122ilt.22
+        for <gti-tac@lists.linuxfoundation.org>; Sun, 06 Nov 2022 18:12:04 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
+        h=content-transfer-encoding:in-reply-to:organization:references:to
+         :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=/A+48rvyq8c3r1NXNzVIlwrwMW8iZraa7AVjvJAd3Gs=;
-        b=R4o9fjycgEL+0R8cMnVLy9uFo8Eb/Q6ndDvWRtez9XOH3cnbjuqOL8KUxKZdDzAfq9
-         CG81pZpE4n6lbNX1FL8E6l1n+Esh2Apgz2lVBOwej6O8uFmqBnUVIcRUb/sVnGTy5Slr
-         vuU4Y39akedY/zMYAHv1KijWBM30SLLhEv5+1E7VZexf3GbA3MWoculPoZX4FXXz3c5v
-         7ugrgRU4tufGHINAgDIx0XJt6XWu7XvtkfaESfR/sbk4ijTSEszLrsI2M2/xjGRGh5oi
-         ZEyEzkWUVDT5g35KLaBLcfDEZkmwTG1Ys2j113SXrqlj/oMgVH/LpjgUiQFgR+m3L+ZF
-         ee0g==
-X-Gm-Message-State: ACrzQf0jsHUgqv81xW54a91HGoD8ScKhbbReCIg9VU2oGs/ObIwewWa/
-	pL/NrqRtgP6pSb69jf5zZlS4Trk6xALvxqjNVv1Qb7yJ4+96zvyEOs4U1uILIgeTZz7xgNQYTo1
-	/CkoW7pRWkQ1Z/ythc5QY1RhkdQ37Iws=
-X-Received: by 2002:a92:6912:0:b0:300:c48d:19cd with SMTP id e18-20020a926912000000b00300c48d19cdmr12462678ilc.216.1667595603439;
-        Fri, 04 Nov 2022 14:00:03 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM4fqYYaITeU0kuk/V5kgQrzEqbQqbI0fsUKrWVKaqekRHU9UArfeRx2t8ICbYOoChRd+6TcSQ==
-X-Received: by 2002:a92:6912:0:b0:300:c48d:19cd with SMTP id e18-20020a926912000000b00300c48d19cdmr12462669ilc.216.1667595603233;
-        Fri, 04 Nov 2022 14:00:03 -0700 (PDT)
+        bh=G0Z6HULENe4ldDrGDMWETAruaI0+v6w+sUSMquJOnrs=;
+        b=y8dWptqkYSErfbELnrjeowfzgwn1a5hYnWodsR/mk1KIohItRLwCP9UozvQDFdVTlf
+         WhEtLX1zT94QyCh6zZ1m34sfgsIh2iOU2T+k+8zJ02N0fwnnr/ooJS4+0xjWjloJSiOK
+         gwChEsti0sxXsz+haQLGONskeips9CHo5Q3JD/gvjxcnwV1uGcUVVxWA034CC+tc3tfZ
+         8jj3YbB6hwHr6nIoMYkqCjiAPn6MlVdmLhijlDrSo6MfI2G5JKvO0EXBbpZl1zuDS2wD
+         CITCA4j05ewsPhsam+CcIQC2i54HZWuX0yE1ktVbk7bJGrwIShHjoIeW0iqFpb7riogO
+         6w0w==
+X-Gm-Message-State: ACrzQf33seTLxEKMnvJaCgElUIaKUPzCA8UNuiPAsba2r/umqOmDklt6
+	yz0Ee8FP9TYHIsFVbgTrrPE1XHIeWraVJOVLU2WzoVvm7PiNBv9D+e0MEyKrs2D/k2mX2F3n4V5
+	pZB8pAkriNq8n9sIoP2HB7HY2OR+OGzWsfgHvB7gzEfcSgHx0S+zLI61TsYeSAvCf3Qkr64a9z3
+	UUFcgP
+X-Received: by 2002:a02:1d41:0:b0:371:2c88:1d3e with SMTP id 62-20020a021d41000000b003712c881d3emr27580474jaj.265.1667787123225;
+        Sun, 06 Nov 2022 18:12:03 -0800 (PST)
+X-Google-Smtp-Source: AMsMyM5HWTQTgoNy4WDqlDyLZynhJAwU+1y8PLqvEsoeOv3UhXdJ4DiJ6sgnkR8D9fYKDLZZxvqjpw==
+X-Received: by 2002:a02:1d41:0:b0:371:2c88:1d3e with SMTP id 62-20020a021d41000000b003712c881d3emr27580460jaj.265.1667787122879;
+        Sun, 06 Nov 2022 18:12:02 -0800 (PST)
 Received: from [192.168.0.241] (192-0-145-146.cpe.teksavvy.com. [192.0.145.146])
-        by smtp.gmail.com with ESMTPSA id z26-20020a05663822ba00b003640f27d82esm23992jas.21.2022.11.04.14.00.02
+        by smtp.gmail.com with ESMTPSA id g5-20020a05663810e500b00374d6db7566sm2205360jae.117.2022.11.06.18.12.02
+        for <gti-tac@lists.linuxfoundation.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Nov 2022 14:00:02 -0700 (PDT)
-Message-ID: <323a1bed-1be3-3640-d4af-1c3e219311ab@redhat.com>
-Date: Fri, 4 Nov 2022 17:00:01 -0400
+        Sun, 06 Nov 2022 18:12:02 -0800 (PST)
+Message-ID: <3f211d68-f6db-f3aa-5a8d-3ef698088310@redhat.com>
+Date: Sun, 6 Nov 2022 21:12:01 -0500
 Precedence: bulk
 X-Mailing-List: gti-tac@lists.linuxfoundation.org
 List-Id: <gti-tac.lists.linuxfoundation.org>
@@ -80,42 +82,63 @@ List-Unsubscribe: <mailto:gti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.0
-Subject: Re: Technology for hosting the next GTI TAC meeting
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: gti-tac@lists.linuxfoundation.org
-References: <25877c78-d2bb-9107-01ed-c0b7a852dbea@redhat.com>
- <20221101215541.mjxazlondthy2awq@meerkat.local>
+Subject: Re: Planning the next GTI TAC meeting.
 From: Carlos O'Donell <carlos@redhat.com>
+To: gti-tac@lists.linuxfoundation.org
+References: <b246cbec-4c4e-940f-2b47-5e2f9f721adc@redhat.com>
 Organization: Red Hat
-In-Reply-To: <20221101215541.mjxazlondthy2awq@meerkat.local>
+In-Reply-To: <b246cbec-4c4e-940f-2b47-5e2f9f721adc@redhat.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/1/22 17:55, Konstantin Ryabitsev wrote:
-> On Tue, Nov 01, 2022 at 05:27:55PM -0400, Carlos O'Donell wrote:
->> Konstantin,
->>
->> What options does the LF have for FOSS meeting hosting?
->>
->> Are there any BBB instances currently running that we could use?
+On 11/1/22 17:41, Carlos O'Donell wrote:
+> TAC,
 > 
-> There aren't, simply because nobody's asked. :)
-> I'll investigate what we can do on a short notice.
-
-Thank you!
-
->> There does seem to be a SaaS instance of BBB via Think Modular:
->> https://think-modular.com/en/bbb-simultaneous
+> We're trying to get a BBB instance setup so the next meeting of the
+> GTI TAC is using entirely FOSS. So this meeting may need to move out
+> as we discuss the use of conferencing technology and how to attend
+> and record the meeting.
 > 
-> Thank you for the suggestion, I'll look into it.
+> Please look at your calendar and get back to me about the following dates:
+> 
+>  * Tuesday November 8th at 11am EST5EDT
+> 
+>  * Wednesday November 9th at 10am EST5EDT
+> 
+>  * Friday November 11th at 9am EST5EDT
 
-Think Modular looked like the most viable of the options.
+A quick tally:
 
-BBB does have 6 vendors they list here:
-https://bigbluebutton.org/commercial-support/
+Josephy Myers - Any day.
+Joel Broebecker - Sends his regrets for next week.
+Simon Marchi - Preference to Wednesday and Friday.
+Nick Clifton - Preference to Wednesday.
+Siddhesh Poyarekar - Preference to Wednesday.
+Carlos O'Donell - Any day.
+David Edelsohn - Any day (last time I checked).
+
+It looks like 6 members can make Wednesday November 9th at 10am EST5EDT.
+
+I suggest we hold the meeting to meet in person and discuss next steps.
+
+For now best option for the meeting is 8x8 Meet (Jitsi) which is FOSS.
+
+I'm going to test this out on Monday:
+https://8x8.vc/gti-infrastructure/gti-tac
+
+I'll ping some of you on IRC to test out the meeting.
+
+> The agenda for the GTI TAC meeting would be to discuss the next steps
+> for the current proposal: the GNU Toolchain moving to managed
+> infrastructure at the LF IT. We could additionally discuss some of
+> the mechanics of the TAC, like where we'll put our documents, notes
+> and recordings (I have some ideas on that).
+> 
+> Thank you!
+> 
 
 -- 
 Cheers,
