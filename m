@@ -1,92 +1,114 @@
 Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619712CAB
-	for <gti-tac@lists.linuxfoundation.org>; Mon, 21 Nov 2022 20:56:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAE0BA50
+	for <gti-tac@lists.linuxfoundation.org>; Tue, 29 Nov 2022 22:08:32 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by smtp4.osuosl.org (Postfix) with ESMTP id 05DB2410A1
-	for <gti-tac@lists.linuxfoundation.org>; Mon, 21 Nov 2022 20:56:39 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 05DB2410A1
+	by smtp4.osuosl.org (Postfix) with ESMTP id 76C4140243
+	for <gti-tac@lists.linuxfoundation.org>; Tue, 29 Nov 2022 22:08:32 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 76C4140243
+Authentication-Results: smtp4.osuosl.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MHClipIg
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -3.953
+X-Spam-Score: -2.102
 X-Spam-Level:
-X-Spam-Status: No, score=-3.953 tagged_above=-999 required=5
-	tests=[BAYES_00=-1.9, HEADER_FROM_DIFFERENT_DOMAINS=0.249,
-	RCVD_IN_DNSWL_MED=-2.3, SPF_HELO_PASS=-0.001, SPF_PASS=-0.001]
-	autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-2.102 tagged_above=-999 required=5
+	tests=[BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001, DKIM_SIGNED=0.1,
+	DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+	RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
+	SPF_HELO_NONE=0.001, SPF_PASS=-0.001] autolearn=ham autolearn_force=no
 Received: from smtp4.osuosl.org ([127.0.0.1])
 	by localhost (smtp4.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id VJFt5ff2OGBh for <gti-tac@lists.linuxfoundation.org>;
-	Mon, 21 Nov 2022 20:56:38 +0000 (UTC)
-X-Greylist: delayed 00:07:07 by SQLgrey-1.8.0
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org D934A4109F
-Received: from esa4.mentor.iphmx.com (esa4.mentor.iphmx.com [68.232.137.252])
-	by smtp4.osuosl.org (Postfix) with ESMTPS id D934A4109F
-	for <gti-tac@lists.linuxfoundation.org>; Mon, 21 Nov 2022 20:56:37 +0000 (UTC)
-X-IronPort-AV: E=Sophos;i="5.96,182,1665475200"; 
-   d="scan'208";a="87444278"
-Received: from orw-gwy-01-in.mentorg.com ([192.94.38.165])
-  by esa4.mentor.iphmx.com with ESMTP; 21 Nov 2022 12:49:29 -0800
-IronPort-SDR: 7Uddw2lFVGO7I844pkEsL6U1yjaLzWlXISOa3pj8UWU9pBhPyuErIS+ci2IVmg4uKNYv4HNeRK
- 3+CjGakMass7460mpU2yVxRVkJNFI/1wTGu+p9nmXmAA9BdFIrOCMBefCcmtShY4sEGRu5iNdq
- GqQzcwPBLWz1Im+kth1g5Uwil1OmGNkcKSX9NzRrFxocefGe2Tf3Vm4dCRYx2GhAXE7rTfUiCm
- AmdEj4gWOwfQ6sisSkSvb2dK4vJjSLOLpuaNGWUaouIN9PY03/42fHKe3YCH0UiY0qTu/Dncmt
- Weg=
-Date: Mon, 21 Nov 2022 20:49:24 +0000
-From: Joseph Myers <joseph@codesourcery.com>
-To: Joel Brobecker <brobecker@adacore.com>
-CC: Carlos O'Donell <carlos@redhat.com>, <gti-tac@lists.linuxfoundation.org>
-Subject: Re: Action: Setup working group for the GNU Toolchain proposal to
- migrate to LF IT managed services
-In-Reply-To: <Y3rxAYa/oc5s/R/7@adacore.com>
-Message-ID: <da126be7-475f-e2ed-fb4f-4493271db5f3@codesourcery.com>
-References: <3a81d482-c952-d501-f495-485f00400e85@redhat.com> <Y3rxAYa/oc5s/R/7@adacore.com>
+	with ESMTP id Luob2yp2L__M for <gti-tac@lists.linuxfoundation.org>;
+	Tue, 29 Nov 2022 22:08:31 +0000 (UTC)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.8.0
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 3FA3A401E9
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by smtp4.osuosl.org (Postfix) with ESMTPS id 3FA3A401E9
+	for <gti-tac@lists.linuxfoundation.org>; Tue, 29 Nov 2022 22:08:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1669759710;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oFHtKglO09QJlYnXPO98bHeh69lkcv2R06Uxp4CKXac=;
+	b=MHClipIgqpxTuSL/LYWy4UjQE94ogoPRzxPjkvGN8VNwuDyxrtA/D9RbgjDcQHZfVoK6+X
+	wn2HVkRwHHqWkw06rHKlCm8IoGD3ELwuPFXxWE623KLd4/Lhdv6KTSO2T+lHh6p5LsUAEI
+	4WgWn5FptUxn3yFFdM0/cZ8hUxlwVaA=
+Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
+ [209.85.166.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-75-Fh9uSCyoOQS8RaWQnbtIbA-1; Tue, 29 Nov 2022 17:08:26 -0500
+X-MC-Unique: Fh9uSCyoOQS8RaWQnbtIbA-1
+Received: by mail-il1-f200.google.com with SMTP id g4-20020a92cda4000000b00301ff06da14so13368209ild.11
+        for <gti-tac@lists.linuxfoundation.org>; Tue, 29 Nov 2022 14:08:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:organization:subject:from:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=oFHtKglO09QJlYnXPO98bHeh69lkcv2R06Uxp4CKXac=;
+        b=okIjsIuxdkr/HDhnbdHphvF/J2AcmFtAdpyj6Y5NwdMJ1f/GWiTom7ZUgskAoGhq+t
+         cRmNMR5YsQQmJvWgg/ViePnGES2tTwDNGjWItygdrSaHgJEZdahrdOALJMPHSKbtym3q
+         ZDFbqQKYLhLVdTx5O0KML7LYJIzF0kFFrG97MjhKx/g3NSQILv6ywq0ma8vobNsGx3xF
+         cdroLepVFSq4Hwvj8m2DOGNmblEgARI+kwUSJvMvaDytfNpkxAV2oDFEFi9QANZBpfwy
+         MKd9NJaK/Qwtg7EL31IXFSE961QigSap+eCjVhJDLe+JEo7UrJnbrnmuVg2Idm3TQ32M
+         PvFg==
+X-Gm-Message-State: ANoB5pnS5dk4Yum+DtKWowU14F0Rk1hmmXT+fv6KoZHHJm/4rl02s4+I
+	hTUeUDRW6lPTCXEpGeXKQNEggdejvPVlJGlKdjXsLw3L/mo/I03p+km/f5BtERliRlQ5nPnIhou
+	NCc79xkZzVyELzEWiulxyUKkdvv+KQ9Hf1TfEKj8holnddCa/Xlq//CoNXSvpwH0rM7Mx/kmYxC
+	3rmZXJ
+X-Received: by 2002:a92:da4c:0:b0:300:d9e7:bb69 with SMTP id p12-20020a92da4c000000b00300d9e7bb69mr22647201ilq.11.1669759706090;
+        Tue, 29 Nov 2022 14:08:26 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf4vjKs2JdzblFwPAVYgwI1GZb7bKC8Iub7WcIxzPkcYDcENdnWXjEJO1CnGYgQvLVeMh2hGlw==
+X-Received: by 2002:a92:da4c:0:b0:300:d9e7:bb69 with SMTP id p12-20020a92da4c000000b00300d9e7bb69mr22647191ilq.11.1669759705825;
+        Tue, 29 Nov 2022 14:08:25 -0800 (PST)
+Received: from [192.168.0.241] (192-0-145-146.cpe.teksavvy.com. [192.0.145.146])
+        by smtp.gmail.com with ESMTPSA id a4-20020a5d9544000000b006a102cb4900sm5912706ios.39.2022.11.29.14.08.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Nov 2022 14:08:25 -0800 (PST)
+Message-ID: <957106ad-24b6-e144-1132-faa7f1714371@redhat.com>
+Date: Tue, 29 Nov 2022 17:08:24 -0500
 Precedence: bulk
 X-Mailing-List: gti-tac@lists.linuxfoundation.org
 List-Id: <gti-tac.lists.linuxfoundation.org>
 List-Subscribe: <mailto:gti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:gti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-X-Originating-IP: [137.202.0.90]
-X-ClientProxiedBy: svr-ies-mbx-09.mgc.mentorg.com (139.181.222.9) To
- svr-ies-mbx-10.mgc.mentorg.com (139.181.222.10)
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+To: gti-tac@lists.linuxfoundation.org,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+From: Carlos O'Donell <carlos@redhat.com>
+Subject: Testing LF BBB instance for GTI TAC meetings.
+Organization: Red Hat
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 21 Nov 2022, Joel Brobecker wrote:
+I want to extend a big thank you to the LF IT team for moving
+forward and setting up a BBB instance that we can try using for
+the GTI meetings.
 
-> * bug tracker (bugzilla)
+The previous GTI TAC meeting was hosted by me using 8x8's Meet
+hosting service (hosted Jitsi). We had discussed using BBB since
+it is well supported and is empirically more compatible than Jitsi.
 
-I think this needs to go into more details.  Details of incoming email 
-handling (some Bugzilla installations don't use incoming email, we need to 
-be explicit about how it's a key feature used in our installations), 
-details of outgoing email handling, details of local changes to the 
-Bugzilla installation and how account creation is handled, for example.
+The BBB instance is here:
+https://bbb.linuxfoundation.org
 
->   - /sourceware/infra/bin/email-to-bugzilla
-> 
->         Sends a copy of commit messages to bugzilla if commit
->         has a PR number in it.
+The GTI TAC room is here:
+https://bbb.linuxfoundation.org/room/adm-iuc-px7-mk1
 
-The fact that this currently seems to use SQL access to the database is a 
-really important thing to include in the list of services.  Remember that 
-we're trying for more isolation of components with minimal interfaces 
-between them, to improve security.  So if this script could be changed or 
-rewritten to use the (public) REST interface instead of SQL access to 
-check for whether bugs exist, that would be helpful.  (The fact that it 
-sends email to add to Bugzilla is also relevant, because it means that any 
-system running this script needs to be able to send email - and for any 
-system sending email, it will be necessary to avoid losing outgoing email 
-if it's a transient system and there's a transient email problem.)
+At least two of you tested an earlier BBB instance, and this new
+instance has been upgraded and updated to avoid previous issues.
 
-In general, details of exactly what interfaces are used by components to 
-interact with others - especially if they make any assumptions about 
-direct database or filesystem access, or about different services being 
-hosted on the same system - are really important.  (This would then give a 
-list of cases where we should *change* the interfaces used to remove such 
-dependencies - for example, using the public read-only REST API to extract 
-information from Bugzilla instead of SQL access.)
+I will be looking for volunteers to test out the BBB instance :-)
 
 -- 
-Joseph S. Myers
-joseph@codesourcery.com
+Cheers,
+Carlos.
+
