@@ -1,275 +1,192 @@
-Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
+Received: from smtp2.osuosl.org (smtp2.osuosl.org [140.211.166.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FA11C26
-	for <gti-tac@lists.linuxfoundation.org>; Fri,  2 Dec 2022 22:56:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E776125
+	for <gti-tac@lists.linuxfoundation.org>; Mon,  5 Dec 2022 17:46:16 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by smtp1.osuosl.org (Postfix) with ESMTP id DE5788218E
-	for <gti-tac@lists.linuxfoundation.org>; Fri,  2 Dec 2022 22:56:57 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org DE5788218E
-Authentication-Results: smtp1.osuosl.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KdKUOPbQ
+	by smtp2.osuosl.org (Postfix) with ESMTP id 2494340484
+	for <gti-tac@lists.linuxfoundation.org>; Mon,  5 Dec 2022 17:46:16 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org 2494340484
+Authentication-Results: smtp2.osuosl.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=XIH7l1f/
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -2.102
+X-Spam-Score: -2.098
 X-Spam-Level:
-X-Spam-Status: No, score=-2.102 tagged_above=-999 required=5
-	tests=[BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001, DKIM_SIGNED=0.1,
-	DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
-	RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
-	SPF_HELO_NONE=0.001, SPF_PASS=-0.001] autolearn=ham autolearn_force=no
-Received: from smtp1.osuosl.org ([127.0.0.1])
-	by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id aSX0w0PemKus for <gti-tac@lists.linuxfoundation.org>;
-	Fri,  2 Dec 2022 22:56:54 +0000 (UTC)
-X-Greylist: domain auto-whitelisted by SQLgrey-1.8.0
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org D286C82182
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by smtp1.osuosl.org (Postfix) with ESMTPS id D286C82182
-	for <gti-tac@lists.linuxfoundation.org>; Fri,  2 Dec 2022 22:56:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1670021812;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=W9i4dxE8pli681MQhKUB4Q0nHj/pvESo556U/UVcDmA=;
-	b=KdKUOPbQAyXLmBvhdK/tGoeHQll7mUfJ7eYftPilt56oZVsq2C8DAUUTfWasVXP1N3QoM1
-	JwEZsllfX9JipWErXdzM6+x4ULzPLXaRPv5nm3mYeuFlpxmfUvfDi26V4NBY2S9TAKXAoT
-	6Salg0pGeI1FJK4FNmRERFs23w94UZI=
-Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
- [209.85.166.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-656-dLpdyJR6MGm-5AKTL31HHA-1; Fri, 02 Dec 2022 17:56:51 -0500
-X-MC-Unique: dLpdyJR6MGm-5AKTL31HHA-1
-Received: by mail-il1-f200.google.com with SMTP id y12-20020a056e021bec00b00302a7d5bc83so6769421ilv.16
-        for <gti-tac@lists.linuxfoundation.org>; Fri, 02 Dec 2022 14:56:51 -0800 (PST)
+X-Spam-Status: No, score=-2.098 tagged_above=-999 required=5
+	tests=[BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
+	DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+	HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+	SPF_PASS=-0.001] autolearn=ham autolearn_force=no
+Received: from smtp2.osuosl.org ([127.0.0.1])
+	by localhost (smtp2.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 5sKjoMJ34jqw for <gti-tac@lists.linuxfoundation.org>;
+	Mon,  5 Dec 2022 17:46:15 +0000 (UTC)
+X-Greylist: whitelisted by SQLgrey-1.8.0
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org AC83240193
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com [IPv6:2a00:1450:4864:20::52c])
+	by smtp2.osuosl.org (Postfix) with ESMTPS id AC83240193
+	for <gti-tac@lists.linuxfoundation.org>; Mon,  5 Dec 2022 17:46:14 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id r26so16822310edc.10
+        for <gti-tac@lists.linuxfoundation.org>; Mon, 05 Dec 2022 09:46:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=EMUjva6f05v1geBK+GK64b6iex++R2LVGnPSUGkNuKY=;
+        b=XIH7l1f/HBgNdTCxOs8QiX0rW50vFoMjHb4H1KIMTjJ3rdISx4ixPlBjXujBap4+UL
+         ajr8C4zyo5y3Yrz744+b0TY26WF6jZLjWxeJwsAKcF6Agwut/xN/hmpAuypIUmgV2nFe
+         RPUifVvjwm4+cwrTpNTk/nMziqaGLd1um6FJHHyQkq6rBo07HFJxzHJozJN4HVmrSiLg
+         KsDIjk1CLKZwVL/v/fLKJt89T350C3jadWkzAgwlD1jZXLS6o2MgMLfGLPtjv8oa7C3z
+         6IHQpqKOzwT69w4xFM4WtLP1DMpFE6gxVSi0V0wNjVDAPStWf5USxISRwUvIHo39Ulv0
+         G02g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:organization:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=W9i4dxE8pli681MQhKUB4Q0nHj/pvESo556U/UVcDmA=;
-        b=aKSWOSGqUfr8loWPEvwQXnUrBxtDRCrFdQZBkE2onwvTK+S/fn6pi3tZ68e8YmEQDJ
-         Y6QSu5BZWpDILZSQvBS1kOYHVHfqKo4cl3s8pMX2oEHg80s9H3NJ7ARk+SawDcgqSa44
-         w6yB+gwPMnuNhyWyqg2KJQI5j/opP+0zRUwIXIe318iLibisfWd04bxdLeHbiIozvnNm
-         CwOJ7Kak6ZNKRiHkXpvnXx/Vf5c00ElFj0+HkWDlpo8r2QIFuX1IQ3jKMdTYtuTY9qwh
-         PUZAfYvge+p7Ed5g1dAnUZhYrVxljvVKoK/qu7FnPiOBr5GU3afFxcbV5nhG07A7UvYJ
-         MULA==
-X-Gm-Message-State: ANoB5pkHxqa1wG8c7yEYifMidMFr14K8WVg52V6rGsG2mYLzQPoJWXuF
-	D3EjXvqlDZMHoLPUrJxH4Q1G5+3g+qt37IANyD1pdnYXnuhE9KDz7boCMsdwd9HbEGzNL3dkb3i
-	APHUp68mPbJP7aMLiyTF9ViqJpXURv/JB33x/2Vah4WVQADGkzp/9O00zAUgLg22+ikh50QLiaw
-	dAQHpf
-X-Received: by 2002:a5e:9405:0:b0:6a1:48d3:149e with SMTP id q5-20020a5e9405000000b006a148d3149emr26047343ioj.136.1670021810205;
-        Fri, 02 Dec 2022 14:56:50 -0800 (PST)
-X-Google-Smtp-Source: AA0mqf5eO454krAY08BUby3COUru5ca/LRtrFmUKYfu5FnEfaLRkawV8BVBJXQG2SXn9T9dEacFLog==
-X-Received: by 2002:a5e:9405:0:b0:6a1:48d3:149e with SMTP id q5-20020a5e9405000000b006a148d3149emr26047338ioj.136.1670021809785;
-        Fri, 02 Dec 2022 14:56:49 -0800 (PST)
-Received: from [192.168.0.241] (192-0-145-146.cpe.teksavvy.com. [192.0.145.146])
-        by smtp.gmail.com with ESMTPSA id y18-20020a92d812000000b00302aa2a202dsm2874290ilm.64.2022.12.02.14.56.48
-        for <gti-tac@lists.linuxfoundation.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Dec 2022 14:56:49 -0800 (PST)
-Message-ID: <804cee43-a120-3acf-a302-b1640f2285a9@redhat.com>
-Date: Fri, 2 Dec 2022 17:56:48 -0500
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=EMUjva6f05v1geBK+GK64b6iex++R2LVGnPSUGkNuKY=;
+        b=Kr25+j/RKnbotI6kVEenUXV1m2+aV9tbDBWRcH1YKX3b35V7yVzOqJxwx27UV9EZKg
+         q11xhbvpK6RqlxHUUQCezOsh2r4mMaaWtu0pfoA1INkd2ePawFV4PwnvmFYTDTOyEohu
+         u1eOk4Ye7GIJ67wmNg+ZSYMEv853w5AApcfY4zs6Oof+VFwoz8n4aPN4BMGIVuxHNPrT
+         Z8zUulYpQwQdSP7HrUlA3Wcup7dfOGLr4CXcOK9+C45i8Qh/+MfYPC3Gc19mZvmmaBNi
+         trkJZYaozb6ULVLsV2Z72Mt4xeLdeGPBGOfx2GFyNzoG5P9hltLYzogrh90B9QQYRLD6
+         CMEQ==
+X-Gm-Message-State: ANoB5plrPay/v2/Wtf2ZOXaUwcX1s9GvkU2YQjEegW0P9vN08YBr+QwW
+	ACFrW+o+phX00iXO4JUIpqQA31nAgzps6iFIFnM=
+X-Google-Smtp-Source: AA0mqf6hq54nwsJ4OY6B6Re/pYE4uc13uGV3wF75PWCAbCTGt+Y3zMt0h4I1OnIYVkOL1h62LE/sQ3DA5f8RggPJ1p4=
+X-Received: by 2002:a05:6402:1814:b0:46a:b1ba:22b8 with SMTP id
+ g20-20020a056402181400b0046ab1ba22b8mr42198714edy.316.1670262372866; Mon, 05
+ Dec 2022 09:46:12 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: gti-tac@lists.linuxfoundation.org
 List-Id: <gti-tac.lists.linuxfoundation.org>
 List-Subscribe: <mailto:gti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:gti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-To: gti-tac@lists.linuxfoundation.org
-From: Carlos O'Donell <carlos@redhat.com>
-Subject: First draft analysis of services used by glibc.
-Organization: Red Hat
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <3a81d482-c952-d501-f495-485f00400e85@redhat.com>
+ <Y3rxAYa/oc5s/R/7@adacore.com> <da126be7-475f-e2ed-fb4f-4493271db5f3@codesourcery.com>
+In-Reply-To: <da126be7-475f-e2ed-fb4f-4493271db5f3@codesourcery.com>
+From: David Edelsohn <dje.gcc@gmail.com>
+Date: Mon, 5 Dec 2022 12:45:54 -0500
+Message-ID: <CAGWvnyn-age684gnQB+ViF52BEHPSN5rvZ8hfjsVvDsf1omsRw@mail.gmail.com>
+Subject: Re: Action: Setup working group for the GNU Toolchain proposal to
+ migrate to LF IT managed services
+To: Joseph Myers <joseph@codesourcery.com>, Joel Brobecker <brobecker@adacore.com>
+Cc: "Carlos O'Donell" <carlos@redhat.com>, gti-tac@lists.linuxfoundation.org
+Content-Type: multipart/alternative; boundary="0000000000006a9c6f05ef184315"
 
-The following are my notes on the services currently used by glibc.
+--0000000000006a9c6f05ef184315
+Content-Type: text/plain; charset="UTF-8"
 
-Not all the services need migration, but having the complete list may
-be valuable in future discussions around supply chain security. Some
-of the services are being provided by 3rd parties e.g. FSF/GNU, TP,
-Bluejeans/Verizon, DJ Delorie etc.
+On Mon, Nov 21, 2022 at 3:56 PM Joseph Myers <joseph@codesourcery.com>
+wrote:
 
-* mailing lists
-  * Mailman 2 mailing lists: https://sourceware.org/mailman/listinfo/*
-    * libc-announce
-    * libc-alpha
-    * libc-stable
-    * libc-help
-    * libc-locales
-    * libc-testresults
-    * glibc-cvs
-    * glibc-bugs
-    * glibc-bugs-regex (limited bugs just for regex).
-    * Closed legacy mailing lists:
-      * libc-ports: https://sourceware.org/mailman/listinfo/libc-ports
-      * libc-hacker: https://sourceware.org/mailman/listinfo/libc-hacker
-    * Mailing lists accept non-html email only.
-    * Run through spamassasin
-    * Run through clamav
-  * Pipermail archives:
-    * https://sourceware.org/pipermail/*
-    * e.g. https://sourceware.org/pipermail/libc-alpha/
-  * public-inbox archives:
-    * https://inbox.sourceware.org/*
-    * e.g. https://inbox.sourceware.org/libc-alpha/
-    * Not all inboxes work correctly e.g. glibc-bugs-regex doesn't work.
+> On Mon, 21 Nov 2022, Joel Brobecker wrote:
+>
+> > * bug tracker (bugzilla)
+>
+> I think this needs to go into more details.  Details of incoming email
+> handling (some Bugzilla installations don't use incoming email, we need to
+> be explicit about how it's a key feature used in our installations),
+> details of outgoing email handling, details of local changes to the
+> Bugzilla installation and how account creation is handled, for example.
+>
+> >   - /sourceware/infra/bin/email-to-bugzilla
+> >
+> >         Sends a copy of commit messages to bugzilla if commit
+> >         has a PR number in it.
+>
+> The fact that this currently seems to use SQL access to the database is a
+> really important thing to include in the list of services.  Remember that
+> we're trying for more isolation of components with minimal interfaces
+> between them, to improve security.  So if this script could be changed or
+> rewritten to use the (public) REST interface instead of SQL access to
+> check for whether bugs exist, that would be helpful.  (The fact that it
+> sends email to add to Bugzilla is also relevant, because it means that any
+> system running this script needs to be able to send email - and for any
+> system sending email, it will be necessary to avoid losing outgoing email
+> if it's a transient system and there's a transient email problem.)
+>
+> In general, details of exactly what interfaces are used by components to
+> interact with others - especially if they make any assumptions about
+> direct database or filesystem access, or about different services being
+> hosted on the same system - are really important.  (This would then give a
+> list of cases where we should *change* the interfaces used to remove such
+> dependencies - for example, using the public read-only REST API to extract
+> information from Bugzilla instead of SQL access.)
+>
+>
+Joel and Simon,
 
-* bugzilla 5.0.4+
-  * Uses backend SQL database of MariaDB 10.3
-  * Must be able to send email to glibc-bugs mailing list.
-    * Don't know how email is routed to this list.
-  * Must also send email glibc-bugs-regex mailing list.
-    * Don't know how email is routed to this list.
-  * Must be able to send email to all users on the bug.
-  * Must be able to receive email when someone responds to a glibc-bugs
-    email e.g. sourceware-bugzilla@sourceware.org.
-  * Custom Administration->Groups settings for User RegExp.
-    * canconfirm: Allow certain domains to always be able to confirm bugs.
-    * editbugs: Likewise but for editbugs.
-  * Must have REST API enabled to allow RM to generate release list
-    of fixed bugs using the glibc/scripts/list-fixed-bugs.py script
-    e.g. https://sourceware.org/bugzilla/rest.cgi/
-    * Implies that non-logged-in users can list and view all bugs
-      that were fixed for the release.
-  * Must have account creation disabled due to spamming.
-  * Must have someone with Bugzilla admin access to:
-    * Add new users to bugzilla.
-    * Add new Product components, versions, and milestones.
-    * Add new Key Words
-    * Remove users.
+Can the GDB analysis be updated to the level of detail that Carlos provided
+for GLIBC in his separate message?
 
-* git 2.31
-  * Allows per-user access to commit to the glibc repo.
-  * Allows per-user access to commit to the legacy glibc-ports repo.
-  * Uses group access to control repository access.
-  * Must be able to send email to glibc-cvs mailing list with one
-    email for each commit made by a developer to any branch of the repository.
-  * AdaCore hooks need more thorough audit for required services.
-    * Must be able to send email to bugzilla to update bugs.
-      * Done by AdaCore hook 'file-commit-cmd'
-      * Configured to use email-to-bugzilla-filtered command.
-        * Uses connection to SQL database to determine if bug exists.
-  * Currently uses shared AdaCore hooks configured via origin/meta/config 
-    * Active hooks:
-      * post-receive
-        * AdaCore post_receive
-        * /git/glibc.git/hooks-bin/post-receive
-          * Triggers irkerhook.py (see notes below).
-          * Does not work today, likely due to requirement to register OFTC user.
-      * post-update
-	* Standard git-update-server-info.
-      * pre-receive
-	* AdaCore pre_receive
-    * AdaCore config:
-      * No max line lengths.
-      * Allow UTF-8 in commit messages.
-      * 5MiB max email size.
-      * Max 500 commit messages for larger commit series sent to glibc-cvs.
-      * Reject merge commits to master and release branches.
-      * Allow rebasing only private branches (non master and non release).
-      * Run minimal style checker, nominally for whitespace issue rejection.
-        * Run extra commit checking to avoid source address for author being wrong.
-          * /git/glibc.git/hooks-bin/commit_checker
-            * From email format checker. No special requirements.
-        * /git/glibc.git/hooks-bin/style_checker
-          * Style chcker. No special requirements.
-      * Send email to bugzilla if a commit mentions a bug.
-        * /git/glibc.git/hooks-bin/email-to-bugzilla-filtered
-          * Uses /sourceware/infra/bin/email-to-bugzilla
-          * Must be able to connect to bugzilla SQL database.
-          * Does not appear to work today. We don't get emails for commits with bugs.
-      * Send IRC message to per-project configured IRC channel.
-        * Involves irkerhook.py and git config information for project.
-        * Hook must be able to connect to external IRC networks to post IRC notices.
+Thanks, David
 
-* wiki
-  * Uses MoinMoin 1.9.10
-  * Must have account creation disabled due to spamming.
-    * Uses EditorGroup permissions to allow any community member to add a new
-      community member to the wiki e.g. human vetting another human.
-  * Must be able to send notification emails.
-  * Cron run to purge users not in EditorGroup to prevent wiki slowdown.
+--0000000000006a9c6f05ef184315
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-* patch management.
-  * Uses patchwork v3.1.1.post18-g11cf1f3
-  * Must be able to receive email (as part of collecting patch data)
-  * Must be able to send emails as part of account verification.
-  * Uses django for administration
-  * Must allow authenticated REST API access for patchwork.
-    * Currently rate limited.
-    * Used by SLI tools (Carlos O'Donell)
-      * Run manually on developer systems.
-    * Auto-close on commit patchwork bot (Siddhesh Poyarekar)
-      * Run on sourceware.org via cron.
-  * Used for weekly patch management meetings.
-  * git-pw integration used to access patchwork directly using REST API and API token.
+<div dir=3D"ltr"><div dir=3D"ltr">On Mon, Nov 21, 2022 at 3:56 PM Joseph My=
+ers &lt;<a href=3D"mailto:joseph@codesourcery.com" target=3D"_blank">joseph=
+@codesourcery.com</a>&gt; wrote:<br></div><div class=3D"gmail_quote"><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex">On Mon, 21 Nov 2022, Joel Brobe=
+cker wrote:<br>
+<br>
+&gt; * bug tracker (bugzilla)<br>
+<br>
+I think this needs to go into more details.=C2=A0 Details of incoming email=
+ <br>
+handling (some Bugzilla installations don&#39;t use incoming email, we need=
+ to <br>
+be explicit about how it&#39;s a key feature used in our installations), <b=
+r>
+details of outgoing email handling, details of local changes to the <br>
+Bugzilla installation and how account creation is handled, for example.<br>
+<br>
+&gt;=C2=A0 =C2=A0- /sourceware/infra/bin/email-to-bugzilla<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Sends a copy of commit messages to bu=
+gzilla if commit<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0has a PR number in it.<br>
+<br>
+The fact that this currently seems to use SQL access to the database is a <=
+br>
+really important thing to include in the list of services.=C2=A0 Remember t=
+hat <br>
+we&#39;re trying for more isolation of components with minimal interfaces <=
+br>
+between them, to improve security.=C2=A0 So if this script could be changed=
+ or <br>
+rewritten to use the (public) REST interface instead of SQL access to <br>
+check for whether bugs exist, that would be helpful.=C2=A0 (The fact that i=
+t <br>
+sends email to add to Bugzilla is also relevant, because it means that any =
+<br>
+system running this script needs to be able to send email - and for any <br=
+>
+system sending email, it will be necessary to avoid losing outgoing email <=
+br>
+if it&#39;s a transient system and there&#39;s a transient email problem.)<=
+br>
+<br>
+In general, details of exactly what interfaces are used by components to <b=
+r>
+interact with others - especially if they make any assumptions about <br>
+direct database or filesystem access, or about different services being <br=
+>
+hosted on the same system - are really important.=C2=A0 (This would then gi=
+ve a <br>
+list of cases where we should *change* the interfaces used to remove such <=
+br>
+dependencies - for example, using the public read-only REST API to extract =
+<br>
+information from Bugzilla instead of SQL access.)<br><br></blockquote><div>=
+<br></div><div>Joel and Simon,</div><div><br></div><div>Can the GDB analysi=
+s be updated to the level of detail that Carlos provided for GLIBC in his s=
+eparate message?</div><div><br></div><div>Thanks, David</div><div>=C2=A0</d=
+iv></div></div>
 
-* Red Hat Blejeans remote meeting system.
-  * Must allow remote video and audio for participants around the world.
-  * Allows weekly glibc patch review meetings for patch review collaboration.
-  * Meetings must operate without host needing to be present so community can host.
-    * Delegating host is difficult in bluejeans.
-  * Managed by Bluejeans/Verizon.
-
-* pre-commit CI system.
-  https://gitlab.com/djdelorie/glibc-cicd
-  * Run inside a VM.
-  * Uses networkless containers for further build isolation.
-  * Highest risk system because it runs mailing list posted patches.
-  * Event curation system (curator):
-    * Must have network access to patchwork REST API.
-    * Must have access to SQL database for storing state.
-      * Currently using MariaDB.
-    * Must allow runners to access curatore REST API URL.
-    * One curator currently hosted by DJ Delorie.
-  * Event running system (runner + trybots):
-    * Must have network access to curator REST API.
-    * Must have local network access to rabbitmq queue (job delegation)
-    * trybots must have local network access to rabbitmq.
-      * Must have network access to patchwork REST API to post results.
-      * Must have network access to container registries to pull modern containers.
-      * Must have network git access to pull updated glibc git repo.
-    * Generally the runner and trybots are on one site together.
-      * Avoid passing rabbitmq traffic beyond the local network.
-      * Eventual emailing of results to the mailing list will happen via another bot
-        that is distinct from this system to avoid the runners needing anything but
-        restricted network access.
-    * One runner hosted by DJ Delorie	
-    * One i686 trybot hosted by DJ Delorie
-    * One "patch applies" trybot hosted by DJ Delorie
-
-* Website (sourceware.org)
-  * CVS hosted website.
-  * Static redirect to gnu.org website.
-
-* Website (gnu.org)
-  https://www.gnu.org/software/libc/
-  * CVS hosted website uploads along with manual.
-    * Manuals are generated with scripts in the CVS repo and generated files committed.
-  * All static content.
-  * Website automatically updated after CVS commits.
-  * Manged by the GNU Project/FSF.
-
-* Release tarballs (ftp upload of gpg-signed release tarballs)
-  https://ftp.gnu.org/gnu/libc/
-  * Use gnupload script to gpg sign uploaded tarballs.
-   * Uses ncftpput to place files into /incoming directories.
-   * Network ftp access required.
-  * Managed by the GNU Project/FSF.
-
-* Translation project services
-  https://translationproject.org/html/welcome.html
-  * https network access to TP servers to fetch uploaded translation files.
-  * Managed by the Translation Project.
-
--- 
-Cheers,
-Carlos.
-
+--0000000000006a9c6f05ef184315--
