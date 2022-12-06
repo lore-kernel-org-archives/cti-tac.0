@@ -1,264 +1,401 @@
-Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
+Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B5627713
-	for <gti-tac@lists.linuxfoundation.org>; Tue,  6 Dec 2022 17:42:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3BC27713
+	for <gti-tac@lists.linuxfoundation.org>; Tue,  6 Dec 2022 17:44:00 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by smtp1.osuosl.org (Postfix) with ESMTP id 24C6E81B71
-	for <gti-tac@lists.linuxfoundation.org>; Tue,  6 Dec 2022 17:42:11 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 24C6E81B71
-Authentication-Results: smtp1.osuosl.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=PPkKMFek
+	by smtp4.osuosl.org (Postfix) with ESMTP id 2A974408F6
+	for <gti-tac@lists.linuxfoundation.org>; Tue,  6 Dec 2022 17:44:00 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 2A974408F6
+Authentication-Results: smtp4.osuosl.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=MDl9DiEM
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -2.103
+X-Spam-Score: -2.098
 X-Spam-Level:
-X-Spam-Status: No, score=-2.103 tagged_above=-999 required=5
+X-Spam-Status: No, score=-2.098 tagged_above=-999 required=5
 	tests=[BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
-	DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, NICE_REPLY_A=-0.001,
-	SPF_HELO_PASS=-0.001, SPF_PASS=-0.001]
-	autolearn=ham autolearn_force=no
-Received: from smtp1.osuosl.org ([127.0.0.1])
-	by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id i0iN-W0Mc_MZ for <gti-tac@lists.linuxfoundation.org>;
-	Tue,  6 Dec 2022 17:42:08 +0000 (UTC)
+	DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+	HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+	SPF_PASS=-0.001] autolearn=ham autolearn_force=no
+Received: from smtp4.osuosl.org ([127.0.0.1])
+	by localhost (smtp4.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id ZEmJ2lQgQkK0 for <gti-tac@lists.linuxfoundation.org>;
+	Tue,  6 Dec 2022 17:43:58 +0000 (UTC)
 X-Greylist: whitelisted by SQLgrey-1.8.0
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 94AB381E61
-Received: from CAN01-YQB-obe.outbound.protection.outlook.com (mail-yqbcan01on20605.outbound.protection.outlook.com [IPv6:2a01:111:f403:7052::605])
-	by smtp1.osuosl.org (Postfix) with ESMTPS id 94AB381E61
-	for <gti-tac@lists.linuxfoundation.org>; Tue,  6 Dec 2022 17:42:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F7vEmme4CT8eUGsQ65tmbVftTHo2d043uLIEhH/GDouRRPAshvvbViZby8+xyEWWoBCNjqK1ZhCsLunLZ22Yh4ESDQ51qJDjQCuWMrJFozZSLUV3mmhWSRETuM/Ush3bRqIpkYfZdiYL4Kl3PZOUm+4IJ53clwHWlI2xeMyObTcaiI5xiYRUKNnDwKH9vrufF4WiEtB4k9w+2uMBuATYz6/tAuWYx/IK+a3T6XKDbTFTlcPgQXlSWHzW9F+02c4/XFwUJu9wPkq2Vl128MU3nCwuRjHmpIIbV431is9dF6lQr36TbZUB97VKyidzva0Dz5LV6pJBWORRu7aTqJmhSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9qniN1LMcO0VB1U8uebcX0rZYmCZ5H2GN2GJQ5wgHcY=;
- b=mMhxe2e+jH/+GfjUj5MsP9GzSM4cCMxvtdV3ZAz9Du/6SipbzKIJzHvt5eVJN8vT8gMEQ2/1yuki4mldsmRvBgX96ZTV5ztcsv7ZWeb0eoNlKQBYix3JXJvfoQKxt3zAf6gb5BSDGsi6Z/+FMJGtLB/yHxpnDpXY5fjZyc1cxEZ+aGiqGPmvidtAnY78uZF3neQKBshVqJ8FH3oBgcbkHpHXG5Cx+v0pym7nhxTSaMdPJaOO76ITT5O9SJscsh1ei6afsqfWbQ1KbaFHkSH0aB6PZrWqPq2I1BVjdelHxCoLxVZuYxLe0+F7jfmVKFLH6mC6lcI9JGIs+9tzAqkVSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9qniN1LMcO0VB1U8uebcX0rZYmCZ5H2GN2GJQ5wgHcY=;
- b=PPkKMFekwTJGv2stiYLjSFyI9/xreSevUXRXaFQZl18kO6Wf46dK97W/5Vjdcxf8bJhXHIR3safUnlkWJDeYU6URIpIJx7Nh1vzHroOjyid8V5K+CDmqtB32qfSj8eQduSal2llbvE0z6wEtJaztbmVW9cydW5VNXufoV6DE7VeP6pAnAB1BrbjWRC9td/8COh2ld1cxHabNXZdCpRMl+4EvqD1MXDEBYHpYzjPFcQ+QEUcyImco0L0a0k4jS73i2tR93wwc1QMCgy4jCax4BIJhcko5ReQ9jv+8hesTYqp+lixJBNZaGzCP38geNb4vqSvuCkS9EHOwRLcYcAJ3BQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:a::23)
- by YT2PR01MB8389.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:b0::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Tue, 6 Dec
- 2022 17:42:05 +0000
-Received: from YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::948b:ac25:c50c:f52e]) by YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::948b:ac25:c50c:f52e%4]) with mapi id 15.20.5880.014; Tue, 6 Dec 2022
- 17:42:05 +0000
-Message-ID: <b755774c-3912-2dac-957c-91f659c95119@efficios.com>
-Date: Tue, 6 Dec 2022 12:42:03 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: Action: Setup working group for the GNU Toolchain proposal to
- migrate to LF IT managed services
-Content-Language: en-US
-From: Simon Marchi <simon.marchi@efficios.com>
-To: Joseph Myers <joseph@codesourcery.com>,
- Joel Brobecker <brobecker@adacore.com>
-Cc: Carlos O'Donell <carlos@redhat.com>, gti-tac@lists.linuxfoundation.org
-References: <3a81d482-c952-d501-f495-485f00400e85@redhat.com>
- <Y3rxAYa/oc5s/R/7@adacore.com>
- <da126be7-475f-e2ed-fb4f-4493271db5f3@codesourcery.com>
- <62439dc1-1bb6-76b2-d1be-e7d3a2b64522@efficios.com>
-In-Reply-To: <62439dc1-1bb6-76b2-d1be-e7d3a2b64522@efficios.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR01CA0150.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:7e::7) To YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:a::23)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 43622408EB
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
+	by smtp4.osuosl.org (Postfix) with ESMTPS id 43622408EB
+	for <gti-tac@lists.linuxfoundation.org>; Tue,  6 Dec 2022 17:43:58 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id x22so7959694ejs.11
+        for <gti-tac@lists.linuxfoundation.org>; Tue, 06 Dec 2022 09:43:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=WJlS2t60QZci8MpFYrAa7+68wdvDBfqFDFvLwBEklY8=;
+        b=MDl9DiEMjGM1nsPyBq9b+nd0g23l4hg0Q5qg44P1tv10MnMMiTlT02sJW40tZ5B9q6
+         4H6Wwcp5E1fFv9q1fI9/HcxRYai4khLOlfuvtbrY9v5MEvuLBVIFYSYEeCZWBeTF9uKD
+         Ieg/sTx+z+ntYiivbm1gnQ80O2/8Dhnsh1Qb0CUgE8h9fxBATKtULH5kpFFwDqYZplAk
+         VO97UgKACqzJEqG/eQYgm0CYOvpVmDcW4/WqAMOJMWK2njzV+T0qAGGZ9baDrdoQm196
+         QycxvQJQrUAoBKdxo483vZKuLXT6GOZLqQs5WamUvOITyonfVktUB9l8jGykcgPguJWl
+         +9pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=WJlS2t60QZci8MpFYrAa7+68wdvDBfqFDFvLwBEklY8=;
+        b=mPKHTpMrYC4Lvsrod1GrmaBX7jjEuwEcfsL3BtQcWZHr2DE4J/yHjWvL9kDB2bqeWg
+         qskI1WFR80Iui9LEVEJUCq9F1zpRTUVxCgneAyZFRj6g6N/lOvjHPym7lTm4L/lL5MLx
+         1Wp8wsmDcIBKmtqlxcHMMQyZB36eCT/iLwjiNdOg/hWPRnIW71z1ShUDxLQ3sgwhOh7X
+         uMzPni8z6W8CIsuxxuyVJBVXkzSNlUKhm7Uw01ArpJvwi9NnY8E4C5A9a9tD/njQa+l+
+         zkWfDjHXRZ1az54M8eXpf7UYNhsj4oJe2HkcFfSjngJWfJ9LZK2j0incO4OpzKI/fG1S
+         OHQg==
+X-Gm-Message-State: ANoB5pkZjlzKcvIYqoaS64NTruVq/0mZIAkC30x9RVnrxjhqaoAEXEOL
+	wgjPWU2FIbjP+L9qxutmoKBEbSIDHO8QTD3KvJQ=
+X-Google-Smtp-Source: AA0mqf6epiVMKIYKz4QMjNuYoGWsB3Dvk4J9NfM4X+5jZL3f0WmQ41kg9D+wmiJVPNBybAqUA3syaqQGehREUEk89U0=
+X-Received: by 2002:a17:906:950a:b0:7ab:2559:8bc4 with SMTP id
+ u10-20020a170906950a00b007ab25598bc4mr56968079ejx.682.1670348636404; Tue, 06
+ Dec 2022 09:43:56 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: gti-tac@lists.linuxfoundation.org
 List-Id: <gti-tac.lists.linuxfoundation.org>
 List-Subscribe: <mailto:gti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:gti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT1PR01MB2828:EE_|YT2PR01MB8389:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6988fd7-fbfd-4ba2-1c71-08dad7b1306d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Pi7y7Q/TNruIsx17k09omwFXfO4oRpUV8Wr0nytUTc3zoOCT8RQn1JEKH6HG+yCq9JJ6zQvk5JIrnHbhU6Wfkf5opx5k95XioPD8gdIJu+1pMEZRWhi14CX6BgjSQhKAKcI6l/Qp9ZAHHU8Wz4WigoBvl9eK/NbIfvixwftrJ1/ALOUg9fmhWJrf39rIFtovctyXvjIwTQkT0o7zgE41eKXNqosSuZeW5YDxsoJxjVMaxxnD0iTgbG92+9/D++Puz8kJ9z1TPO5iWCdYsipis94U48NGgNpGEkby735ouC3Ci1DdRlS8Z4MbdCOtj+4Xo9GMg+3jKWc/yp4MwRqr0DQmYk0sJYRJw/CPDJyr37lek0bVczpKvU0gi2Rog70QKbZTBfB9hQHbYQKSLj7vQgqijktt/YY869H2XvUjWU6si+2F8gyogZfmoL8pM4vMLpnOeUCDX9qdRr3KYl2DLCxyulEqb2kvXxrMO4JARG34hOgb0BITI2VGMzgab/Hh1OnhP5QfA9WU3bYcNRWn059st5AmNTaW9nHbO/TqMTvpxwTwg0IRQZ/Ys1BBq15Tl9G8ns2/sLFjjdq+xr8D15jlJVKXWDYDUbQhhsa2NuIOjMXcpIUTTJNJtT5B5W0ZZ1KL1l5mOaR+PD1r65ZiVF0dB5zvFJgaMvdSMtCQunmdnOCjWaBUaLN97qZx6bLIZfXahtd8ujM6wLAWozGAmmBy+334UTBNIoZEcIx3Nmzxixty2LorPl9/U+a8Dzu6vMHAecPktwHIT9xpBBW9hA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230022)(39830400003)(396003)(136003)(366004)(346002)(376002)(451199015)(31686004)(84970400001)(966005)(31696002)(6506007)(478600001)(6486002)(36756003)(83380400001)(6512007)(186003)(2616005)(38100700002)(5660300002)(41300700001)(26005)(44832011)(4326008)(66556008)(66476007)(316002)(66946007)(8936002)(2906002)(8676002)(110136005)(21314003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SGM2TVdTaEFqSkowRk5YWDJJRU5kOW94NkZoNmdraVFvcGdNcGowcERRekFk?=
- =?utf-8?B?UjhKRFQ1YjE3bC9hSC9peUZoaXJ2MmtxdGliL0Y4RjNzTXJlMTViejJIdXo3?=
- =?utf-8?B?Q0Q1ZmQ1Nld2QTY4c2VyTFFMRUpnaDhueS9BekR0NGtIY29qdzVLcExkMXcz?=
- =?utf-8?B?dENjYnJXL0xuUlFiUUJQRzJvOGh2VXJpdEU2S3NSditEQ1ZLbGIxSzFTS2l1?=
- =?utf-8?B?QzkvUlJaaDF5cWt5Mkt4N1BVN1NqSGxDOWNtTUpCVnBDK1dCVjEyUi9JVjlu?=
- =?utf-8?B?K3liUHNydC9hR05NcHJFSzNaTzFXMWxxZ0FHSmtpcm8zek1uV2Y0bGNwcGRM?=
- =?utf-8?B?anZZQ1JveW1KOGsxMEswalcraEhaSnU2Uk9KWS9CVGZSQWFIL1JINmR6clBv?=
- =?utf-8?B?dUZWOE1jMWZ2YWVaRnlzVG1FSzBZNUExRjBoQktnT2FRaTRnTzBobFhtTFk4?=
- =?utf-8?B?QjRPaTRSRUFhNjM4UEpQZ0l6UHpkNzJDVkpwMWgrRXNtcnpuOVhsM3lZVDZm?=
- =?utf-8?B?NjNLaTlaVlVIdlEzMmFNa1ZqSXNsZTM5cHJMUkhZaEVsYk1ZQkxvWjgrSEtO?=
- =?utf-8?B?WmI3TU1RVTQvSld2MGgzZXVQZjJDTkl2UzlCUCt3QXpqME9YZ05WWHhJc0hu?=
- =?utf-8?B?NUJ3STJwWTB3OUJPM0lKNjJqZ2pvdWFNQTU1M2Znam9tVzl4RkNodjIrWVJm?=
- =?utf-8?B?MjhlcXRLTXU5bE5ndng1ejg2ZVpVWnFrbld4Z093Q3IwNHpwL2g0UXBsQkNH?=
- =?utf-8?B?YzhwcExRMUswSHRCRFc3MEpnaGF5NGh2Lyt6M1QxSzdpMGI5bXJZWENmTlpo?=
- =?utf-8?B?bkcxd3VuY0F4Tm9JQnRVRHBiTDRjeFl5Q2taTzBqanBHVklQaEpxQUdqTkdG?=
- =?utf-8?B?NHF4RC9oOEhwZ3V4RWRPQ3c2eU8xcmJ3MTFEUEI2Rm1TczR1TTg2UG12RWl2?=
- =?utf-8?B?dnBjMGdnUlFMQVRnNERsYjExWUczVjRNLzcwNjQ0dEZkdSttVzFOS3kvVmky?=
- =?utf-8?B?TUpJVnZDRHJIK2JCb09GR1JQQXlxV09UY0VIWVVSWXZsZ3U0bFRhNXBzYU8v?=
- =?utf-8?B?ZGFTMFNLZ3cydUZMSjl2NEtZaWViVWgxOWRFNWVYdVp0dW1GWGVDdXh1Q2Fp?=
- =?utf-8?B?Qm9xWEhDcXh3N0lNQ0NONHp3UXRiMitsNFVCdExJRXBlb0hlQzdqN3Y1Njcy?=
- =?utf-8?B?ZGhaR2dGNmlhSGJFQVZZUDZPM0F0SzNHakxBWU9wbGl1ektUT0ZlZlZXWURU?=
- =?utf-8?B?cEtXenRoZTFXMjdDMVVtemZseWFtcGIyM3BhaTZGb0h5dExpQmJCL1FoVXNv?=
- =?utf-8?B?SUcwa2FXOEhxRkFqcGFORGhqNFQ5OXowUWx4VFZQZGhKZnAvNzU0VkJUNGlO?=
- =?utf-8?B?VXVDcEs2WFpRL29pRWFxenpmeTBUcXFEVGhmcVdBTXBZYmhjajR5NThHUzVD?=
- =?utf-8?B?SzJkblpCK2dFK3J0aytwNFJuc0hUb1NXOVNCRHFKVmw2SXJza1JYM3pmRXRK?=
- =?utf-8?B?Y0RuSXZZZUhLSVZLbjZJY2ljYlNvbm50MDV4MFErUHRQQ0NaUFJob1NoMnBX?=
- =?utf-8?B?OHFFalNaaEE3aGx1Ymxldk14OS82QmFHbEJCbFlDaC9qbFZPSEtjSitkU0dl?=
- =?utf-8?B?enJDTm8xSXIrbXRWUmRKN2pGYlhacnhjQ1FnVHpvMFdUNmllck53cXc4OVNE?=
- =?utf-8?B?aGpnUmgvKzRKWjljMHNRU0Y3ZE5XZDhVSjMxWjNUTTI1dzgrRVpIcjl3V24w?=
- =?utf-8?B?UWpRcnhxcG5vSy9UWkM3M29uejhmaThRMk9pSmFpUDFoNFp6aWFlbjJYTjJP?=
- =?utf-8?B?Sk5BQUVIYTlQaWQrWThKeE1rdy9nRU1OODhFbWovRWJHcEgrS3dzeHJISWRy?=
- =?utf-8?B?MTFJZDZwc3ZCYWdYemowazRWVWlnOU51c2o3TWRGajhmeXZsV0xqNnBBbks2?=
- =?utf-8?B?YUhZZ3JxcFcvaktoTmhFNVNNandFRVJqL3NDaC9BUTRxRHN0eU5CdnZrRWc2?=
- =?utf-8?B?b3VxVlV6MFBaYXozWlZpT1FpUUlRUFRUOFZHbkRteitkd2w5VmVLSnZMaVAx?=
- =?utf-8?B?dk5US3VxOEVXTzltYVB4MGF5RDF5aEZTZHZUbFlqTjN5N3J1U0xYczRiNVR4?=
- =?utf-8?Q?lF3nSBcVD5MFEH+YIKM9F9ldQ?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6988fd7-fbfd-4ba2-1c71-08dad7b1306d
-X-MS-Exchange-CrossTenant-AuthSource: YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2022 17:42:04.9861
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UYYlZ33OISal87V4aRqzzt2QfsAjXKbVhuCTnOjDiHyTIfaVgyqRDKR/Jwx/ky/+9VmCtJ4X7HH5kZavNs6LxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT2PR01MB8389
+References: <3a81d482-c952-d501-f495-485f00400e85@redhat.com>
+ <Y3rxAYa/oc5s/R/7@adacore.com> <da126be7-475f-e2ed-fb4f-4493271db5f3@codesourcery.com>
+ <62439dc1-1bb6-76b2-d1be-e7d3a2b64522@efficios.com> <b755774c-3912-2dac-957c-91f659c95119@efficios.com>
+In-Reply-To: <b755774c-3912-2dac-957c-91f659c95119@efficios.com>
+From: David Edelsohn <dje.gcc@gmail.com>
+Date: Tue, 6 Dec 2022 12:43:09 -0500
+Message-ID: <CAGWvnykD0a=0zTDLYnE+N8V=DGh=tGG7h1KxnzdpwLZVKS0fjw@mail.gmail.com>
+Subject: Re: Action: Setup working group for the GNU Toolchain proposal to
+ migrate to LF IT managed services
+To: Simon Marchi <simon.marchi@efficios.com>
+Cc: Joseph Myers <joseph@codesourcery.com>, Joel Brobecker <brobecker@adacore.com>, 
+	"Carlos O'Donell" <carlos@redhat.com>, gti-tac@lists.linuxfoundation.org
+Content-Type: multipart/alternative; boundary="0000000000001fc01305ef2c593f"
 
-Here's a revised list for GDB, I added some user-facing / functional
-requirements I would think of.  It's probably still lacking some of the
-implementation details that you are looking for, but I probably don't
-know them, and it's hard to know what you don't know.
+--0000000000001fc01305ef2c593f
+Content-Type: text/plain; charset="UTF-8"
 
-* Git Repository
-  * Need push access
-  * Ability for project maintainers to request push access for new
-    contributors (or to do it themselves)
-  * Ability for users to create user-branches (e.g. users/simark/foo),
-    which will be ignored by the notification-sending script.
+On Tue, Dec 6, 2022 at 12:42 PM Simon Marchi <simon.marchi@efficios.com>
+wrote:
 
-* git hooks
-  * Need to be able to manage git hooks (https://github.com/AdaCore/git-hooks) on
-    the server (right now, ssh to sourceware.org)
-  * binutils-gdb.git/hooks-bin/commit-extra-checker.py
+> Here's a revised list for GDB, I added some user-facing / functional
+> requirements I would think of.  It's probably still lacking some of the
+> implementation details that you are looking for, but I probably don't
+> know them, and it's hard to know what you don't know.
+>
+> * Git Repository
+>   * Need push access
+>   * Ability for project maintainers to request push access for new
+>     contributors (or to do it themselves)
+>   * Ability for users to create user-branches (e.g. users/simark/foo),
+>     which will be ignored by the notification-sending script.
+>
+> * git hooks
+>   * Need to be able to manage git hooks (
+> https://github.com/AdaCore/git-hooks) on
+>     the server (right now, ssh to sourceware.org)
+>   * binutils-gdb.git/hooks-bin/commit-extra-checker.py
+>
+>     Verifies that we do not have this issue:
+>
+>         # With commits created using "git am" of patches sent via the gdb@
+> or
+>         # gdb-patches@ mailing list, it's possible that the author
+> information
+>         # gets changed into "xxx via xxx@sourceware.org". Catch and
+> reject those,
+>         # so the person doing the push can fix this before the push is
+> allowed.
+>
+>   * /sourceware/infra/bin/email-to-bugzilla
+>
+>         Sends a copy of commit messages to bugzilla if commit
+>         has a PR number in it.
+>
+>   * binutils-gdb.git/hooks-bin/post-receive
+>
+>         Calls the irker (IRC notification of new commits)
+>
+>   * Something sends emails about commits to the gdb-cvs mailing list
+>
+> * Web-based navigation of the Git repository
+>   * Need to be able to browse the git repository online
+>   * https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git
+>   * If it exists, a more featureful git web frontends would be nice, one
+>     that allows searching files by name for instance.
+>
+> * email-to-bugzilla script
+>   * The goal is that when a commit is pushed to the git repository, we
+>     check for any mention of a Bugzilla bugs, and post a message to those
+>     bugs
+>   * It accesses the Bugzilla database directly to check if a given bug
+>     number exists (could easily be changed to use some HTTP request)
+>   * It posts to bugzilla by sending an email to a local email account
+>
+> * mailing lists
+>   * Those I know for sure are used / useful:
+>     * gdb@
+>     * gdb-announce@
+>     * gdb-cvs@ (now misnaed, but can be used to follow commits to the
+> repo)
+>     * gdb-patches@
+>     * gdb-prs@
+>     * gdb-testers@
+>   * Not sure about these:
+>     * gdbadmin@: seems useful for whoever is responsible for snapshot
+>       generation or other GDB-related automated task.  It seems a bit
+>       spammy to send an email every day when the task succeeds.
+>
+>       The daily commits in binutils-gdb that bump the date are made using
+>       this email address as the From, not sure if it matters
+>   * Pretty sure we can ignore these:
+>     * gdb-testresults@
+>     * gdb-patches-prs@:
+>     * gdb-webpages-cvs@
+>
+>   * We also have a "global maintainers" list hosted at AdaCore.  It could
+>     make sense to move it to the main infrastructure.  Maybe Joel knows if
+>     there's a reason it's separate.
+>
+> * Mailing list web interface
+>   * The original one, which I find not so useful now that we have
+>     public-inbox: https://sourceware.org/pipermail/gdb-patches/
+>   * However, old links need to keep working
+>   * public-inbox or something equivalent is necessary:
+>     * have a way to browse easily message threads that span multiple
+>       months / years
+>     * have a way to download raw messages, to apply patches locally
+>
+> * daily snapshot generation
+>   * We have a script that generates daily tarballs (I don't know where
+>     or how)
+>
+> * daily bump
+>   * We have a script that does a daily commit in the binutils-gdb repo
+>     to update a date (I don't know where or how)
+>
+> * Website
+>   * Handwritten pages (in a CVS (!) repository)
+>   * scripts generating website contents (doc, ARI, etc)
+>   * SSH access to the machine hosting the website is used, as the scripts
+>     above generating website contents are run by the release manager, after
+>     having ssh'ed onto sourceware.org.
+>
+> * Wiki
+>   * Currently, anyone with write access can give someone else write access.
+>   * At the very least, we need a way for project maintainers to request
+>     write access for a new member, or do it themselves
+>
+> * bug tracker (bugzilla)
+>   * Sends notifications of new bugs and comments to gdb-prs
+>   * Sends notifications of comments on a big to users who are watching
+>     that bug
+>   * Accepts replies by email, both from users and from the
+>     email-to-bugzilla script.
+>
+> * Release hosting
+>   * Releases, the release manager must be able to upload there
+>     * ftp://sourceware.org/pub/gdb/releases/
+>     * http://sourceware.org/pub/gdb/releases/
+>   * Snapshots, the daily script needs to be able to upload there
+>     * https://sourceware.org/pub/gdb/snapshots/
+>
+> * patchwork (https://patchwork.sourceware.org/project/gdb/list/)
+>   * It receives emails from the gdb-patches mailing list
+>   * This instance doesn't get much use at the moment, because it gets
+>     filled so quickly and is impossible to keep up to date.
+>
 
-    Verifies that we do not have this issue:
+Thanks for the additional detail!
 
-        # With commits created using "git am" of patches sent via the gdb@ or
-        # gdb-patches@ mailing list, it's possible that the author information
-        # gets changed into "xxx via xxx@sourceware.org". Catch and reject those,
-        # so the person doing the push can fix this before the push is allowed.
+Thanks, David
 
-  * /sourceware/infra/bin/email-to-bugzilla
+--0000000000001fc01305ef2c593f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-        Sends a copy of commit messages to bugzilla if commit
-        has a PR number in it.
+<div dir=3D"ltr"><div dir=3D"ltr">On Tue, Dec 6, 2022 at 12:42 PM Simon Mar=
+chi &lt;<a href=3D"mailto:simon.marchi@efficios.com">simon.marchi@efficios.=
+com</a>&gt; wrote:<br></div><div class=3D"gmail_quote"><blockquote class=3D=
+"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
+04,204,204);padding-left:1ex">Here&#39;s a revised list for GDB, I added so=
+me user-facing / functional<br>
+requirements I would think of.=C2=A0 It&#39;s probably still lacking some o=
+f the<br>
+implementation details that you are looking for, but I probably don&#39;t<b=
+r>
+know them, and it&#39;s hard to know what you don&#39;t know.<br>
+<br>
+* Git Repository<br>
+=C2=A0 * Need push access<br>
+=C2=A0 * Ability for project maintainers to request push access for new<br>
+=C2=A0 =C2=A0 contributors (or to do it themselves)<br>
+=C2=A0 * Ability for users to create user-branches (e.g. users/simark/foo),=
+<br>
+=C2=A0 =C2=A0 which will be ignored by the notification-sending script.<br>
+<br>
+* git hooks<br>
+=C2=A0 * Need to be able to manage git hooks (<a href=3D"https://github.com=
+/AdaCore/git-hooks" rel=3D"noreferrer" target=3D"_blank">https://github.com=
+/AdaCore/git-hooks</a>) on<br>
+=C2=A0 =C2=A0 the server (right now, ssh to <a href=3D"http://sourceware.or=
+g" rel=3D"noreferrer" target=3D"_blank">sourceware.org</a>)<br>
+=C2=A0 * binutils-gdb.git/hooks-bin/commit-extra-checker.py<br>
+<br>
+=C2=A0 =C2=A0 Verifies that we do not have this issue:<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 # With commits created using &quot;git am&quot;=
+ of patches sent via the gdb@ or<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 # gdb-patches@ mailing list, it&#39;s possible =
+that the author information<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 # gets changed into &quot;xxx via <a href=3D"ma=
+ilto:xxx@sourceware.org" target=3D"_blank">xxx@sourceware.org</a>&quot;. Ca=
+tch and reject those,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 # so the person doing the push can fix this bef=
+ore the push is allowed.<br>
+<br>
+=C2=A0 * /sourceware/infra/bin/email-to-bugzilla<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 Sends a copy of commit messages to bugzilla if =
+commit<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 has a PR number in it.<br>
+<br>
+=C2=A0 * binutils-gdb.git/hooks-bin/post-receive<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 Calls the irker (IRC notification of new commit=
+s)<br>
+<br>
+=C2=A0 * Something sends emails about commits to the gdb-cvs mailing list<b=
+r>
+<br>
+* Web-based navigation of the Git repository<br>
+=C2=A0 * Need to be able to browse the git repository online<br>
+=C2=A0 * <a href=3D"https://sourceware.org/git/gitweb.cgi?p=3Dbinutils-gdb.=
+git" rel=3D"noreferrer" target=3D"_blank">https://sourceware.org/git/gitweb=
+.cgi?p=3Dbinutils-gdb.git</a><br>
+=C2=A0 * If it exists, a more featureful git web frontends would be nice, o=
+ne<br>
+=C2=A0 =C2=A0 that allows searching files by name for instance.<br>
+<br>
+* email-to-bugzilla script<br>
+=C2=A0 * The goal is that when a commit is pushed to the git repository, we=
+<br>
+=C2=A0 =C2=A0 check for any mention of a Bugzilla bugs, and post a message =
+to those<br>
+=C2=A0 =C2=A0 bugs<br>
+=C2=A0 * It accesses the Bugzilla database directly to check if a given bug=
+<br>
+=C2=A0 =C2=A0 number exists (could easily be changed to use some HTTP reque=
+st)<br>
+=C2=A0 * It posts to bugzilla by sending an email to a local email account<=
+br>
+<br>
+* mailing lists<br>
+=C2=A0 * Those I know for sure are used / useful:<br>
+=C2=A0 =C2=A0 * gdb@<br>
+=C2=A0 =C2=A0 * gdb-announce@<br>
+=C2=A0 =C2=A0 * gdb-cvs@ (now misnaed, but can be used to follow commits to=
+ the repo)<br>
+=C2=A0 =C2=A0 * gdb-patches@<br>
+=C2=A0 =C2=A0 * gdb-prs@<br>
+=C2=A0 =C2=A0 * gdb-testers@<br>
+=C2=A0 * Not sure about these:<br>
+=C2=A0 =C2=A0 * gdbadmin@: seems useful for whoever is responsible for snap=
+shot<br>
+=C2=A0 =C2=A0 =C2=A0 generation or other GDB-related automated task.=C2=A0 =
+It seems a bit<br>
+=C2=A0 =C2=A0 =C2=A0 spammy to send an email every day when the task succee=
+ds.<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 The daily commits in binutils-gdb that bump the date a=
+re made using<br>
+=C2=A0 =C2=A0 =C2=A0 this email address as the From, not sure if it matters=
+<br>
+=C2=A0 * Pretty sure we can ignore these:<br>
+=C2=A0 =C2=A0 * gdb-testresults@<br>
+=C2=A0 =C2=A0 * gdb-patches-prs@:<br>
+=C2=A0 =C2=A0 * gdb-webpages-cvs@<br>
+<br>
+=C2=A0 * We also have a &quot;global maintainers&quot; list hosted at AdaCo=
+re.=C2=A0 It could<br>
+=C2=A0 =C2=A0 make sense to move it to the main infrastructure.=C2=A0 Maybe=
+ Joel knows if<br>
+=C2=A0 =C2=A0 there&#39;s a reason it&#39;s separate.<br>
+<br>
+* Mailing list web interface<br>
+=C2=A0 * The original one, which I find not so useful now that we have<br>
+=C2=A0 =C2=A0 public-inbox: <a href=3D"https://sourceware.org/pipermail/gdb=
+-patches/" rel=3D"noreferrer" target=3D"_blank">https://sourceware.org/pipe=
+rmail/gdb-patches/</a><br>
+=C2=A0 * However, old links need to keep working<br>
+=C2=A0 * public-inbox or something equivalent is necessary:<br>
+=C2=A0 =C2=A0 * have a way to browse easily message threads that span multi=
+ple<br>
+=C2=A0 =C2=A0 =C2=A0 months / years<br>
+=C2=A0 =C2=A0 * have a way to download raw messages, to apply patches local=
+ly<br>
+<br>
+* daily snapshot generation<br>
+=C2=A0 * We have a script that generates daily tarballs (I don&#39;t know w=
+here<br>
+=C2=A0 =C2=A0 or how)<br>
+<br>
+* daily bump<br>
+=C2=A0 * We have a script that does a daily commit in the binutils-gdb repo=
+<br>
+=C2=A0 =C2=A0 to update a date (I don&#39;t know where or how)<br>
+<br>
+* Website<br>
+=C2=A0 * Handwritten pages (in a CVS (!) repository)<br>
+=C2=A0 * scripts generating website contents (doc, ARI, etc)<br>
+=C2=A0 * SSH access to the machine hosting the website is used, as the scri=
+pts<br>
+=C2=A0 =C2=A0 above generating website contents are run by the release mana=
+ger, after<br>
+=C2=A0 =C2=A0 having ssh&#39;ed onto <a href=3D"http://sourceware.org" rel=
+=3D"noreferrer" target=3D"_blank">sourceware.org</a>.<br>
+<br>
+* Wiki<br>
+=C2=A0 * Currently, anyone with write access can give someone else write ac=
+cess.<br>
+=C2=A0 * At the very least, we need a way for project maintainers to reques=
+t<br>
+=C2=A0 =C2=A0 write access for a new member, or do it themselves<br>
+<br>
+* bug tracker (bugzilla)<br>
+=C2=A0 * Sends notifications of new bugs and comments to gdb-prs<br>
+=C2=A0 * Sends notifications of comments on a big to users who are watching=
+<br>
+=C2=A0 =C2=A0 that bug<br>
+=C2=A0 * Accepts replies by email, both from users and from the<br>
+=C2=A0 =C2=A0 email-to-bugzilla script.<br>
+<br>
+* Release hosting<br>
+=C2=A0 * Releases, the release manager must be able to upload there<br>
+=C2=A0 =C2=A0 * <a href=3D"ftp://sourceware.org/pub/gdb/releases/" rel=3D"n=
+oreferrer" target=3D"_blank">ftp://sourceware.org/pub/gdb/releases/</a><br>
+=C2=A0 =C2=A0 * <a href=3D"http://sourceware.org/pub/gdb/releases/" rel=3D"=
+noreferrer" target=3D"_blank">http://sourceware.org/pub/gdb/releases/</a><b=
+r>
+=C2=A0 * Snapshots, the daily script needs to be able to upload there<br>
+=C2=A0 =C2=A0 * <a href=3D"https://sourceware.org/pub/gdb/snapshots/" rel=
+=3D"noreferrer" target=3D"_blank">https://sourceware.org/pub/gdb/snapshots/=
+</a><br>
+<br>
+* patchwork (<a href=3D"https://patchwork.sourceware.org/project/gdb/list/"=
+ rel=3D"noreferrer" target=3D"_blank">https://patchwork.sourceware.org/proj=
+ect/gdb/list/</a>)<br>
+=C2=A0 * It receives emails from the gdb-patches mailing list<br>
+=C2=A0 * This instance doesn&#39;t get much use at the moment, because it g=
+ets<br>
+=C2=A0 =C2=A0 filled so quickly and is impossible to keep up to date.<br></=
+blockquote><div><br></div><div>Thanks for the additional detail!</div><div>=
+<br></div><div>Thanks, David</div><div>=C2=A0</div></div></div>
 
-  * binutils-gdb.git/hooks-bin/post-receive
-
-        Calls the irker (IRC notification of new commits)
-
-  * Something sends emails about commits to the gdb-cvs mailing list
-
-* Web-based navigation of the Git repository
-  * Need to be able to browse the git repository online
-  * https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git
-  * If it exists, a more featureful git web frontends would be nice, one
-    that allows searching files by name for instance.
-
-* email-to-bugzilla script
-  * The goal is that when a commit is pushed to the git repository, we
-    check for any mention of a Bugzilla bugs, and post a message to those
-    bugs
-  * It accesses the Bugzilla database directly to check if a given bug
-    number exists (could easily be changed to use some HTTP request)
-  * It posts to bugzilla by sending an email to a local email account
-
-* mailing lists
-  * Those I know for sure are used / useful:
-    * gdb@
-    * gdb-announce@
-    * gdb-cvs@ (now misnaed, but can be used to follow commits to the repo)
-    * gdb-patches@
-    * gdb-prs@
-    * gdb-testers@
-  * Not sure about these:
-    * gdbadmin@: seems useful for whoever is responsible for snapshot
-      generation or other GDB-related automated task.  It seems a bit
-      spammy to send an email every day when the task succeeds.
-
-      The daily commits in binutils-gdb that bump the date are made using
-      this email address as the From, not sure if it matters
-  * Pretty sure we can ignore these:
-    * gdb-testresults@
-    * gdb-patches-prs@:
-    * gdb-webpages-cvs@
-
-  * We also have a "global maintainers" list hosted at AdaCore.  It could
-    make sense to move it to the main infrastructure.  Maybe Joel knows if
-    there's a reason it's separate.
-
-* Mailing list web interface
-  * The original one, which I find not so useful now that we have
-    public-inbox: https://sourceware.org/pipermail/gdb-patches/
-  * However, old links need to keep working
-  * public-inbox or something equivalent is necessary:
-    * have a way to browse easily message threads that span multiple
-      months / years
-    * have a way to download raw messages, to apply patches locally
-
-* daily snapshot generation
-  * We have a script that generates daily tarballs (I don't know where
-    or how)
-
-* daily bump
-  * We have a script that does a daily commit in the binutils-gdb repo
-    to update a date (I don't know where or how)
-
-* Website
-  * Handwritten pages (in a CVS (!) repository)
-  * scripts generating website contents (doc, ARI, etc)
-  * SSH access to the machine hosting the website is used, as the scripts
-    above generating website contents are run by the release manager, after
-    having ssh'ed onto sourceware.org.
-
-* Wiki
-  * Currently, anyone with write access can give someone else write access.
-  * At the very least, we need a way for project maintainers to request
-    write access for a new member, or do it themselves
-
-* bug tracker (bugzilla)
-  * Sends notifications of new bugs and comments to gdb-prs
-  * Sends notifications of comments on a big to users who are watching
-    that bug
-  * Accepts replies by email, both from users and from the
-    email-to-bugzilla script.
-
-* Release hosting
-  * Releases, the release manager must be able to upload there
-    * ftp://sourceware.org/pub/gdb/releases/
-    * http://sourceware.org/pub/gdb/releases/
-  * Snapshots, the daily script needs to be able to upload there
-    * https://sourceware.org/pub/gdb/snapshots/
-
-* patchwork (https://patchwork.sourceware.org/project/gdb/list/)
-  * It receives emails from the gdb-patches mailing list
-  * This instance doesn't get much use at the moment, because it gets
-    filled so quickly and is impossible to keep up to date.
-
-Simon
+--0000000000001fc01305ef2c593f--
