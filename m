@@ -1,121 +1,145 @@
-Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
+Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44AF7B
-	for <gti-tac@lists.linuxfoundation.org>; Mon,  6 Feb 2023 17:35:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE62A53BB
+	for <gti-tac@lists.linuxfoundation.org>; Mon,  6 Feb 2023 19:11:39 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by smtp1.osuosl.org (Postfix) with ESMTP id 490F8813F7
-	for <gti-tac@lists.linuxfoundation.org>; Mon,  6 Feb 2023 17:35:35 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 490F8813F7
-Authentication-Results: smtp1.osuosl.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=eEfLFX8D
+	by smtp4.osuosl.org (Postfix) with ESMTP id 1134F402C0
+	for <gti-tac@lists.linuxfoundation.org>; Mon,  6 Feb 2023 19:11:39 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 1134F402C0
+Authentication-Results: smtp4.osuosl.org;
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=oIvEqKXp
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -2.102
+X-Spam-Score: -2.103
 X-Spam-Level:
-X-Spam-Status: No, score=-2.102 tagged_above=-999 required=5
-	tests=[BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001, DKIM_SIGNED=0.1,
-	DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
-	RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
-	SPF_HELO_NONE=0.001, SPF_PASS=-0.001] autolearn=ham autolearn_force=no
-Received: from smtp1.osuosl.org ([127.0.0.1])
-	by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id zeIX3cL_QJeJ for <gti-tac@lists.linuxfoundation.org>;
-	Mon,  6 Feb 2023 17:35:34 +0000 (UTC)
-X-Greylist: domain auto-whitelisted by SQLgrey-1.8.0
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 6480C813E8
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by smtp1.osuosl.org (Postfix) with ESMTPS id 6480C813E8
-	for <gti-tac@lists.linuxfoundation.org>; Mon,  6 Feb 2023 17:35:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675704933;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=7cwo/8rq5KkiRGTGk+ObSv30aydqSooKtYptJ7VIjRs=;
-	b=eEfLFX8DIrn/8Ci8eoWEUIga8+75Xz910PY6OCygmxQTjKMl3C0GclHaj30s4CHohai6Xo
-	IYpVCa6D7s5hxF0oB9JgyMy8Nm/WSac16b7o8lH+m5DhAts9Gq+CwF1Ax/KX3Q+r3Ofit7
-	4FDg7X9kB0E2JJeTiO+pv8OnFYjljFw=
-Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
- [209.85.166.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-574-69On6k-4Pq-OZTeUQZ_fsw-1; Mon, 06 Feb 2023 12:35:31 -0500
-X-MC-Unique: 69On6k-4Pq-OZTeUQZ_fsw-1
-Received: by mail-il1-f200.google.com with SMTP id z12-20020a92d6cc000000b00310d4433c8cso8471595ilp.6
-        for <gti-tac@lists.linuxfoundation.org>; Mon, 06 Feb 2023 09:35:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:organization:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7cwo/8rq5KkiRGTGk+ObSv30aydqSooKtYptJ7VIjRs=;
-        b=bTSR3Izip/9BXS2YNJX5+QEfX86DqXCd4bAufSujWbQW7dNwJOO4vQmDMZe68Qcriu
-         wBD3yRgs+Y7WuQ2xN3UUC3Qs7pVpXH2J2wvS2WZuFheV9gvPsUgGRrRtxqpmOdRmxXc4
-         9lP9NLi8WsvUf2Rb1mO4x6D+N5ek7S9fgQT89erhG3CkcNt/wV7Nqp8+TRAKpUPi9gzC
-         zuBZHRw348qRsAhMEkx5CYArS6xpTWrg+oRVCuutzgrEzeC3+/PZQNzPzUMIxzcA1X3G
-         806PWCprY6oVjXqt38gXqSjno98kShZFl/Jqfu59ncKGBFDfwjV1ajYATmHNb1aGU1/P
-         nswg==
-X-Gm-Message-State: AO0yUKUcauh0kNKqdtooYwObnTFT2sr8v38IczWbaTdkakNGn8JHkwN7
-	2D8kXhCoOYT0ve1qzG7F6x133enNDBicjjh5iyTf6R5YYCb+MDOvypGmxVwl+IN7C4vUV2wFdYj
-	txc4oeu8uFBMVY4nG033N0dh8yhN896LKQzXdm0+0czu67bUcYku2wS9ihKu9LBfkNMGQIiXNvf
-	XcNfEe
-X-Received: by 2002:a5d:97d5:0:b0:72b:623a:bc31 with SMTP id k21-20020a5d97d5000000b0072b623abc31mr7289499ios.6.1675704930738;
-        Mon, 06 Feb 2023 09:35:30 -0800 (PST)
-X-Google-Smtp-Source: AK7set+binNy3BXe33xY9V8ow/zVapoedWpijRuWPg//8vAE+DXe3bNWa3YgFQ713FtffGmlIG/3oQ==
-X-Received: by 2002:a5d:97d5:0:b0:72b:623a:bc31 with SMTP id k21-20020a5d97d5000000b0072b623abc31mr7289484ios.6.1675704930441;
-        Mon, 06 Feb 2023 09:35:30 -0800 (PST)
-Received: from [192.168.0.241] (192-0-145-146.cpe.teksavvy.com. [192.0.145.146])
-        by smtp.gmail.com with ESMTPSA id e4-20020a6b5004000000b006884b050a0asm3140440iob.18.2023.02.06.09.35.29
-        for <gti-tac@lists.linuxfoundation.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Feb 2023 09:35:30 -0800 (PST)
-Message-ID: <d8790f60-483b-dfc6-dd7f-cb408334eb40@redhat.com>
-Date: Mon, 6 Feb 2023 12:35:29 -0500
+X-Spam-Status: No, score=-2.103 tagged_above=-999 required=5
+	tests=[BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
+	DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, NICE_REPLY_A=-0.001,
+	SPF_HELO_PASS=-0.001, SPF_PASS=-0.001]
+	autolearn=ham autolearn_force=no
+Received: from smtp4.osuosl.org ([127.0.0.1])
+	by localhost (smtp4.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 9wACv5lCB5wj for <gti-tac@lists.linuxfoundation.org>;
+	Mon,  6 Feb 2023 19:11:36 +0000 (UTC)
+X-Greylist: whitelisted by SQLgrey-1.8.0
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 72192402BD
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (mail-bn7nam10on2062a.outbound.protection.outlook.com [IPv6:2a01:111:f400:7e8a::62a])
+	by smtp4.osuosl.org (Postfix) with ESMTPS id 72192402BD
+	for <gti-tac@lists.linuxfoundation.org>; Mon,  6 Feb 2023 19:11:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LqrwMF+S6aajngU62WVUixbSCLjlb1R8GU0ECSHWKULbUC5JhrQo9kMyE+dv2gL4s2hKqbGABq31DDlotFf9Z4Puu1CeeS7aix+78HOMgq0phwCZIXLu+vnWiv+eqeKKt65yIqOTwH3Ht8ns+lT9cTh+itEqvpdodTBX+VSMD7rTgUkWGXc5fe4JUaHr7XYiZuQP/tEFIdIkbt9e+ol1crymW4xcxmmA2v5qJNhY2SipPi1npLqeGcPLEQ0tvyiCMbjtB137JxMejVeEmme49iBR6z2mwNIvXWwssy83qTakgztuW71rh7viS2X9FPRqm8EVZQSRZXDiJ1V02wTiCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=34OlbzgCAkMOE5Y12xSmQJTqX8fqRUWg2swpnsfMd8k=;
+ b=R4Bix+KiWvWOAINysYjVQ/tCgjEdvl8hwuCzo19xFDXz4vbAiA+jADmca/8vOxSAtu+3Z7f6IBOM0RUdckfiwBtfczaZ+uvcdi7qg3+MZDQNY4xnFMkAA3gAZD9j5miZNWvUFRB5k9UwjS9JcjDaY0h2mjNSuvOVMvMSSTCMvHxA050CHXsp6F7ZmktR61gWlgeX6dhzw3xOtybsjkSH/FZ5ygaY1V0H1Bh8tkOMu0wgOrlvWZcBUuvpQXa6iDqmoruHrYFkBbEmX/VwZ3pBNbOmuutWBDV38ki7TIyZy2EgzQbM5uje+a6X0FM75qTrevhxS5k5iue/AD+OgND/rQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=34OlbzgCAkMOE5Y12xSmQJTqX8fqRUWg2swpnsfMd8k=;
+ b=oIvEqKXpp0e8GfczKni3YiI30zCuQ8oXJFH+RYdRdchLtbl8lzdYfKT66m4pgdjMddB8hmhbty5Kulbki/7IRUciFu8ifJyqTrxSd/PYboUHWw5Zo03HwjuOEgenKAvDjCcj7QeD7J6L4upw3ukJZUuIAYnd7lQTBOlLfxFLG5uckltVU6ZDd5QUcFR6ps//Lmaq4xjoV/+kP9schchCsepmk1Uh6Az2LMXkTzqcnqKJ5DrBHfawMVZAgKqA2Hf9/H1aZuEDnDRaL0Sea0jCoGc7L7rG00TfAKTqTU8oiFg9CidKdVJDInonKCBUA46CUuqW7wW+4xaYX1ivMsIhfg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:a::23)
+ by YT3PR01MB8243.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:9c::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34; Mon, 6 Feb
+ 2023 19:11:32 +0000
+Received: from YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::ca4c:b759:c2f5:c976]) by YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::ca4c:b759:c2f5:c976%5]) with mapi id 15.20.6064.034; Mon, 6 Feb 2023
+ 19:11:32 +0000
+Message-ID: <bc978ef9-3d6e-d032-252b-3aae460c895a@efficios.com>
+Date: Mon, 6 Feb 2023 14:11:29 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: CY23 - Status of service enumeration.
+Content-Language: en-US
+To: Carlos O'Donell <carlos@redhat.com>, gti-tac@lists.linuxfoundation.org
+References: <d8790f60-483b-dfc6-dd7f-cb408334eb40@redhat.com>
+From: Simon Marchi <simon.marchi@efficios.com>
+In-Reply-To: <d8790f60-483b-dfc6-dd7f-cb408334eb40@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0182.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:f::25) To YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:a::23)
 Precedence: bulk
 X-Mailing-List: gti-tac@lists.linuxfoundation.org
 List-Id: <gti-tac.lists.linuxfoundation.org>
 List-Subscribe: <mailto:gti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:gti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-To: gti-tac@lists.linuxfoundation.org
-From: Carlos O'Donell <carlos@redhat.com>
-Subject: CY23 - Status of service enumeration.
-Organization: Red Hat
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT1PR01MB2828:EE_|YT3PR01MB8243:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4473028e-f434-41a5-6d12-08db0875f4e7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Lq+8oO6m5fwI5nqrHvMVWwJObjkvxdYrEPhq4kxwYw1X6rkyNrL2dqomM7BFGOS5q+Erus6WFsXrMbBrox4aU93P0UxNBHrEtKRgSzrst01fLXN7bWfYJM2GWFsKvE5xmDnUqxXR/AqQjgltfEZa9nyft3otsDKD28LPQQVzZssq145+BYIUsz9OLAcBjRSZFFB9mOuv2g8KFXOigfBVYlC3v4wGAcEx3dh6Hi7VFKJSUAHwFU1oCMYjtVRMdyzO5Gj/yOsc9aLoz0/h/laDqaOOVOCdUuLHg3tlSlL3zVsSdoZVjeVTIVawS1ctGwGrcuDzReT36LyPOlhh1LS/v3VZNaNQ7F9VqNWoHOKhYqFdgr2Rv6IYe1CHMbNPkUQ9rSs6wJwr7GJzxJwHVeoaao7X5v58UrS2TNxAnH3dVBulzpjMcc+Vp0sl7hcq4v87YJ7Hr3ARLFBItjtmKRukyEmhZkL3UblDGMLG6C6nhVxbBYb61FtYSD2k3Nfnu+Vs2NhnFavyV2A1FsNcQqZWP/b1zXeWEwAxFs74mt6ysQkQlRDGNqUrvVxtdjLptzQHlWRs9dtG12i5ZHXs0oNvD2T8oiihV9I4Ofc2BRMmS2F6YzTs8rey/TpoQI1LM5gx5nbDD9KmcvZUzT8nQC4pxNJsK3DuoHyMcbgknryhHid3CeFG+LBaQi4UJGWuOIMnL95TpDuupfgbgig3yZ1VjTIX4sjlyIXt6wSDTte+gIY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230025)(39830400003)(346002)(136003)(396003)(366004)(376002)(451199018)(66946007)(38100700002)(8936002)(66556008)(66476007)(41300700001)(8676002)(2906002)(6506007)(6666004)(186003)(26005)(6512007)(2616005)(44832011)(316002)(478600001)(6486002)(558084003)(36756003)(5660300002)(31696002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a2w1U3MzUGtIc2xJbXc2dWFLZW9nK01SdFhBRXlWczdMdm1xaGdDV3JHUmNJ?=
+ =?utf-8?B?LzFtbDlQTCt3YXE5OVBxd2VDdHBIMWs4dzY4dGNxOGVBVUtlQWliYU5kRU9L?=
+ =?utf-8?B?ajZRWmN0c282TXVmWGZGWC9DeEdnLzYwVlQrUFBidG9IY1g2dmdmT2tubVJQ?=
+ =?utf-8?B?UGxpQW90MlhyN04vWGJLaUsxdGxpUW9aMERhVklLU25TUFlMbkI1bE1SQU04?=
+ =?utf-8?B?V2xTdTBwTFU5NWMrcURIWlVuME5SaDBwZHpobnpLYlgyaTlqaEhpRTczQzA2?=
+ =?utf-8?B?V0xEbW1XdjE0MHhPYVV3QWpzbUFnU2FyWjlkbisyUUoyb2FSVXpMZTdOZndp?=
+ =?utf-8?B?a0lld2Q0dHlVd1J2ZndaYTZGSFRpU205U2NZbDRJczZ2ZjQ0VjJDMll1YmtQ?=
+ =?utf-8?B?bnd2b3c0aXdUa2VrV3BsS2NzTldrNTZHbjZxWkF3RGhnUUJIUUwxRlFHcE02?=
+ =?utf-8?B?My9BekM4YU44QzBWVnJuczBCZlBRa2JrOHovUHk5WlNBM3FpZ1NSWkRvckhG?=
+ =?utf-8?B?RDd6THRST2k4VS9ONGNmMm1Ud0hkMUdadlVRclc1a1NFSitsd1hqSjVyYjRK?=
+ =?utf-8?B?YXVGRWVoak5SUGdrY01YZ1ZpRVRtNGFzSnRMaGZUOCtRNHk1aHoxQVBQOVJ6?=
+ =?utf-8?B?L0lYbG8zTlgwNkRmQXlFajliSzhzK2s5dk82UkRndFdreE9CeGlKdkwyRDd6?=
+ =?utf-8?B?Ui85R256azBtQ2JlQmk5eFZkT1lTZW1qR3ZoS0ZndDZSS3dEV1FqUWpLeGty?=
+ =?utf-8?B?SEF6NUV6cHNhRHUzRktqaVpveUhSNmNNTXJ1VkdKb3BwV1lMWENCbUt0eUxL?=
+ =?utf-8?B?YmhXK21lQXQ4NlAvWjJ6UCtVYWZTRkRSbXZldHJOeFZ2cThXKzU0djNGSFY1?=
+ =?utf-8?B?OS9OSmN1YU5WMitkSDhpYjNBT3hiYzZnR1lLd2ZlUFFNV2hVLzZqWDlQeVEz?=
+ =?utf-8?B?RDBKNHIraFdUUTNBUlgvV09YSFdtNGFPa0pac3FsQWFnVk9SU05IYTlGZzJ6?=
+ =?utf-8?B?RkttTmFudXRKM2NvNXNFS2NDQVB1YzVsMWxpSVVKdmI1bWRwZXBSZ3V0alVX?=
+ =?utf-8?B?TWhubmFIR09reU54RnZQOFI0bjFJWFBXT2VVbUtYQzU5dXIwckdFWVVNZ3M4?=
+ =?utf-8?B?Uk4yU2VwelVGVlFWbGpwc3JRbXN3R2hhQ0kvWm5OY0dSdDZBSFdhQjVFcTYz?=
+ =?utf-8?B?b1VIOHF6dXNkaXp4QVg0ekpWMHBWdnhwUWdRWnRYVFQ2aTZSZklBcU16T0s5?=
+ =?utf-8?B?bHZNblNPelRUQXNkcmdNZnpodTdqQUNFeTdCaGwrWTdFTmZpVVphSm02WUNy?=
+ =?utf-8?B?MFpObkVVMk9TUkpwcExDK3hqOGdjQytCOUp4ckdvU3JPWDhUZ3pzZW1OQTFv?=
+ =?utf-8?B?TDBRT3FTa3NZSmJYTjd4QU0rQWtVTnl2TTJCTEdqM0Z5Q3FmWmlySDFoVW1I?=
+ =?utf-8?B?RHladlI1Rm5GUDBSUmwzR21OdW9PVm9xRFIranlUMTdBODI4Y2J1WjJ5UVgx?=
+ =?utf-8?B?UXdaZ0pyMlpoVi9ZYXM2TkF3UGEzYytKOEQ1TjRGSmNvbjA5SFhTRG5TWGRr?=
+ =?utf-8?B?ZGNlREZUS0YwdmhDUG1OYys3bmJ1WkxYVGJUaUJBeDB1WnVDazRGOHIzNWNv?=
+ =?utf-8?B?enh4OFJ4V1FsOTUyMWtJTEVqWjNGNlhSdjR3Z25PK203TWpXREpITmxzUVYv?=
+ =?utf-8?B?WTZMUm5TWUdLWlY4SlhtY1ZtMEpTdXpVNFlSdm1uMllVUkdlaEp4SGtJQ0RJ?=
+ =?utf-8?B?UnVBelZxRmJZWFlQN1lSd2pZK3NqeC9zVVNpQkloa2crWEFKZzZOKzJzVHQ4?=
+ =?utf-8?B?ajlkNWt5RzhIZTZ5cEhpZW14RXlPbVdzZi9YZVlCdGxlVjdMalZ6dTVvTnh4?=
+ =?utf-8?B?R0RrMmhFVzZkQ0xHM1BjSUtCRFhYaURXUXd0WGdwK3djZTYySnlYVUFDT0xC?=
+ =?utf-8?B?V2o2MXNiN284cnJVRU55aEdtM0R6K2ZDSlc4WVdsYVRQdktrSTN3YkFnMkVO?=
+ =?utf-8?B?WjY0YllwTzVnaENoNSthcGh5RUh0TDM3Q0t3MTZxNnBhZzdHSDg3MDdsSU9a?=
+ =?utf-8?B?bzhUZnV4Z2NOc0pvNnVLYU51cmZHVHIxMXVYTnRBUXY2SkNUSllmdGdiNjA0?=
+ =?utf-8?Q?vOTsjiEqwJ2G3hllqtLhTSox1?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4473028e-f434-41a5-6d12-08db0875f4e7
+X-MS-Exchange-CrossTenant-AuthSource: YT1PR01MB2828.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2023 19:11:32.0435
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uLcyR+oBd/93t5e6AgJumQwE76pWuURp2o1whdLkrLfEwFlHDkU9kSSnvIKTOD47mxcBAyuUp31MeTnudTZsrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT3PR01MB8243
 
-My current notes on the status of service enumeration are as follows:
+> Joel, Simon,
+> 
+> Is binutils going to be any different from gdb?
+I don't know about the binutils process.  Perhaps we can ask Nick
+Clifton to review our list for GDB and complement it with any
+information specific for binutils?
 
-- glibc is fairly complete here:
-  https://lore.kernel.org/gti-tac/804cee43-a120-3acf-a302-b1640f2285a9@redhat.com/
-
-- gdb is fairly complete here:
-  https://lore.kernel.org/gti-tac/b755774c-3912-2dac-957c-91f659c95119@efficios.com/
-
-- binutils is not yet analyzed, but likely very similar to gdb.
-
-- gcc is not yet analyzed.
-
-I would like to see service enumeration completed this month so we can follow
-up and present all the details at our GTI TAC meeting.
-
-Joseph,
-
-Have you had a chance to enumerate the gcc services?
-
-Joel, Simon,
-
-Is binutils going to be any different from gdb?
-
-With the exception of the website?
-
-
--- 
-Cheers,
-Carlos.
+Simon
 
