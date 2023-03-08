@@ -1,77 +1,76 @@
-Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E1836E
-	for <gti-tac@lists.linuxfoundation.org>; Tue,  7 Mar 2023 04:17:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B27079F0
+	for <gti-tac@lists.linuxfoundation.org>; Wed,  8 Mar 2023 16:44:53 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by smtp4.osuosl.org (Postfix) with ESMTP id D67E74017C
-	for <gti-tac@lists.linuxfoundation.org>; Tue,  7 Mar 2023 04:17:56 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org D67E74017C
-Authentication-Results: smtp4.osuosl.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hA/RniCo
+	by smtp1.osuosl.org (Postfix) with ESMTP id C0B628133C
+	for <gti-tac@lists.linuxfoundation.org>; Wed,  8 Mar 2023 16:44:52 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org C0B628133C
+Authentication-Results: smtp1.osuosl.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iKiqGa7W
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -2.103
+X-Spam-Score: -2.102
 X-Spam-Level:
-X-Spam-Status: No, score=-2.103 tagged_above=-999 required=5
+X-Spam-Status: No, score=-2.102 tagged_above=-999 required=5
 	tests=[BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001, DKIM_SIGNED=0.1,
 	DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
-	NICE_REPLY_A=-0.001, RCVD_IN_DNSWL_NONE=-0.0001,
-	RCVD_IN_MSPIKE_H2=-0.001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001]
-	autolearn=ham autolearn_force=no
-Received: from smtp4.osuosl.org ([127.0.0.1])
-	by localhost (smtp4.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id AK7_KrnBJw7n for <gti-tac@lists.linuxfoundation.org>;
-	Tue,  7 Mar 2023 04:17:55 +0000 (UTC)
+	RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
+	SPF_HELO_NONE=0.001, SPF_PASS=-0.001] autolearn=ham autolearn_force=no
+Received: from smtp1.osuosl.org ([127.0.0.1])
+	by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id ntY7AB60q7mD for <gti-tac@lists.linuxfoundation.org>;
+	Wed,  8 Mar 2023 16:44:52 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.8.0
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org A422E400F5
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by smtp4.osuosl.org (Postfix) with ESMTPS id A422E400F5
-	for <gti-tac@lists.linuxfoundation.org>; Tue,  7 Mar 2023 04:17:55 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 01CED8132F
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by smtp1.osuosl.org (Postfix) with ESMTPS id 01CED8132F
+	for <gti-tac@lists.linuxfoundation.org>; Wed,  8 Mar 2023 16:44:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678162674;
+	s=mimecast20190719; t=1678293891;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NuY4+dIaJuOrbZtBhWQTq/qHTYukSW5+OxGH/NOYIMM=;
-	b=hA/RniConuf3H3YLzCDkKv4xVzQ5rWH5ZYbPXKurxdH25BbJABKpDgGN7qkh4dZoZmKSf3
-	9hYHtmCj+0gzYmdV2n4NdIgX6XfdYg3oV/OeCHWe3HlQ30EJNr+jcnjdt7Ch+FcddtNJ1o
-	360mzwPmdRnzCfAAH07MRgREh3wG7z4=
-Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
- [209.85.166.200]) by relay.mimecast.com with ESMTP with STARTTLS
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=/gZ7xTGNeSx67e1+hg1ogeSCsIotQLqvf0smmYrhO1Y=;
+	b=iKiqGa7Wm3Qk3tyEGmCm4zGtWihejjQU461YZjRJpddQfT4H7gOuxBi5BDIO+rH+lsrS5P
+	WGIWCYGmcimsZz5s2H65mm00JkhUWo9kY6y/mbolw7oymFT0NO03qWXAZsf1QJpCPPJZUW
+	VE1opgWTFAA0fiormm92RrXwOWoFD1E=
+Received: from mail-il1-f197.google.com (mail-il1-f197.google.com
+ [209.85.166.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-237-8Cy2nGGFOg6FnXPCsw2TYw-1; Mon, 06 Mar 2023 23:17:53 -0500
-X-MC-Unique: 8Cy2nGGFOg6FnXPCsw2TYw-1
-Received: by mail-il1-f200.google.com with SMTP id t16-20020a92c0d0000000b00319bb6f4282so6332303ilf.20
-        for <gti-tac@lists.linuxfoundation.org>; Mon, 06 Mar 2023 20:17:53 -0800 (PST)
+ us-mta-434-zG1kPLZ4OiS6okNg06UgiA-1; Wed, 08 Mar 2023 11:44:49 -0500
+X-MC-Unique: zG1kPLZ4OiS6okNg06UgiA-1
+Received: by mail-il1-f197.google.com with SMTP id g14-20020a92dd8e000000b00316ea7ce6d3so8832802iln.15
+        for <gti-tac@lists.linuxfoundation.org>; Wed, 08 Mar 2023 08:44:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678162672;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NuY4+dIaJuOrbZtBhWQTq/qHTYukSW5+OxGH/NOYIMM=;
-        b=KrM/uGx2moC01fNmhnFZ35uN2z0zQ+GoyNz5voX8799kvgJbxUznGHEGSNVBd3Wjfg
-         NdYRf1MRP7q0HoxkXNqIXNerfYyvXVoQfuzi6/VPwttyiGc5K/w+ThBjE0U8QF8Jviux
-         4jbEebXgl03YM0aTk9T04IZu5xJkss3+XF4EoShk5uo8ioiJgyZ/KdHL41LFx593KOwk
-         iaZvy95XI5memzWBzwgprN0W5/cQC2wsZJEFxrneev3xJAFrgVTzbzVNRov9QKY5bctd
-         FovpPCZGB8i9W/566TXI2wpyrNUbY3XapPS1utrB11mxk5CPZFOxLTLNHuqnoN8B7gat
-         wkWw==
-X-Gm-Message-State: AO0yUKVXEPim05Etz3a0G00Q/XlwAiMPtstmcDOliBfHyNj66Vf4M2y+
-	u611qeQKBL9axPxzoiJhO9n6JKICE56jRYh1k7h0TkDY+taWEgAYK6Etwt45fvZRdC9i640t56e
-	ITVpD/xnU+USmoFDcOtTzK3oyySxNReo=
-X-Received: by 2002:a05:6e02:1b0b:b0:314:20e6:133c with SMTP id i11-20020a056e021b0b00b0031420e6133cmr10327318ilv.3.1678162672560;
-        Mon, 06 Mar 2023 20:17:52 -0800 (PST)
-X-Google-Smtp-Source: AK7set+C4pdYW1+wCCsBZ9bbtF9LO0sQfhg7Ex/h2dQjdJqlNol3+hAqKTd4UF5OCq4uImF7EtPh3A==
-X-Received: by 2002:a05:6e02:1b0b:b0:314:20e6:133c with SMTP id i11-20020a056e021b0b00b0031420e6133cmr10327309ilv.3.1678162672225;
-        Mon, 06 Mar 2023 20:17:52 -0800 (PST)
+        d=1e100.net; s=20210112; t=1678293889;
+        h=content-transfer-encoding:organization:subject:from:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/gZ7xTGNeSx67e1+hg1ogeSCsIotQLqvf0smmYrhO1Y=;
+        b=QSdGecC0PcFhbfyq8QWyouBQZlWkuf6xMCbf25V8mAyC7LPmBMaWCt3YzGxgKBROza
+         Xifl6EgvHIWGM7MTJ8WKYnxMzbQ6gS2EVgOYpJ9I/jVW1a4wUhmnLQDs9eKJdBpGTANy
+         VD/vk1eJ2Sa+LjSVV7O20SGxdo91iUy0OGXUSnQAuxd1lOtIJaLECt46Ied2mAyTm8mj
+         V5SfaFjpnwHKloaoWyNzsVm5A9NfMlXr9SYP48fenjxArvdGqGmAlkoBFy07FACBXUuV
+         y6WmHP5ASLoyW/pMXI5hN3zVqPgqHhM3lJqHS4K7vdPwUwcz5pW3cORL3X8+pJ8513XL
+         56gQ==
+X-Gm-Message-State: AO0yUKUAVyLd0nCoU1Pg9/0XEiDRFF2T+SXAvNgDFboDfo7aYSsWe6/A
+	XUdJBzrXMd8VtW8FEdOa0Cq4JGdmyJiLt6zTx93I/eLyfilq3Mc6x6zBzhk2/LetuyQC4ltEj0r
+	N8AGd3RnWALY2WAkxTwv4J04M36LiTmVIMAwMArk4rklOut2/McJNxZ7q+RrfzXi/xiinErTxmV
+	ZQifQ6hPU2Gou8
+X-Received: by 2002:a05:6e02:198d:b0:317:9202:2f22 with SMTP id g13-20020a056e02198d00b0031792022f22mr1752049ilf.8.1678293888799;
+        Wed, 08 Mar 2023 08:44:48 -0800 (PST)
+X-Google-Smtp-Source: AK7set8qfLyIFfic+fN37CTMB37YT+CSjXMSRHUpr5iP2Qj6PBpJq1f+20Smc0NIytJEoyvzAIT/4Q==
+X-Received: by 2002:a05:6e02:198d:b0:317:9202:2f22 with SMTP id g13-20020a056e02198d00b0031792022f22mr1752030ilf.8.1678293888386;
+        Wed, 08 Mar 2023 08:44:48 -0800 (PST)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id q23-20020a02c8d7000000b003a60da2bf58sm3707995jao.39.2023.03.06.20.17.51
+        by smtp.gmail.com with ESMTPSA id o14-20020a92dace000000b00313f1b861b7sm4569965ilq.51.2023.03.08.08.44.47
+        for <gti-tac@lists.linuxfoundation.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Mar 2023 20:17:51 -0800 (PST)
-Message-ID: <e2750d02-eec0-ef13-9dcc-2de2ff56bb9e@redhat.com>
-Date: Mon, 6 Mar 2023 23:17:50 -0500
+        Wed, 08 Mar 2023 08:44:48 -0800 (PST)
+Message-ID: <b72a0c4f-fed3-7418-e9d6-7a277bf37b3e@redhat.com>
+Date: Wed, 8 Mar 2023 11:44:47 -0500
 Precedence: bulk
 X-Mailing-List: gti-tac@lists.linuxfoundation.org
 List-Id: <gti-tac.lists.linuxfoundation.org>
@@ -80,43 +79,52 @@ List-Unsubscribe: <mailto:gti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: Planning the next GTI TAC meeting for March 8th.
-To: "Jose E. Marchesi" <jemarch@gnu.org>,
- Simon Marchi <simon.marchi@efficios.com>
-Cc: gti-tac@lists.linuxfoundation.org
-References: <db67f1f9-320c-18fc-f196-5923cc622c0a@redhat.com>
- <256fbbba-4b71-4fc0-3646-2c338253ba34@efficios.com> <87356l7tix.fsf@gnu.org>
+To: gti-tac@lists.linuxfoundation.org
 From: Carlos O'Donell <carlos@redhat.com>
+Subject: GTI TAC Meeting Notes 2023-06-08
 Organization: Red Hat
-In-Reply-To: <87356l7tix.fsf@gnu.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 3/3/23 10:18, Jose E. Marchesi wrote:
-> 
->> On 3/1/23 10:16, Carlos O'Donell wrote:
->>> Team,
->>>
->>> I would like to setup a GTI TAC meeting for March 8th at 11am EST / 4pm GMT.
->>>
->>> Does that work?
->>
->> Works for me.
-> 
-> Same here.
-> 
+Agenda: 
+- Pick a time for regular monthly meetings.
+- glibc: Next steps for glibc, and the process for migrating a whole project to LF infrastructure  
+- Going to the LF IT core projects team and asking for review of glibc services and cost.  
+- Approval from GTI.  
+- Community discussion.  
+- GNU Maintainer decision.
+- Setting up gti.toolchain.dev to hold documents and notes from the  meetings?
 
-I've scheduled the slot for those on the TAC that can to meet
-and discuss some of the items face to face.
-
-I'll post summaries here to the list of what was discussed.
-
-The agenda is to talk about how to keep moving forward with
-the GTI agenda to support the projects that want that support
-and how to make incremental progress.
+2023-06-08:
+- Welcome to Khahil White (Linux Foundation Program Manager on OpenSSF and AlphaOmega)
+- Welcome to David Wheeler (Linux Foundation)
+- Current status is 3/4 projects have detailed service enumeration complete.
+- Gcc still missing for service enumeration.
+- Carlos: I'll reach out to Joseph again about gcc service enumeration.
+- David: GCC by far is likely the most complicated.
+- Carlos: Where does the complexity come from?
+- Jeff: Mailing list from bugzilla integration. Lots of custom stuff.
+- Suggestion from Carlos to the GTI TAC - Run through glibc from start to finish.
+- Carlos: Working through one project as a first target.
+- Simon: Bringing binutils probably means bringing gdb.
+- Jeff: Yes, they share a repo.
+- Joseph: Seems reasonable as a project to start with.
+- Siddhesh: Buildbot repository not in use anymore.
+- Migrating glibc seems like a good first project.
+- David: Make it clear with the OpenSSF that scaling up is not going to be 4x the cost because services are going to be shared.
+- Asked Khahil White if this works for the OpenSSF, that we don't want to scare anyone into thinking this is 4x the cost.
+- Joseph: I still intend to work on it, but I need to get time for that.
+- Joseph: Do we want read-only access to old rcs/cvs?
+- Joseph: Anonymous rsync?
+- AI: Carlos to review existing glibc rcs/cvs/rsync and shut down those services.
+- Joseph: Migrate services vs. bugzilla (two of them, gcc + classpath, the other has loads of stuff).
+- Next Steps:
+     - One last pass over glibc services with an eye towards adding legacy services that will be shutdown.
+     - Take the glibc services list to LF IT core Project for pricing and explain that we want to tackle this on a project-by-project basis.
+     - Ask LF IT to setup gti.toolchain.dev for use to store docs and minutes presentation.
 
 -- 
 Cheers,
