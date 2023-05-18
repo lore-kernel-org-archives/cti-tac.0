@@ -1,120 +1,81 @@
 Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1EB2904
-	for <gti-tac@lists.linuxfoundation.org>; Tue, 18 Apr 2023 16:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2425D3D38D
+	for <cti-tac@lists.linuxfoundation.org>; Thu, 18 May 2023 20:09:22 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by smtp1.osuosl.org (Postfix) with ESMTP id 75B9283C38
-	for <gti-tac@lists.linuxfoundation.org>; Tue, 18 Apr 2023 16:59:50 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 75B9283C38
+	by smtp1.osuosl.org (Postfix) with ESMTP id 9E27E8442E
+	for <cti-tac@lists.linuxfoundation.org>; Thu, 18 May 2023 20:09:21 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 9E27E8442E
 Authentication-Results: smtp1.osuosl.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ty2mI3iB
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=Qynl70Eq
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -2.102
+X-Spam-Score: -2.101
 X-Spam-Level:
-X-Spam-Status: No, score=-2.102 tagged_above=-999 required=5
+X-Spam-Status: No, score=-2.101 tagged_above=-999 required=5
 	tests=[BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001, DKIM_SIGNED=0.1,
 	DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
-	RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
-	SPF_HELO_NONE=0.001, SPF_PASS=-0.001] autolearn=ham autolearn_force=no
+	RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001]
+	autolearn=ham autolearn_force=no
 Received: from smtp1.osuosl.org ([127.0.0.1])
 	by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id om3haseiW95l for <gti-tac@lists.linuxfoundation.org>;
-	Tue, 18 Apr 2023 16:59:49 +0000 (UTC)
-X-Greylist: domain auto-whitelisted by SQLgrey-1.8.0
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 8251583C30
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by smtp1.osuosl.org (Postfix) with ESMTPS id 8251583C30
-	for <gti-tac@lists.linuxfoundation.org>; Tue, 18 Apr 2023 16:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681837188;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=gshUf4xyGeXG3kT+IW76BRc9AkMRDW9kvgRzjPqOBNM=;
-	b=Ty2mI3iBL3IdQZHj8fd/d/UkB2PnzQzhmCDCKXIZtWqFNUJvYmxnmYt50KEe6JEON22jr6
-	oLaTGp6IM3REiWiwIY5SPy6rySuJHdC8i9ZQPH1W4N6xTbqFROX/ifFj6t4yLY9UBv9gNA
-	XFPDBDKnu1mEEbb3BPBdlHPVlUu7104=
-Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
- [209.85.219.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-310-Fg5Ra51VOhaBMmpBSXsm5w-1; Tue, 18 Apr 2023 12:59:39 -0400
-X-MC-Unique: Fg5Ra51VOhaBMmpBSXsm5w-1
-Received: by mail-yb1-f200.google.com with SMTP id n66-20020a254045000000b00b95a177fbe4so1537944yba.18
-        for <gti-tac@lists.linuxfoundation.org>; Tue, 18 Apr 2023 09:59:39 -0700 (PDT)
+	with ESMTP id 3SA8DVZpb040 for <cti-tac@lists.linuxfoundation.org>;
+	Thu, 18 May 2023 20:09:21 +0000 (UTC)
+X-Greylist: whitelisted by SQLgrey-1.8.0
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org D965A81D3D
+Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com [IPv6:2607:f8b0:4864:20::f2a])
+	by smtp1.osuosl.org (Postfix) with ESMTPS id D965A81D3D
+	for <cti-tac@lists.linuxfoundation.org>; Thu, 18 May 2023 20:09:20 +0000 (UTC)
+Received: by mail-qv1-xf2a.google.com with SMTP id 6a1803df08f44-61b58b6e864so19568646d6.3
+        for <cti-tac@lists.linuxfoundation.org>; Thu, 18 May 2023 13:09:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1684440559; x=1687032559;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=cMwPcbnbn5x9jtMU+QGrZXPWQIoFN4wV4yqu1xua9Ac=;
+        b=Qynl70Eq1HFzN4lZoG+7jRFsgYS5kbxbeaOJ65B/8qWqHciIXRugwXaNHW/6IjqCYI
+         LQWCOsoaqTzJiSqK+7rPvNLDPBbvKxIIBt1Z0pyGzmD3XcOdhtJtayGo7KnNagD6/xGq
+         Bewc7nKP3nRFaRjimmX3zO3posmFNE1IRj+hY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681837179; x=1684429179;
-        h=content-transfer-encoding:organization:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20221208; t=1684440559; x=1687032559;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gshUf4xyGeXG3kT+IW76BRc9AkMRDW9kvgRzjPqOBNM=;
-        b=X3MH34AQOJpzEdP4nDRW+7nKJkBJicLQbkwtwtgb8G/+tr5hLZlzojAh33CdeiE1ra
-         RuureOOp+v+Fi5b0MWn6QS+eJRuPpivKejt9dYUlqLrBOxwYjXy6qjwNOlHDNIQoIdsm
-         A9EPcPudoZxiydKjG5mD42Po9tik1AjWnFJnTgTpEwnP/Pt+2VTtqrtMbYwym4U4/jAT
-         0naWKUUOj0VXGBUEpDu03dSKNfMtT49mSQTsZypoFgcEHbOBvG91z4KVJgACeAEMMg0V
-         wErpWN0ZZwhIi9q1MakOq9o5WIQfB5ZixIz5xmSVyX3REUNriAjXjzZauMULnKBLegit
-         2nuA==
-X-Gm-Message-State: AAQBX9cMyxmDkfl0NES0qdh8E5uoNaOg48YU9fo9zkmmOO8RlIA7uD6n
-	H1mL40GQlUJp55HGRQ1V/M6X/68izTmeGXCxwEDdnmeTxM+k0FPRMpUCyqc1y0PsYlmskJqzv9M
-	4t6UVTgtX3X1Ww8EOpkBl2tc6CqxR2dTdLcuZoELIn3rRm4s/piyEyOZ3Czjy81w6EfbAV6PY33
-	BHMRwz3mctT0SR
-X-Received: by 2002:a0d:eac6:0:b0:546:4626:bfc5 with SMTP id t189-20020a0deac6000000b005464626bfc5mr513679ywe.31.1681837178791;
-        Tue, 18 Apr 2023 09:59:38 -0700 (PDT)
-X-Google-Smtp-Source: AKy350YkEOGekbnqp+X6E0ietV0lwKXVFpvUOui1ZMDJmBa5bIJpoiP6h4MQSPeSRs/aorhhG9jb2w==
-X-Received: by 2002:a0d:eac6:0:b0:546:4626:bfc5 with SMTP id t189-20020a0deac6000000b005464626bfc5mr513669ywe.31.1681837178470;
-        Tue, 18 Apr 2023 09:59:38 -0700 (PDT)
-Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id i195-20020a816dcc000000b00555be5a354dsm281381ywc.52.2023.04.18.09.59.37
-        for <gti-tac@lists.linuxfoundation.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Apr 2023 09:59:37 -0700 (PDT)
-Message-ID: <52435f3a-b722-22d4-538c-3f2ad628813b@redhat.com>
-Date: Tue, 18 Apr 2023 12:59:37 -0400
+        bh=cMwPcbnbn5x9jtMU+QGrZXPWQIoFN4wV4yqu1xua9Ac=;
+        b=eK/Zc5AU8hXs6RxE/SNFCCuKH7GSTIemrkZO7mZz2SYSmgNhQUBUQ6v1vjpQCyM7OT
+         qmHIOYN4UxO8sZqGRQ2MmKjaOgPddv+KTRdsgpIC7REhpzFl8r8DQC5nSctqEoFjwShi
+         nXzVN6xCA2m+07BifZBRV7jfRdWIu9OAo8P80KltW59tYKFFBLGt9F+JzJCchgZfKIom
+         sVlTLx9Fr/VLYCn76Bdj5d/qO5PPfTu5/BfnRP7gRHu6O+uC4VQUqVBc0v3f9FbEIvJ0
+         ZjXBLjYTJC3Ae4cxzyU2pXt9DfWPeZWzHoFUXux33EXVBLxIDT7+RXhyyfkIHAr2j5Dx
+         uXEA==
+X-Gm-Message-State: AC+VfDyEAiMGYB2IWAtRQ8PN9hFsKgnmNIrS8vSFCCaxvMIK+9whYevX
+	/dv3wlWXMfZTPzmDcQRzlVGy9OlXhhhhq8MzRWmLAA==
+X-Google-Smtp-Source: ACHHUZ56E6ArdVVCKUW3Bpm2rWwZvRYiAGsISlpbqEOvbH7/8xCIpMOP7+TDsX75TMCqPaBFJlxWsw==
+X-Received: by 2002:a05:6214:19cd:b0:5df:47e2:8df5 with SMTP id j13-20020a05621419cd00b005df47e28df5mr519623qvc.31.1684440558982;
+        Thu, 18 May 2023 13:09:18 -0700 (PDT)
+Received: from meerkat.local (bras-base-mtrlpq5031w-grc-30-209-226-106-132.dsl.bell.ca. [209.226.106.132])
+        by smtp.gmail.com with ESMTPSA id p18-20020ad451d2000000b006215f334a18sm769405qvq.28.2023.05.18.13.09.17
+        for <cti-tac@lists.linuxfoundation.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 May 2023 13:09:18 -0700 (PDT)
+Date: Thu, 18 May 2023 16:09:16 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+To: cti-tac@lists.linuxfoundation.org
+Subject: List moved to cti-tac
+Message-ID: <20230518-amaze-annoying-0ec185@meerkat>
 Precedence: bulk
-X-Mailing-List: gti-tac@lists.linuxfoundation.org
-List-Id: <gti-tac.lists.linuxfoundation.org>
-List-Subscribe: <mailto:gti-tac+subscribe@lists.linuxfoundation.org>
-List-Unsubscribe: <mailto:gti-tac+unsubscribe@lists.linuxfoundation.org>
+X-Mailing-List: cti-tac@lists.linuxfoundation.org
+List-Id: <cti-tac.lists.linuxfoundation.org>
+List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
+List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-To: gti-tac@lists.linuxfoundation.org
-From: Carlos O'Donell <carlos@redhat.com>
-Subject: Share status update to OpenSSF TAC on Tuesday May 16th at 11am ET.
-Organization: Red Hat
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-GTI TAC,
+Hello, all:
 
-In 2023 we have several opportunities to share GTI TAC status to the
-OpenSSF TAC. The OpenSSF TAC has representatives industry wide.
+For a number of reasons, gti-tac is known as cti-tac, so the new list address
+is cti-tac@lists.linuxfoundation.org.
 
-The next presentation slot for GTI is on Tuesday May 16th at 11am ET.
-It's a short 10 minute slot.
-
-I think this is a great opportunity to share status and get feedback
-from the broader OpenSSF community.
-
-Presenting status breaks down into the following steps:
-
-- Summarize progress to date.
-  - Write down any open questions we might have.
-
-- Present progress to the OpenSSF TAC.
-  - Ask for feedback on anything we think would be useful or valuable.
-
-I would be happy to work with someone to wordsmith a high-level update.
-
-Would anyone like to volunteer to write up a summary to date?
-
-Would anyone like to present to the OpenSSF TAC?
-
--- 
-Cheers,
-Carlos.
-
+Best regards,
+Konstantin
