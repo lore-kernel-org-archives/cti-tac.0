@@ -1,287 +1,180 @@
-Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+Received: from smtp2.osuosl.org (smtp2.osuosl.org [140.211.166.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A9312B9E
-	for <cti-tac@lists.linuxfoundation.org>; Fri, 19 May 2023 21:00:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05108186E
+	for <cti-tac@lists.linuxfoundation.org>; Fri, 19 May 2023 22:54:26 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by smtp4.osuosl.org (Postfix) with ESMTP id 61AA242694
-	for <cti-tac@lists.linuxfoundation.org>; Fri, 19 May 2023 21:00:41 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 61AA242694
-Authentication-Results: smtp4.osuosl.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=LdSqLn7r
+	by smtp2.osuosl.org (Postfix) with ESMTP id 7AAD240242
+	for <cti-tac@lists.linuxfoundation.org>; Fri, 19 May 2023 22:54:26 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org 7AAD240242
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -2.101
+X-Spam-Score: -3.954
 X-Spam-Level:
-X-Spam-Status: No, score=-2.101 tagged_above=-999 required=5
-	tests=[BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001, DKIM_SIGNED=0.1,
-	DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
-	RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001]
+X-Spam-Status: No, score=-3.954 tagged_above=-999 required=5
+	tests=[BAYES_00=-1.9, HEADER_FROM_DIFFERENT_DOMAINS=0.249,
+	RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_MSPIKE_H2=-0.001,
+	SPF_HELO_PASS=-0.001, SPF_PASS=-0.001]
 	autolearn=ham autolearn_force=no
-Received: from smtp4.osuosl.org ([127.0.0.1])
-	by localhost (smtp4.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id dCvkxKlkCmvP for <cti-tac@lists.linuxfoundation.org>;
-	Fri, 19 May 2023 21:00:39 +0000 (UTC)
-X-Greylist: whitelisted by SQLgrey-1.8.0
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 82E7642692
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com [IPv6:2607:f8b0:4864:20::732])
-	by smtp4.osuosl.org (Postfix) with ESMTPS id 82E7642692
-	for <cti-tac@lists.linuxfoundation.org>; Fri, 19 May 2023 21:00:39 +0000 (UTC)
-Received: by mail-qk1-x732.google.com with SMTP id af79cd13be357-75939de402dso201803585a.1
-        for <cti-tac@lists.linuxfoundation.org>; Fri, 19 May 2023 14:00:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1684530038; x=1687122038;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=NWlhqIlp2A9cdP338AOoHsnRoXtloUiEoYhVybVN630=;
-        b=LdSqLn7ru6z0NF0XWpNNVzajTLpHa9jRrhyy4vl0caX9+oGvJEUjVKduniBKLiOu9x
-         PmLxKtfSKQQl1Xif+br1i5sg4Sr46RI1paG2+e+AkW3ln9rYzvO/0aQ8mTgFP506qN/A
-         W5ULoQVLSSMOZjLnT6XE3Z+fOMHgFcSKMQHEE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684530038; x=1687122038;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NWlhqIlp2A9cdP338AOoHsnRoXtloUiEoYhVybVN630=;
-        b=EnNMpup7ThIHuB5xu/GRqcu5H/DLwowO0f+wyyN8xwgMZtydvPH1MY3RxhtXzA9gKD
-         rmitrqLLEbASTie/A/cvpL4bupN4cqIjpURO0YbsFxJ/spdv1kojNPLt8ZinyHVInldl
-         lu0DEZLZqV+Ok+LIrEE5bxsERIrQSR5vcuMT5cCBYj4u0uFjagnkj7PpDC+Dh4+DXWTx
-         jULSFQ/99IVvAsngVzIi/KtWtPN2O8MeuADQmJCtlX8sMiGGC0BJCp8ci5vv2snPeKj9
-         Pm2REjO3+dgXgUa7zB3zx4JyIfnSwmKY6XWdBwaSvhw6E9x6efFsgdMCXcXDX32oGghl
-         n3vA==
-X-Gm-Message-State: AC+VfDwE39GqUwjZqGbmyfUycCoXMwzFW3pe1eDtHAumHzBESDr1cqcd
-	w/AHrSQmpcrDbPP0s2eJ2+iYohad
-X-Google-Smtp-Source: ACHHUZ4t6wp6hs0B482qmItOw7yCMTDaOHXwQkYLhcUMCpst9GkDBYPnEQZwY8lJ9GMPr8mz3FeVzw==
-X-Received: by 2002:ad4:5d48:0:b0:621:564a:27a0 with SMTP id jk8-20020ad45d48000000b00621564a27a0mr8525369qvb.34.1684530038117;
-        Fri, 19 May 2023 14:00:38 -0700 (PDT)
-Received: from meerkat.local (bras-base-mtrlpq5031w-grc-30-209-226-106-132.dsl.bell.ca. [209.226.106.132])
-        by smtp.gmail.com with ESMTPSA id g1-20020ad457a1000000b0061b60afe381sm64720qvx.85.2023.05.19.14.00.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 May 2023 14:00:37 -0700 (PDT)
-Date: Fri, 19 May 2023 17:00:35 -0400
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: cti-tac@lists.linuxfoundation.org, 
-	Khahil White <kwhite@linuxfoundation.org>
-Subject: Re: Next steps from GTI TAC meeting on 2023-03-08 - Evaluate cost of
- glibc migration.
-Message-ID: <20230519-rebate-guru-b0528e@meerkat>
-References: <13b3266b-a410-77fd-5dfc-4e4994b630cd@redhat.com>
+Received: from smtp2.osuosl.org ([127.0.0.1])
+	by localhost (smtp2.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id Tu9ewUBpDVbc for <cti-tac@lists.linuxfoundation.org>;
+	Fri, 19 May 2023 22:54:25 +0000 (UTC)
+X-Greylist: delayed 00:07:07 by SQLgrey-1.8.0
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org ECCEF401A1
+Received: from esa2.mentor.iphmx.com (esa2.mentor.iphmx.com [68.232.141.98])
+	by smtp2.osuosl.org (Postfix) with ESMTPS id ECCEF401A1
+	for <cti-tac@lists.linuxfoundation.org>; Fri, 19 May 2023 22:54:24 +0000 (UTC)
+X-IronPort-AV: E=Sophos;i="6.00,178,1681200000"; 
+   d="scan'208";a="6615155"
+Received: from orw-gwy-02-in.mentorg.com ([192.94.38.167])
+  by esa2.mentor.iphmx.com with ESMTP; 19 May 2023 14:47:16 -0800
+IronPort-SDR: fx+awa1+xVs+f8yPxLkubf/aOjQfzcu3n8NH/IU466ocPCmZIqi9cGXRFLLlUSXF65tmE7+w7I
+ qo0GkOid7ef1OTnOUH4gI2fSrdME1G5Kbm+VQJJs8rz+nBTvZ5xLrC6xn/tzsPVUAUbcEZovEn
+ TE/9gxWMReLG7ONewCM6x468NxB8klSYfFz7HaR3zaLYrwDRjqRbqGuXL6yOJs8RSbjPZN9hz2
+ 7GBNlFuXNE6O8+aN0j1gZGhXbnDRCYB2VZTxFn7l8FZnAFWP4DXMePcn5EBLGW+8pWZvi9POym
+ JPo=
+Date: Fri, 19 May 2023 22:47:10 +0000
+From: Joseph Myers <joseph@codesourcery.com>
+To: <cti-tac@lists.linuxfoundation.org>
+Subject: Re: Next steps from GTI TAC meeting on 2023-03-08 - Evaluate cost
+ of glibc migration.
+Message-ID: <2938fae6-fc5-67e4-d85-3f193b68da89@codesourcery.com>
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
 List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <13b3266b-a410-77fd-5dfc-4e4994b630cd@redhat.com>
+Content-Type: text/plain; charset="US-ASCII"
+X-Originating-IP: [137.202.0.90]
+X-ClientProxiedBy: svr-ies-mbx-14.mgc.mentorg.com (139.181.222.14) To
+ svr-ies-mbx-10.mgc.mentorg.com (139.181.222.10)
 
-On Mon, Apr 03, 2023 at 01:24:21PM -0400, Carlos O'Donell wrote:
-> That means the the next steps likely look like this (needs further discussion):
-> * Iterate over the services below and discuss how and what to migrate them to.
+On Fri, 19 May 2023, Konstantin Ryabitsev wrote:
 
-Hello, everyone:
+> Our mailing list infrastructure is uniquely tailored to public-inbox users,
+> with messages being written to the archives *before* they are even sent out to
+> subscribers, which helps speed up access for users who aren't using the
 
-Sorry for continued delays -- I had a few false-starts and plenty of
-usual distractions, but I am finally able to move on this task with a
-clearer picture of what I am doing. I know you asked for costs, but they
-are going to depend on the finalized set of services, so I am going to
-set this aside just for the moment and focus on the technical aspects of
-the migration. It's not really that I am keeping anything close to heart, it's
-just that a lot of this infrastructure will be using shared deployments, and
-it's as not straightforward to easily assign dollar figures to cycles as cloud
-hosting setups would like us all to believe. :)
+There is a certain advantage there regarding the problem we currently have 
+where messages sent as HTML are missing from public-inbox archives, if the 
+process that strips HTML parts takes place before feeding to public-inbox 
+(whereas at present it takes place after that, I think).
 
-# Service enumeration
+(I consider it important that we do *not* insist on contributors meeting a 
+shibboleth of sending plain-text email before they can interact with our 
+mailing lists, especially for user lists such as libc-help - we should be 
+friendly to people sending email in the ordinary form they are used to 
+using today even if we might rather they didn't send HTML email - we 
+shouldn't impose that view of proper email on them.)
 
-## Mailing lists
+> The major improvement of this vs. bugzilla's native email interface is that
+> bugs can be created from mailing list discussions, not just the other way
+> around. The bugbot will need to be slightly adjusted for CTI needs, but
+> otherwise I think it would be a better solution than Bugzilla's native email
+> integration. For example, when bugmail is sent to the mailing list and someone
 
-The number of mailing lists doesn't really matter -- they are all managed via
-mlmmj and public-inbox and we're only really looking at the general volume of
-messages and size of archives.
+Note that people can send email to Bugzilla in reply to a message they 
+received directly from Bugzilla - not just in reply to a message on 
+glibc-bugs.  I think it's important that both cases of replying should 
+work automatically, however that's implemented.
 
-Looking at your list, the only thing we don't do is clamav, because it's
-mostly security window-dressing. Your client-side antivirus and end hosting
-provider is much more likely to do a good job catching any malicious content
-than clamav.
+(If someone replies to a glibc-bugs message and forgets to remove 
+glibc-bugs from their reply, the list gets two copies of the message at 
+present - one that the user sent directly, one forwarded by Bugzilla.  
+Avoiding that duplication somehow would be nice to have, but entirely 
+optional.)
 
-The mailing lists will be using shared infrastructure (subspace.kernel.org)
-for the actual mailing lists, and for the public-inbox archives we can either
-host them as part of lore.kernel.org, or deploy a separate service just for
-your own list -- your preference. There are upsides and downsides to either
-choice here.
+Note also that Bugzilla is one of the hardest migration issues (for 
+non-GCC projects), because (as I mentioned in one of the meetings) 
+Sourceware Bugzilla is used by many different projects, most of which are 
+not part of CTI.
 
-Our mailing list infrastructure is uniquely tailored to public-inbox users,
-with messages being written to the archives *before* they are even sent out to
-subscribers, which helps speed up access for users who aren't using the
-traditional "push" subscription module, but are pulling search-based results
-instead (using lei). This proves to be a much more reliable mechanism for
-patch-based workflows than traditional SMTP push subscriptions.
+> * Sending per-commit email to mailing lists -- this seems like a vestigial
+>   feature from the pre-git past. Does it really serve any purpose? I am
+>   fighting to kill a similar feature used on the kernel.org side, because I do
+>   not see any remaining legitimate use for it -- it just creates a lot of mail
+>   traffic that nobody really reviews.
 
-## Bugzilla
+I think it's extremely useful to have those messages for watching out for 
+commits that shouldn't have gone in or went in in an unintended form (this 
+is for human-determined "shouldn't" or "unintended" - not anything 
+expected to be covered by automated checks).  And also to have a message 
+ready-made to reply to when something was committed without being posted 
+to the mailing list.
 
-Everything on your list looks fine, and we can certainly replicate these
-features. We have also recently released our own experimental bugbot that
-allows us to much better integrate public-inbox managed mailing lists with
-bugzilla and git:
+> * We do not currently allow direct hooks on the server side, because running
+>   arbitrary scripts with the permissions of the git server is a very bad
+>   anti-pattern when it comes to repo security. It also tends to make pushes
+>   super slow and frustrating to developers, especially those working on slow
+>   or unstable connections that can go rapidly stale, resulting in failed
+>   pushes.
+> 
+>   So, we will need to wrap our collective heads around what your hooks are
+>   doing now and implement them via alternative means. For example:
 
-https://lore.kernel.org/workflows/gmnswy45efztvcyc3xqymm52h7cdfwjz64go2wy3zyeqcqwb76@36fva4hyip4q/
+Certainly some kind of system for proxying / containing checks to limit 
+what they can do if buggy makes sense - they don't need to run with the 
+permissions of the git server, they can run in some kind of isolation, as 
+long as they prevent bad commits from getting into the history.
 
-The major improvement of this vs. bugzilla's native email interface is that
-bugs can be created from mailing list discussions, not just the other way
-around. The bugbot will need to be slightly adjusted for CTI needs, but
-otherwise I think it would be a better solution than Bugzilla's native email
-integration. For example, when bugmail is sent to the mailing list and someone
-responds who does not have a Bugzilla account, their account would be
-auto-created. Our approach does not require this and will happily allow fully
-two-way bridging between Bugzilla and mailing list discussions.
+>   * denying force-pushes to specific branches (rebase/non-fast-forward
+>     updates) is a native feature of Gitolite
 
-## Git
+What about denying merge commits on master and release branches?
 
-We are using Gitolite for all our projects, and we strongly suggest doing the
-same here. It would be straightforward to migrate from Unix user/group
-permissions to Gitolite authN, so I do not expect this to be complicated or a
-showstopper.
+Note that GCC has its own custom set of namespaces for branches (under 
+refs/users/ and refs/vendors/) and rules about what branch names may be 
+created at all etc.  (Unfortunately there seem to be some missing checks 
+for the case of lightweight tag creation, resulting in some improperly 
+named tags being present.)
 
-The rest of it will need some work to figure out the best way forward:
+>   The only thing that would require more work is style checkers and other CI
+>   functionality that really should not be happening on-push. I suggest that
+>   this moves entirely to patchwork CI, discussed below.
 
-* Sending per-commit email to mailing lists -- this seems like a vestigial
-  feature from the pre-git past. Does it really serve any purpose? I am
-  fighting to kill a similar feature used on the kernel.org side, because I do
-  not see any remaining legitimate use for it -- it just creates a lot of mail
-  traffic that nobody really reviews.
+I think those things *should* be happening on push - to prevent obviously 
+bad history getting onto master or release branches (at least) in the 
+first place.  For glibc, that's (apart from the non-fast-forward checks 
+and rejecting merge commits on branches meant to have linear history):
 
-* We do not currently allow direct hooks on the server side, because running
-  arbitrary scripts with the permissions of the git server is a very bad
-  anti-pattern when it comes to repo security. It also tends to make pushes
-  super slow and frustrating to developers, especially those working on slow
-  or unstable connections that can go rapidly stale, resulting in failed
-  pushes.
+* Disallowing lines with trailing whitespace in certain files.
 
-  So, we will need to wrap our collective heads around what your hooks are
-  doing now and implement them via alternative means. For example:
+* Disallowing commits with a mailing list address as the author email 
+(even if your mailing list setup is designed to be DKIM-safe so author 
+emails don't need rewriting, people might still use "git am" with old 
+messages, so this remains relevant).
 
-  * denying force-pushes to specific branches (rebase/non-fast-forward
-    updates) is a native feature of Gitolite
-  * our bugbot is able to integrate git commits with bugzilla better than
-    sending out mail to an bugzilla ingestion point, and this doesn't need to
-    happen on commit (we use git log queries)
-  * the same can be done for IRC/Matrix notifications, if that is still
-    desired
+* Disallowing commit subject lines that look like a ChangeLog header.
 
-  The only thing that would require more work is style checkers and other CI
-  functionality that really should not be happening on-push. I suggest that
-  this moves entirely to patchwork CI, discussed below.
+* Disallowing single-word (or empty) commit subject lines.
 
-## Patchwork
+For GCC there are several extra checks that I enumerated - including, in 
+particular, the fairly complicated checks for ChangeLog format to avoid 
+the nightly cron job updating ChangeLogs falling over.  (The check to 
+avoid From-SVN: lines is similarly to prevent a commit that would cause 
+subsequent problems for automation that relies on those lines only being 
+present in commits converted from SVN in order to look up such a commit by 
+SVN commit number.)
 
-Everything described under "Patch management" we can do, with some tweaks. For
-example, we feed patchwork from public-inbox archives instead of directly
-piping incoming email. We also have our own git-patchwork-bot that is able to
-auto-close patches and series when it seems them show up in git repositories,
-with follow-up messages to authors and to the mailing list.
+> ## Release tarballs
+> 
+> There are multiple ways of getting this done, including completely automated.
+> For example, stable kernel releases are generated server-side by using and
+> verifying the PGP signature found in a git note attached to the release tag.
+> This doesn't work if the tarball is not directly generated from a git
+> repository (for example, if config scripts must run first).
 
-We also have multiple projects using patchwork CI integration (e.g. see
-https://patchwork.kernel.org/project/netdevbpf/list/), which is our
-recommended way of doing pre-commit checks on patch series.
+Is "git archive" output or similar actually stable enough that the server 
+can reliably generate (at any time in the future, with a future git 
+version) a tarball matching the tarball signature the release manager 
+generated at release time, or is that not what you meant?
 
-## Wiki
+I'd certainly expect the tarballs served as release tarballs to be 
+byte-for-byte identical to the ones at https://ftp.gnu.org/gnu/glibc/ (and 
+the signatures likewise to be identical).
 
-I strongly believe that wikis are quickly fossilizing creatures of a bygone
-era. If at all possible, we will not migrate any wikis, instead migrating them
-to readthedocs-style documentation (e.g. using pandoc for migrations). We have
-done it with a number of projects now and will be happy to assist in this case
-as well.
-
-There are multiple obvious upsides:
-
-* Fast pre-rendered documentation
-* Sane site organization
-* No more dealing with wiki spam
-* CI integration for actual style-enforcement
-
-I do not believe there is any reason to continue to run wikis in 2023.
-
-## Project CI
-
-I am side-stepping this for now, because CI was outside the scope of our
-discussion. If that has changed and we're now making CI a core part of the
-migration, then I will need to loop in our Release Engineer team for their
-analysis and suggestions.
-
-## Websites
-
-Any static-site generator solution will do, including readthedocs as with the
-suggested wiki migrations. We have previously used Jekyll and Pelican.
-
-## Release tarballs
-
-There are multiple ways of getting this done, including completely automated.
-For example, stable kernel releases are generated server-side by using and
-verifying the PGP signature found in a git note attached to the release tag.
-This doesn't work if the tarball is not directly generated from a git
-repository (for example, if config scripts must run first).
-
-In the case when we can't use the git tag note process, we can also do tarball
-uploads using our own "kup" tool that is done over ssh and uses the gitolite
-permission framework. I'm quite shocked that someone in the world still uses
-FTP for any uploads. :)
-
-## IRC
-
-We don't run our own IRC servers, but LF may potentially offer Matrix, which
-we may bridge to an IRC server of your choice (and if needed).
-
-# Bird's eye infrastructure overview
-
-To implement everything as discussed above, we would deploy a small subset of
-VMs:
-
-- gitolite VM, which is the primary of all your git repositories and tarball
-  releases
-- bugzilla VM, which hosts the bugzilla itself
-- bot VM, which runs all the integration bots, such as bugbot,
-  git-patchwork-bot, patchwork mail ingestion bot, site/documentation build
-  bots, etc -- basically all infra "CICD"
-- SQL VM for bugzilla, patchwork, and bot databases
-- patchwork container (since it's a Django app, we don't need a VM here)
-- public-inbox archive frontend VM (if not using lore.kernel.org)
-
-The price footprint on these VMs and containers is fairly small, especially
-because we will try to shift most high-traffic services to shared
-infrastructure:
-
-- public git repositories will be replicated to multiple worldwide frontends,
-  same as git.kernel.org
-- all static sites will be served from shared infrastructure
-- tarball releases will be replicated and served via mirrors.kernel.org
-
-Furthermore, once other toolchain projects start migrating, we can reuse all
-of this infrastructure for that purpose.
-
-# Next steps
-
-Before we go any further and start talking concrete VMs and costs, we need to
-figure out the CI part that I side-stepped, and the complete rework of git
-hooks that I suggest needs to happen before we can consider switching over. I
-do feel very strongly that none of it should be running on git push -- but
-without a deeper understanding of your needs, I cannot rule anything
-completely out. Should we start a separate thread to make sure that I'm not
-suggesting anything that isn't workable because I'm not fully grasping your
-needs?
-
-# OpenSSF
-
-Lastly, I do believe that CTI migration is already partly or fully covered by
-OpenSSF grants. I am in a separate conversation with folks from the Alpha
-Omega group at OpenSSF to better understand their goals and the longevity of
-their grants -- but this will probably also impact the financial side of the
-equation (I just don't know to what degree, yet).
-
-Again, apologies for the continued delays. Please know that CTI is currently
-front and center in my focus, so I hope to catch up on a lot of tasks that
-have been on the backburner.
-
-Best regards,
-Konstantin
+-- 
+Joseph S. Myers
+joseph@codesourcery.com
