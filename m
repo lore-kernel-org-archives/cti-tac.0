@@ -1,180 +1,100 @@
-Received: from smtp2.osuosl.org (smtp2.osuosl.org [140.211.166.133])
+Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05108186E
-	for <cti-tac@lists.linuxfoundation.org>; Fri, 19 May 2023 22:54:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E93AD53
+	for <cti-tac@lists.linuxfoundation.org>; Mon, 22 May 2023 10:11:42 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by smtp2.osuosl.org (Postfix) with ESMTP id 7AAD240242
-	for <cti-tac@lists.linuxfoundation.org>; Fri, 19 May 2023 22:54:26 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org 7AAD240242
+	by smtp1.osuosl.org (Postfix) with ESMTP id 79C668225D
+	for <cti-tac@lists.linuxfoundation.org>; Mon, 22 May 2023 10:11:42 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 79C668225D
+Authentication-Results: smtp1.osuosl.org;
+	dkim=pass (2048-bit key) header.d=adacore.com header.i=@adacore.com header.a=rsa-sha256 header.s=google header.b=decjcxDZ
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -3.954
+X-Spam-Score: -2.1
 X-Spam-Level:
-X-Spam-Status: No, score=-3.954 tagged_above=-999 required=5
-	tests=[BAYES_00=-1.9, HEADER_FROM_DIFFERENT_DOMAINS=0.249,
-	RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_MSPIKE_H2=-0.001,
-	SPF_HELO_PASS=-0.001, SPF_PASS=-0.001]
-	autolearn=ham autolearn_force=no
-Received: from smtp2.osuosl.org ([127.0.0.1])
-	by localhost (smtp2.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id Tu9ewUBpDVbc for <cti-tac@lists.linuxfoundation.org>;
-	Fri, 19 May 2023 22:54:25 +0000 (UTC)
-X-Greylist: delayed 00:07:07 by SQLgrey-1.8.0
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org ECCEF401A1
-Received: from esa2.mentor.iphmx.com (esa2.mentor.iphmx.com [68.232.141.98])
-	by smtp2.osuosl.org (Postfix) with ESMTPS id ECCEF401A1
-	for <cti-tac@lists.linuxfoundation.org>; Fri, 19 May 2023 22:54:24 +0000 (UTC)
-X-IronPort-AV: E=Sophos;i="6.00,178,1681200000"; 
-   d="scan'208";a="6615155"
-Received: from orw-gwy-02-in.mentorg.com ([192.94.38.167])
-  by esa2.mentor.iphmx.com with ESMTP; 19 May 2023 14:47:16 -0800
-IronPort-SDR: fx+awa1+xVs+f8yPxLkubf/aOjQfzcu3n8NH/IU466ocPCmZIqi9cGXRFLLlUSXF65tmE7+w7I
- qo0GkOid7ef1OTnOUH4gI2fSrdME1G5Kbm+VQJJs8rz+nBTvZ5xLrC6xn/tzsPVUAUbcEZovEn
- TE/9gxWMReLG7ONewCM6x468NxB8klSYfFz7HaR3zaLYrwDRjqRbqGuXL6yOJs8RSbjPZN9hz2
- 7GBNlFuXNE6O8+aN0j1gZGhXbnDRCYB2VZTxFn7l8FZnAFWP4DXMePcn5EBLGW+8pWZvi9POym
- JPo=
-Date: Fri, 19 May 2023 22:47:10 +0000
-From: Joseph Myers <joseph@codesourcery.com>
-To: <cti-tac@lists.linuxfoundation.org>
-Subject: Re: Next steps from GTI TAC meeting on 2023-03-08 - Evaluate cost
- of glibc migration.
-Message-ID: <2938fae6-fc5-67e4-d85-3f193b68da89@codesourcery.com>
+X-Spam-Status: No, score=-2.1 tagged_above=-999 required=5
+	tests=[BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
+	DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, RCVD_IN_DNSWL_NONE=-0.0001,
+	SPF_HELO_NONE=0.001, SPF_PASS=-0.001] autolearn=ham autolearn_force=no
+Received: from smtp1.osuosl.org ([127.0.0.1])
+	by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 9QDqBYhsvnyk for <cti-tac@lists.linuxfoundation.org>;
+	Mon, 22 May 2023 10:11:37 +0000 (UTC)
+X-Greylist: whitelisted by SQLgrey-1.8.0
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 68B1B82218
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+	by smtp1.osuosl.org (Postfix) with ESMTPS id 68B1B82218
+	for <cti-tac@lists.linuxfoundation.org>; Mon, 22 May 2023 10:11:37 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id ffacd0b85a97d-30a4ebbda56so1826780f8f.1
+        for <cti-tac@lists.linuxfoundation.org>; Mon, 22 May 2023 03:11:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=adacore.com; s=google; t=1684750295; x=1687342295;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=VlrFvkPn4ll8UJcF60fdkkKRdCO8GeywkP0mquDq2v0=;
+        b=decjcxDZBiQus9mW3GZfxTyl/Q8DP2WmUgAfuAapCu3XE/0l1s2okNxjUbwFE38L/t
+         jG+96AwV6C1s36DzrcJsvgXPT9f+9BEmFpfCMp6dVo2+gLOkg4ejL9Ji/upCCJJv2n8D
+         dG1deLsYKq0wkNqLx1shvf+UwXxR+KMiVwTJcg1X13WT7vYnH5GSkJpCMWIiGpyK3eSp
+         UhYqZeFlB2OTweTd+ZmefI+T3f17EfwuwVQF2gBXxH2cIqOP+K1PsUYE0wISDhVbFpAO
+         VBL+UC+vr0FNm2kKX0EE1RzXNorfyxxmp943W/h+T5eK7U+MWiJfsGwanrB4H/b3dOui
+         eEOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684750295; x=1687342295;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VlrFvkPn4ll8UJcF60fdkkKRdCO8GeywkP0mquDq2v0=;
+        b=VxDNLjgbhm+1YlIUZIEscRVBBR3UJ8XcVoPPM4sxK6BqBfSr1ZzJFKMJotvxbaUjni
+         mnwPZ1zU1Ci2Um8jlp1JaOLjMb/nkSYQij4kzAWp3ml/JkuZtHIt4j+jhicMCDDuaqLE
+         b2Oh2Hb748MRtlkV+tOh7NwYIPZVWcTGvB7sVt6Wa/7KiAk8D42ws87RxtIyniytWj1h
+         gUwRYleiTA7QPZyLMqrTEJolGM2aBYFAMFXuJF7Rl0oMnJuj7dySQL4VB/ISGwB67bPI
+         pfiMREHxh9+VoklBCHx5QYyJg3IfRaDnCLt9T/zPMnXJOZh8t89O9zxH7VZendsM2DTr
+         Y3gg==
+X-Gm-Message-State: AC+VfDw37V1g1pyw6Kfb3ysxxoJH1Yt9hMLR5pjcBsbuJR69pk9vjIvX
+	9T4+HjwXDsHJyPDVgBp4/bUq
+X-Google-Smtp-Source: ACHHUZ4fVVkZasrFvlwedNDI8W/DIpfmSWB+SJDAsjjZzvnzZFrGmKxk1gxYEUcYu5p7NU4bhOSLrg==
+X-Received: by 2002:a5d:4210:0:b0:2f8:c94c:3895 with SMTP id n16-20020a5d4210000000b002f8c94c3895mr8041117wrq.23.1684750295480;
+        Mon, 22 May 2023 03:11:35 -0700 (PDT)
+Received: from takamaka.gnat.com ([45.147.211.82])
+        by smtp.gmail.com with ESMTPSA id m13-20020adfe94d000000b002fda1b12a0bsm7325217wrn.2.2023.05.22.03.11.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 May 2023 03:11:34 -0700 (PDT)
+Received: by takamaka.gnat.com (Postfix, from userid 1000)
+	id D756681B59; Mon, 22 May 2023 03:11:21 -0700 (PDT)
+Date: Mon, 22 May 2023 03:11:21 -0700
+From: Joel Brobecker <brobecker@adacore.com>
+To: Joseph Myers <joseph@codesourcery.com>
+Cc: cti-tac@lists.linuxfoundation.org,
+	Joel Brobecker <brobecker@adacore.com>
+Subject: Re: Next steps from GTI TAC meeting on 2023-03-08 - Evaluate cost of
+ glibc migration.
+Message-ID: <ZGs/yahtWK4pholh@adacore.com>
+References: <2938fae6-fc5-67e4-d85-3f193b68da89@codesourcery.com>
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
 List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-X-Originating-IP: [137.202.0.90]
-X-ClientProxiedBy: svr-ies-mbx-14.mgc.mentorg.com (139.181.222.14) To
- svr-ies-mbx-10.mgc.mentorg.com (139.181.222.10)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2938fae6-fc5-67e4-d85-3f193b68da89@codesourcery.com>
 
-On Fri, 19 May 2023, Konstantin Ryabitsev wrote:
-
-> Our mailing list infrastructure is uniquely tailored to public-inbox users,
-> with messages being written to the archives *before* they are even sent out to
-> subscribers, which helps speed up access for users who aren't using the
-
-There is a certain advantage there regarding the problem we currently have 
-where messages sent as HTML are missing from public-inbox archives, if the 
-process that strips HTML parts takes place before feeding to public-inbox 
-(whereas at present it takes place after that, I think).
-
-(I consider it important that we do *not* insist on contributors meeting a 
-shibboleth of sending plain-text email before they can interact with our 
-mailing lists, especially for user lists such as libc-help - we should be 
-friendly to people sending email in the ordinary form they are used to 
-using today even if we might rather they didn't send HTML email - we 
-shouldn't impose that view of proper email on them.)
-
-> The major improvement of this vs. bugzilla's native email interface is that
-> bugs can be created from mailing list discussions, not just the other way
-> around. The bugbot will need to be slightly adjusted for CTI needs, but
-> otherwise I think it would be a better solution than Bugzilla's native email
-> integration. For example, when bugmail is sent to the mailing list and someone
-
-Note that people can send email to Bugzilla in reply to a message they 
-received directly from Bugzilla - not just in reply to a message on 
-glibc-bugs.  I think it's important that both cases of replying should 
-work automatically, however that's implemented.
-
-(If someone replies to a glibc-bugs message and forgets to remove 
-glibc-bugs from their reply, the list gets two copies of the message at 
-present - one that the user sent directly, one forwarded by Bugzilla.  
-Avoiding that duplication somehow would be nice to have, but entirely 
-optional.)
-
-Note also that Bugzilla is one of the hardest migration issues (for 
-non-GCC projects), because (as I mentioned in one of the meetings) 
-Sourceware Bugzilla is used by many different projects, most of which are 
-not part of CTI.
-
-> * Sending per-commit email to mailing lists -- this seems like a vestigial
->   feature from the pre-git past. Does it really serve any purpose? I am
->   fighting to kill a similar feature used on the kernel.org side, because I do
->   not see any remaining legitimate use for it -- it just creates a lot of mail
->   traffic that nobody really reviews.
-
-I think it's extremely useful to have those messages for watching out for 
-commits that shouldn't have gone in or went in in an unintended form (this 
-is for human-determined "shouldn't" or "unintended" - not anything 
-expected to be covered by automated checks).  And also to have a message 
-ready-made to reply to when something was committed without being posted 
-to the mailing list.
-
-> * We do not currently allow direct hooks on the server side, because running
->   arbitrary scripts with the permissions of the git server is a very bad
->   anti-pattern when it comes to repo security. It also tends to make pushes
->   super slow and frustrating to developers, especially those working on slow
->   or unstable connections that can go rapidly stale, resulting in failed
->   pushes.
+> > * Sending per-commit email to mailing lists -- this seems like a vestigial
+> >   feature from the pre-git past. Does it really serve any purpose? I am
+> >   fighting to kill a similar feature used on the kernel.org side, because I do
+> >   not see any remaining legitimate use for it -- it just creates a lot of mail
+> >   traffic that nobody really reviews.
 > 
->   So, we will need to wrap our collective heads around what your hooks are
->   doing now and implement them via alternative means. For example:
+> I think it's extremely useful to have those messages for watching out for 
+> commits that shouldn't have gone in or went in in an unintended form (this 
+> is for human-determined "shouldn't" or "unintended" - not anything 
+> expected to be covered by automated checks).  And also to have a message 
+> ready-made to reply to when something was committed without being posted 
+> to the mailing list.
 
-Certainly some kind of system for proxying / containing checks to limit 
-what they can do if buggy makes sense - they don't need to run with the 
-permissions of the git server, they can run in some kind of isolation, as 
-long as they prevent bad commits from getting into the history.
-
->   * denying force-pushes to specific branches (rebase/non-fast-forward
->     updates) is a native feature of Gitolite
-
-What about denying merge commits on master and release branches?
-
-Note that GCC has its own custom set of namespaces for branches (under 
-refs/users/ and refs/vendors/) and rules about what branch names may be 
-created at all etc.  (Unfortunately there seem to be some missing checks 
-for the case of lightweight tag creation, resulting in some improperly 
-named tags being present.)
-
->   The only thing that would require more work is style checkers and other CI
->   functionality that really should not be happening on-push. I suggest that
->   this moves entirely to patchwork CI, discussed below.
-
-I think those things *should* be happening on push - to prevent obviously 
-bad history getting onto master or release branches (at least) in the 
-first place.  For glibc, that's (apart from the non-fast-forward checks 
-and rejecting merge commits on branches meant to have linear history):
-
-* Disallowing lines with trailing whitespace in certain files.
-
-* Disallowing commits with a mailing list address as the author email 
-(even if your mailing list setup is designed to be DKIM-safe so author 
-emails don't need rewriting, people might still use "git am" with old 
-messages, so this remains relevant).
-
-* Disallowing commit subject lines that look like a ChangeLog header.
-
-* Disallowing single-word (or empty) commit subject lines.
-
-For GCC there are several extra checks that I enumerated - including, in 
-particular, the fairly complicated checks for ChangeLog format to avoid 
-the nightly cron job updating ChangeLogs falling over.  (The check to 
-avoid From-SVN: lines is similarly to prevent a commit that would cause 
-subsequent problems for automation that relies on those lines only being 
-present in commits converted from SVN in order to look up such a commit by 
-SVN commit number.)
-
-> ## Release tarballs
-> 
-> There are multiple ways of getting this done, including completely automated.
-> For example, stable kernel releases are generated server-side by using and
-> verifying the PGP signature found in a git note attached to the release tag.
-> This doesn't work if the tarball is not directly generated from a git
-> repository (for example, if config scripts must run first).
-
-Is "git archive" output or similar actually stable enough that the server 
-can reliably generate (at any time in the future, with a future git 
-version) a tarball matching the tarball signature the release manager 
-generated at release time, or is that not what you meant?
-
-I'd certainly expect the tarballs served as release tarballs to be 
-byte-for-byte identical to the ones at https://ftp.gnu.org/gnu/glibc/ (and 
-the signatures likewise to be identical).
+I strongly agree as well.
 
 -- 
-Joseph S. Myers
-joseph@codesourcery.com
+Joel
