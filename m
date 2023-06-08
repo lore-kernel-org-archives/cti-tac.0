@@ -1,76 +1,76 @@
-Received: from smtp3.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+Received: from smtp2.osuosl.org (smtp2.osuosl.org [140.211.166.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB4C10960
-	for <cti-tac@lists.linuxfoundation.org>; Thu,  8 Jun 2023 11:56:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35BC11119D
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  8 Jun 2023 12:10:37 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by smtp3.osuosl.org (Postfix) with ESMTP id 2D5FD610B6
-	for <cti-tac@lists.linuxfoundation.org>; Thu,  8 Jun 2023 11:56:23 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp3.osuosl.org 2D5FD610B6
-Authentication-Results: smtp3.osuosl.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XPG8/NZX
+	by smtp2.osuosl.org (Postfix) with ESMTP id B69EA402E4
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  8 Jun 2023 12:10:37 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org B69EA402E4
+Authentication-Results: smtp2.osuosl.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RNDd0fd4
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -2.102
+X-Spam-Score: -2.101
 X-Spam-Level:
-X-Spam-Status: No, score=-2.102 tagged_above=-999 required=5
+X-Spam-Status: No, score=-2.101 tagged_above=-999 required=5
 	tests=[BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001, DKIM_SIGNED=0.1,
 	DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
-	NICE_REPLY_A=-0.001, RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
-	SPF_PASS=-0.001] autolearn=ham autolearn_force=no
-Received: from smtp3.osuosl.org ([127.0.0.1])
-	by localhost (smtp3.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id DM0sjCyDUZjT for <cti-tac@lists.linuxfoundation.org>;
-	Thu,  8 Jun 2023 11:56:22 +0000 (UTC)
+	RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001]
+	autolearn=ham autolearn_force=no
+Received: from smtp2.osuosl.org ([127.0.0.1])
+	by localhost (smtp2.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 62h7micTfi0a for <cti-tac@lists.linuxfoundation.org>;
+	Thu,  8 Jun 2023 12:10:37 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.8.0
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp3.osuosl.org 7186660F9E
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org DF8084025D
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by smtp3.osuosl.org (Postfix) with ESMTPS id 7186660F9E
-	for <cti-tac@lists.linuxfoundation.org>; Thu,  8 Jun 2023 11:56:22 +0000 (UTC)
+	by smtp2.osuosl.org (Postfix) with ESMTPS id DF8084025D
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  8 Jun 2023 12:10:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686225381;
+	s=mimecast20190719; t=1686226235;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=On56SNO/xkXaYdVeW0qxZmjc64NbJeCnmZu63CoQyIY=;
-	b=XPG8/NZX4649XFC0iepXPNmjp/fHhkZGlotOZzr02mOPux2fSlEbviW8fHriROpzItIQHx
-	6bBXfhxP7HychNOgnPe6v5b5/DGXIeMKJ+kuVQA8dMof6urIvrCphqTbOPp4WaxLeqaF29
-	H9UaDn1LRhdpSBR9Ki7DyCKLxT9G7TU=
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=VmVL3IBnbgf1k/PIbfmOAa6lIgtLs/b2M0gtMx9WUS0=;
+	b=RNDd0fd42kaI3DC16wEpKM7FOhjHGMQotmT9iaPY5G/0ZkPS1luml4PgkxZeci2KYNVBIG
+	6ntob4U4MPYEA6KxhiRrDOT5UPJ+Y6pt0PMA7A9i/7DeMKY41oN395c9EPi0UBEA99WkRR
+	cgr4DZ+g0nrgnEDSFq/NQELiGTI2s4k=
 Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
  [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-167-FxOi6PM_M-6L7O9kFCkBdg-1; Thu, 08 Jun 2023 07:56:18 -0400
-X-MC-Unique: FxOi6PM_M-6L7O9kFCkBdg-1
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-5651d8acfe2so7800187b3.2
-        for <cti-tac@lists.linuxfoundation.org>; Thu, 08 Jun 2023 04:56:18 -0700 (PDT)
+ us-mta-607--_yu9daQOIuZOo0d1-gbmA-1; Thu, 08 Jun 2023 08:10:34 -0400
+X-MC-Unique: -_yu9daQOIuZOo0d1-gbmA-1
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-5651d8acfe2so7991767b3.2
+        for <cti-tac@lists.linuxfoundation.org>; Thu, 08 Jun 2023 05:10:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686225377; x=1688817377;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=On56SNO/xkXaYdVeW0qxZmjc64NbJeCnmZu63CoQyIY=;
-        b=ERhUhq+ryfDloGgwslgJ19sltibECxvmAa6/Hv4QS9HlqbQ3ZCawigIG1LDMam7bdb
-         iClqIFYHNtQC2lYouPqmw6lFWZP/SHDSRqaO3y1cKo0PrsiAzhsleHDu28+gV45x/MFh
-         3WOFwTLeuwl/67YBn6MQf7J/rDNQ9i+cNJzujUq4J7taIBRpAZCYIPOC5lbkqjhj9QL8
-         QcyhizgaI4boPITthVeM4SKamshGH08jLXAHDoVlMsR362gFnq9crrCxDEa+QfXO2LOl
-         slrdD5IXzT+zDsjjlm8fP89A/XSi4XkWJ5DXRG+AaAfyBirVNI6Bz2QpluwAmPb1aWSy
-         4/Bw==
-X-Gm-Message-State: AC+VfDxBXqJhy3po+rJrFzESsggCzeVvj1rW/ZXfB9yh7yjjiC4iXcvp
-	vYYpl4bcJT+R6bT/PMvrvdjsWJGSJwY+9a9KVJ9BieXrg9RCWmtzBLggNNLw1VR0RL/fjhJjFHI
-	9yBDHBLTRu/hORg9W0Adxf1057rrzGtn+l0G2dmM=
-X-Received: by 2002:a0d:cdc1:0:b0:556:1b32:343b with SMTP id p184-20020a0dcdc1000000b005561b32343bmr9156183ywd.45.1686225377170;
-        Thu, 08 Jun 2023 04:56:17 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ4pzcuzB1H5xPS30exzSjMgkpQFP27WwHU2GrjrqH+yNUHkjDBJmOiAO2hIbPhcoyxcXWvEeA==
-X-Received: by 2002:a0d:cdc1:0:b0:556:1b32:343b with SMTP id p184-20020a0dcdc1000000b005561b32343bmr9156172ywd.45.1686225376887;
-        Thu, 08 Jun 2023 04:56:16 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1686226233; x=1688818233;
+        h=content-transfer-encoding:organization:subject:from:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=VmVL3IBnbgf1k/PIbfmOAa6lIgtLs/b2M0gtMx9WUS0=;
+        b=VSlKbPx5KeNUPMYiLn/R6EHlkMqKWE8ETNVu8Lu7jhqtlGKkLzoaWFcUga0FPvc9SW
+         KMkr8/qukeGPFmDAXyszbNDIziTvbkS8b6DRM5Ziy2oQmYJbDfM/s6NiUuz0m/rCw/6o
+         pOetoB1ZVekSVbIFFrN+m5QipPl5M+oJPX/3snW/JlSJQWHXR4EHz6BJEyp79fJ5TYbq
+         yROaVhvhTkFkf1271/335WRScFQbNPSR6KHfbQVVs06/HRK8XKVZ7gOWRq0eBPcgm0au
+         4zv9fS11G1BrOCH/aXI8o9mbpuFYb9PTaMRGQqI1el+peje06Csp1kgCUJH1fImtvlJK
+         DhxA==
+X-Gm-Message-State: AC+VfDxu8GRdqgOA67GkrH0x/w+OrAjCMnaYdajcpAfaOlCwQBS1hqEO
+	1g3Y8iQZabDJVZSvLRt92cIEf6q0e64s9mDNMySLrvvOE4Jq2koeNn/odfbdbRRDMeqF2KWQPcZ
+	m866X+c5Bo2FmLFurZd/GhaeHrG9Lwu6JKEwRlY+a20YaM28h2NyseKGNkssFNSh+NAn/YJNpRl
+	njKLEdLdbarcio
+X-Received: by 2002:a81:67c5:0:b0:561:d25b:672a with SMTP id b188-20020a8167c5000000b00561d25b672amr8704888ywc.21.1686226233535;
+        Thu, 08 Jun 2023 05:10:33 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4csxT7FpW1lmZjiBxBUS+sESuhdfPwSmjnze7cHvjh5465dxfdxLOShICW52qkLOx7x+dytw==
+X-Received: by 2002:a81:67c5:0:b0:561:d25b:672a with SMTP id b188-20020a8167c5000000b00561d25b672amr8704868ywc.21.1686226233188;
+        Thu, 08 Jun 2023 05:10:33 -0700 (PDT)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id t65-20020a815f44000000b005461671a79csm311056ywb.138.2023.06.08.04.56.15
+        by smtp.gmail.com with ESMTPSA id w6-20020a814906000000b0054f8b201c70sm322801ywa.108.2023.06.08.05.10.32
+        for <cti-tac@lists.linuxfoundation.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Jun 2023 04:56:16 -0700 (PDT)
-Message-ID: <7756a170-f0c0-ac2d-383f-a4c59a31ebe5@redhat.com>
-Date: Thu, 8 Jun 2023 07:56:15 -0400
+        Thu, 08 Jun 2023 05:10:32 -0700 (PDT)
+Message-ID: <c008bed1-17d9-9735-fa0e-ab7041be7550@redhat.com>
+Date: Thu, 8 Jun 2023 08:10:31 -0400
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
@@ -79,39 +79,38 @@ List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: Status of glibc-related service cost review for CTI?
-To: David Edelsohn <dje.gcc@gmail.com>,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: cti-tac@lists.linuxfoundation.org
-References: <2b961760-b1c5-0bf3-1da4-b76d06cb925f@redhat.com>
- <20230607-lob-grove-nab-0a1320@meerkat>
- <CAGWvnyn5PX2Xvefx8Ev=P_2sNB1sejBKBtqwc4w4xvNBv3idHg@mail.gmail.com>
+To: cti-tac@lists.linuxfoundation.org
 From: Carlos O'Donell <carlos@redhat.com>
+Subject: =?UTF-8?Q?Martin_Li=c5=a1ka_stepping_down_from_the_CTI_TAC=2e?=
 Organization: Red Hat
-In-Reply-To: <CAGWvnyn5PX2Xvefx8Ev=P_2sNB1sejBKBtqwc4w4xvNBv3idHg@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 6/7/23 19:04, David Edelsohn wrote:
-> We thought that LF IT could estimate the cost of the services for just
-> GLIBC and separately the total cost for the eventual inclusion of all of
-> the GNU Toolchain projects.  If that is impractical, then maybe we need to
-> calculate the cost based on a metric for the proportional use of LF IT
-> systems by CTI relative to the other tenants, such as the bandwidth,
-> transaction to gitolite, mail messages, size of repository, or the cpu
-> usage of the VMs providing the services.  I don't mean a variable amount
-> each month, but we base it on the proportion of usage of LF IT shared
-> services instead of based on independent services in isolation.
 
-Konstantin,
+In February Martin Liška stepped down from his work on the GNU Toolchain:
+https://gcc.gnu.org/pipermail/gcc/2023-February/240694.html
 
-If the services glibc is using are just too small then I'm happy to just have the
-"size of the breadbox" estimate for all of the GNU Toolchain projects together.
+I just spoke with Martin and he confirmed that this means he will
+also be stepping down from his involvement in the CTI TAC.
 
-Any one of these estimates supports our efforts at fundraising.
+With Martin stepping down the current CTI TAC membership is as follows:
+
+* Joseph Myers
+* Joel Brobecker
+* Carlos O'Donell
+* Jose Marchesi
+* David Edelsohn
+* Simon Marchi
+* Frank Ch. Eigler
+* Siddhesh Poyarekar
+* Nick Clifton
+* Jeff Law
+
+I want to thank Martin for all of his effort to date in improving the
+GNU Toolchain. Thanks Martin!
 
 -- 
 Cheers,
