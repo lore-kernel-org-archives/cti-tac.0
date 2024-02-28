@@ -1,108 +1,78 @@
-Received: from smtp3.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F231E493
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 28 Feb 2024 13:26:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC39612FC
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 28 Feb 2024 15:24:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709126809; cv=none; b=k83Sz4NydzAAfSzDGjMwCECFoZR3X+8n8olnq4pBJ56wdmkt/RGOxON1po08svOFqcxLRiQz6pb8QvD0tS/Xa7/nGA9ZkYxh4g2KHKLgjpv9EL6GbW7KLI+cYPPMAy0UEd23dp//TeDFxLiuaMSclIFe7huDNOniaGrh+YI3+zM=
+	t=1709133850; cv=none; b=QUtRGYgW4STbTzeL1lapfwBdU/lSPCfKO1A622ekOJNsLl55khHwXiTPVBs9JvIcsOs/fSwRhPWIC+TMd2SMT+0w3ArHh+QM8M+tY3NT5JWt3N8Mbh0QsDXAxH4pb/z9/o8JGzcS2lQem+6lzj1eSke82T12f3ZlU8iHD6QN480=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709126809; c=relaxed/simple;
-	bh=IQMG95+JTM7bTQIawyfILdPDNAZe6nEjbuj/TBqRm3E=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=sRX+4K3LFOgT0BswtkCsCgR8JL7sWyzZAYBXj06bMETcO/FuD6u2W1BzLhj3gL+WweIE8coutrrgWB5xZBIn8I4nVhqm9ecFnsDxneOAcd7F2VD/CaQ1qotrynRayvutGtJyEnZrHlzrXBXFHblL8kZ1i4r/xn0Gitaxue5RBeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PDoY3Hnu; arc=none smtp.client-ip=140.211.166.136
+	s=arc-20240116; t=1709133850; c=relaxed/simple;
+	bh=KfEYJ5Nmv5NdEfBjnvJUFMqqOJIM2VNZlir3KGNXCdQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SF342XQhBweifY5KvcQdiBLxCDJi64biXaUX8+x+S+aIoZB8tyStf6GAj5K4wYgDdTuwgkSfdK030Xzp5ZlN9/Q8grnwslVa4esjyxEOou/Hg3FrB6eOZFIAraJjjbJrD77G8ZrchlLWIwjh5dxTSfCHrrTctVGmoY8mmxioWuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=S1Pwo3On; arc=none smtp.client-ip=140.211.166.138
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PDoY3Hnu"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="S1Pwo3On"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp3.osuosl.org (Postfix) with ESMTP id 3C073605FF
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 28 Feb 2024 13:26:48 +0000 (UTC)
+	by smtp1.osuosl.org (Postfix) with ESMTP id 3FDE182204
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 28 Feb 2024 15:24:08 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -2.099
+X-Spam-Score: -4.401
 X-Spam-Level:
-Received: from smtp3.osuosl.org ([127.0.0.1])
-	by localhost (smtp3.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 8TL_8MV0qLCh for <cti-tac@lists.linuxfoundation.org>;
-	Wed, 28 Feb 2024 13:26:47 +0000 (UTC)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp3.osuosl.org 3FEDA605E7
-Authentication-Results: smtp3.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp3.osuosl.org 3FEDA605E7
-Authentication-Results: smtp3.osuosl.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PDoY3Hnu
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by smtp3.osuosl.org (Postfix) with ESMTPS id 3FEDA605E7
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 28 Feb 2024 13:26:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1709126806;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ExC66Jbrs1szDeoyuv4YYkjOzt7r/IPSSGw566RQWyw=;
-	b=PDoY3HnuUh/gXBKBa/0Rdl5Nn/gW+pzBAnBJZMJL/0vLOVEzJGFkgdS0lG0maZ5gm1EzTv
-	q/t7gjbQ+wP5jGFbQnrndv1kM5tkDiFPg7/1YdkOut6VkuR4XDdKlyAqk83yLwPTKEkphY
-	ai4zNdAKvHU89Np7DiQTvHksmUL8du4=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-640-n7hfCiKlOE2a3GoHZ9MTVw-1; Wed, 28 Feb 2024 08:26:44 -0500
-X-MC-Unique: n7hfCiKlOE2a3GoHZ9MTVw-1
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-787ba4f2b68so599299785a.2
-        for <cti-tac@lists.linuxfoundation.org>; Wed, 28 Feb 2024 05:26:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709126804; x=1709731604;
-        h=content-transfer-encoding:organization:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ExC66Jbrs1szDeoyuv4YYkjOzt7r/IPSSGw566RQWyw=;
-        b=O9PoXp+GF89bRHrZjfkcvNmWYKLYziqtwiGIbTQR31MhhqZqoGJGnV3cDhmTBswInJ
-         lzqy5zujL9B+/B/wCew2x3yRP35yefwJbJSi/d5KbcEDJf+ZGtFxLrK9lrqo1TycJ4T8
-         0oII/lOLM09yh5DC8lCSAewn65PE2PJgPUrRAak6R71TFn4WIm/RQXkSW6d4WADZLvMd
-         1wjJAwa3V61m7gLmmGySPI2IZmyjrmmxvNl8uVBYazgFgewJA7pBcz5atgtZ9wqc/tXN
-         h067pp7acPReaHpmstYgIC0t0Lqbcz2PY4ufdWnbwzzUap9G198lHd+uB2IV/wRBu0z5
-         0+cQ==
-X-Gm-Message-State: AOJu0Yy+P2bbHPmm1jBvdhAf/NNpU4uo0WqtHd0y41Dkaut3vs/alCGH
-	BY2c5t6SKc0BqI1EgnctVQltQsKRM1XHN499d4U7e0gphuReDJjaAj1+/qDN/Irg31MAx/qRxNO
-	Rtl0DRHrlq/932LjyUeAdC9pm+F66GSi1PzkY8DAo6ezUMjGbmYtJPE5RuobVIToOmqFIhr38UM
-	UxqUX/jfEw3vCGjmGZBAaT02pyYD1qFiRGBKLUMZrEyFDTI5TJbQ==
-X-Received: by 2002:a0c:db0e:0:b0:68f:3be2:d08e with SMTP id d14-20020a0cdb0e000000b0068f3be2d08emr4556518qvk.65.1709126803833;
-        Wed, 28 Feb 2024 05:26:43 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFFQJlj0MdAowGDULyTeUSnzYn7Wh7XEsBRyiNzPmV6EgC/Bfa1YW5s88H78GOGwCmCZmxLkA==
-X-Received: by 2002:a0c:db0e:0:b0:68f:3be2:d08e with SMTP id d14-20020a0cdb0e000000b0068f3be2d08emr4556502qvk.65.1709126803504;
-        Wed, 28 Feb 2024 05:26:43 -0800 (PST)
-Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id c10-20020a05621401ea00b0068f8a00f581sm5135624qvu.106.2024.02.28.05.26.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Feb 2024 05:26:43 -0800 (PST)
-Message-ID: <26fa2971-f3c4-4b92-b89d-9157e21f59b7@redhat.com>
-Date: Wed, 28 Feb 2024 08:26:42 -0500
+Received: from smtp1.osuosl.org ([127.0.0.1])
+	by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id BJhIQ-wIR05I for <cti-tac@lists.linuxfoundation.org>;
+	Wed, 28 Feb 2024 15:24:07 +0000 (UTC)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=145.40.73.55; helo=sin.source.kernel.org; envelope-from=konstantin@linuxfoundation.org; receiver=<UNKNOWN> 
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp1.osuosl.org AFD56821FF
+Authentication-Results: smtp1.osuosl.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org AFD56821FF
+Authentication-Results: smtp1.osuosl.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=S1Pwo3On
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by smtp1.osuosl.org (Postfix) with ESMTPS id AFD56821FF
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 28 Feb 2024 15:24:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id ACD45CE224C;
+	Wed, 28 Feb 2024 15:24:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7054C43390;
+	Wed, 28 Feb 2024 15:24:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1709133841;
+	bh=KfEYJ5Nmv5NdEfBjnvJUFMqqOJIM2VNZlir3KGNXCdQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=S1Pwo3On0eXSxmCanLhMY+ZD88P5SGy97CDIcDVPBQVLOvx3Ofs+yftFTe2WKl4Ru
+	 t+RYI/8sfLLOoVWR3A2xSZ0H9MPHha5B3RxkvkmcTMD7h4WMH67DpyGiWkAZO9kE6i
+	 OaIoRh0OZQB310d5I0IGXdAVFsNviTUqtcwSxOCY=
+Date: Wed, 28 Feb 2024 10:23:56 -0500
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+To: Carlos O'Donell <carlos@redhat.com>
+Cc: cti-tac@lists.linuxfoundation.org
+Subject: Re: Next steps to turn on https://coretoolchain.dev?
+Message-ID: <20240228-functional-impressive-pegasus-ee839b@meerkat>
+References: <26fa2971-f3c4-4b92-b89d-9157e21f59b7@redhat.com>
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
 List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: cti-tac@lists.linuxfoundation.org,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-From: Carlos O'Donell <carlos@redhat.com>
-Subject: Next steps to turn on https://coretoolchain.dev?
-Organization: Red Hat
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <26fa2971-f3c4-4b92-b89d-9157e21f59b7@redhat.com>
 
-Konstantin,
+On Wed, Feb 28, 2024 at 08:26:42AM -0500, Carlos O'Donell wrote:
+> Konstantin,
+> 
+> I pushed an early sphinx-quickstart to gitolite.coretoolchain.dev.
+> 
+> I've got a lot of the next pass of content ready.
+> 
+> How do we turn on https://coretoolchain.dev?
 
-I pushed an early sphinx-quickstart to gitolite.coretoolchain.dev.
+I will enable that in the next few days. However, I thought the site was
+cti.coretoolchain.dev, not toplevel?
 
-I've got a lot of the next pass of content ready.
-
-How do we turn on https://coretoolchain.dev?
-
--- 
-Cheers,
-Carlos.
-
+-K
