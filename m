@@ -1,83 +1,102 @@
-Received: from smtp2.osuosl.org (smtp2.osuosl.org [140.211.166.133])
+Received: from smtp3.osuosl.org (smtp3.osuosl.org [140.211.166.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9E7137C5A
-	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709843257; cv=none; b=RhfYfoYv9OQbgYS8oLZc0lCJEN40xbL7SJSLQe7oiSOwlIaDwtQnroSZfnjHEdT3/CI2W9SAvOh7A+6s2hXiAdnLUIOftaINQo3V/VHnq+hwZcuA56dawhQB4u4YTAzwkMNsdVX+0oqvOh5rf91M56UTZSPOVnzjxeSGpE2gQbM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709843257; c=relaxed/simple;
-	bh=aul2fPB6IDzlrdfIJ59aedJOar/bn2Db1NGxwlvNH5A=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55939657A7
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=140.211.166.136
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1709843924; cv=pass; b=XZFInZt1z0B9RjsBegi7z8h7N4xsS83EYfsKlJgsdU6gHUA4tU2ByJY65fUpuO60Q+UUDCWyykEYRysz6ume6teS1Vk9p0dxEk3KqCNmyqreLgk30DoLviMMse+NnR4D5RDP71TVYaaukPChgcRsSKl7plg2jF3NFl0FrBcv01c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1709843924; c=relaxed/simple;
+	bh=cixqkAOi/7GWBwbvThoXppKnKhYzy/+W2RyIdqUuixo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=e2Xd17KrAwErdizTXo/A4PQkSf7rIv3iIOdlwo5ae4RpkGFykMlIUVKNAw5WR++5akE/W6WpHZZ+mvMgrHqLWp10orZRS/ksoG5KaHwoxEkPqGy0y76+g2WA80D2AMv/9FB7GFD4Y8Tuojvt9jISbsdpLVyYCSYVide6odbZBQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=J7Nq1Imu; arc=none smtp.client-ip=140.211.166.133
+	 In-Reply-To:Content-Type; b=db+2thg3n8AZ9WrIV5Iaizbez0HdhTFGOb6OZ9yaq1LOGR5peUF6fMk81OKUznwy3aijGeGmxxfEYFFn9V5tq8f2DNionETYDgwvNpdH/sK8F3hT8lYGfZuvrJ70H/7qC3mKK8G74n5osvL4uKPfyhmNRqMnESXbSTF/QSSKJb4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gotplt.org header.i=@gotplt.org header.b=bSd0uvIl; arc=pass smtp.client-ip=140.211.166.136
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="J7Nq1Imu"
+	dkim=pass (2048-bit key) header.d=gotplt.org header.i=@gotplt.org header.b="bSd0uvIl"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp2.osuosl.org (Postfix) with ESMTP id 905F040462
-	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:27:35 +0000 (UTC)
+	by smtp3.osuosl.org (Postfix) with ESMTP id E240760781
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:38:42 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -2.1
+X-Spam-Score: -2.101
 X-Spam-Level:
-Received: from smtp2.osuosl.org ([127.0.0.1])
-	by localhost (smtp2.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id UMKXvfhF63-6 for <cti-tac@lists.linuxfoundation.org>;
-	Thu,  7 Mar 2024 20:27:34 +0000 (UTC)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.129.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp2.osuosl.org D240B4029F
-Authentication-Results: smtp2.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org D240B4029F
-Authentication-Results: smtp2.osuosl.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=J7Nq1Imu
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by smtp2.osuosl.org (Postfix) with ESMTPS id D240B4029F
-	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:27:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1709843252;
+Received: from smtp3.osuosl.org ([127.0.0.1])
+	by localhost (smtp3.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id d8iqufwapbkr for <cti-tac@lists.linuxfoundation.org>;
+	Thu,  7 Mar 2024 20:38:42 +0000 (UTC)
+X-Greylist: delayed 4080 seconds by postgrey-1.37 at util1.osuosl.org; Thu, 07 Mar 2024 20:38:41 UTC
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp3.osuosl.org 034F8607C4
+Authentication-Results: smtp3.osuosl.org; dmarc=none (p=none dis=none) header.from=gotplt.org
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp3.osuosl.org 034F8607C4
+Authentication-Results: smtp3.osuosl.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gotplt.org header.i=@gotplt.org header.a=rsa-sha256 header.s=dreamhost header.b=bSd0uvIl
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=23.83.212.50; helo=dormouse.elm.relay.mailchannels.net; envelope-from=siddhesh@gotplt.org; receiver=<UNKNOWN> 
+Received: from dormouse.elm.relay.mailchannels.net (dormouse.elm.relay.mailchannels.net [23.83.212.50])
+	by smtp3.osuosl.org (Postfix) with ESMTPS id 034F8607C4
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:38:41 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id B79C4943CC0;
+	Thu,  7 Mar 2024 20:38:40 +0000 (UTC)
+Received: from pdx1-sub0-mail-a239.dreamhost.com (unknown [127.0.0.6])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 358FA9434B4;
+	Thu,  7 Mar 2024 20:38:40 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1709843920; a=rsa-sha256;
+	cv=none;
+	b=bWxRcag8VVeh+ROZsH1VXpXAgPZdQZ7ukn6PpMZ73OKTbH1zJ4H+kVkfcFf3ez0d/eAWXX
+	kJ15pZzVSkDCZiG+PzOrXl2Spm/E7R3gHpntHysjSb3tU9Iv9gAYYDSF6+phl/HEiPGtgs
+	YYAkzeAF7I7S9zt5F2F03Yoey+FJ/UlApCI0N7tPmiSLKTuCTfO+9akDCYC37iAVH2BGzX
+	rSZPrV6atTxTFZ3kAgOHMiXSbfT3z/ZsO7Udhjemp5jx2Ep7huPJ3GsUGitUFCPK8IA2vt
+	LceAbXGlI38mN/Kybp4nfwGBfKcHiCvaoVnRT0E+92ByYKm+U4ONMmaVd0FdMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1709843920;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qoLLPZkxCBbLtUXH1Imkms8pKHwTcvmPr8fLi6aHhzs=;
-	b=J7Nq1ImuBPXrnjnDnwjfIBPorFiFHn/fIFvYSZdQ/cEIawV/8NFSjQvCvSmqTam/r8unrt
-	vKicyrYok6aW5z2470q9o2sQ6UyrcJAxSGCfejV9n8kP6LF8K6jr5EDdrpVGsdFArqyRob
-	yq9e24rI8Cl6NDf5xQYp2wslLrUdHq8=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-257-j_1lo3CxPrGLpaXnprEwdw-1; Thu, 07 Mar 2024 15:27:31 -0500
-X-MC-Unique: j_1lo3CxPrGLpaXnprEwdw-1
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-788228e459dso19557285a.0
-        for <cti-tac@lists.linuxfoundation.org>; Thu, 07 Mar 2024 12:27:30 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709843250; x=1710448050;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qoLLPZkxCBbLtUXH1Imkms8pKHwTcvmPr8fLi6aHhzs=;
-        b=XL1sFsEyG3keRzfGafhmCBPqS5PUx3DwK8g6RxPUdtHMn8gurYaCSV5ARRULoehy1U
-         OXfV8rKCDKsChrwkrTVIiONXCiL40kwlWbRzaiEAfJvQvTcA7NUdyoaJh2ojWmv6Yvs1
-         f76I1SbMT6MyVRUREFrmCpPrKwH/n1FHd5kvZ9nYYmg/2hIIpSO5MMlmDs33Fu51FQ0v
-         dxF5pbT2M0DimiFoauk/7hdoAQwxuQEcwFoYUC3Frsxuqf74kaKDqNG4j9fPM9XNpll2
-         XM7efR/DiVpbuzfM1+eNb++Y7xv5m75KHfWWK2amsCN+KFbhSOpYPlrg5UmgPHzBsoBL
-         VPIg==
-X-Forwarded-Encrypted: i=1; AJvYcCUk078h82PrHLwx7hkIJbVxsRjBEKOurgvDc9WfEMi9cZKDlztHSPvOejrdiYp+bMOl+FiR502ymbSWNOs7PY+/6YRSkWJqgRUsS+e2xgoc8Dw=
-X-Gm-Message-State: AOJu0YzvI11lHdExrG1p0iBfi/8qbB+gRp0jl729ScLaIO3tvfUzx/UX
-	Z4x6EnUUoTkYl3qotl6v8ULCIEBud79DXquzIM71fGQEtYy7vsmAOJaCx5ejdSEED2ls302f1iu
-	Ve/aG2sl8Cd0eeGsE7jSxVxXqztgUD7f0TufAwNOVhOCBm2bNenRpIF5nE9WOOEDAU5Av
-X-Received: by 2002:a05:6214:1847:b0:690:6c95:c861 with SMTP id d7-20020a056214184700b006906c95c861mr9381691qvy.48.1709843250189;
-        Thu, 07 Mar 2024 12:27:30 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHlY8Dse34Jp17VUVVylqQZNyS6p3FttxYJiulExvOUl377pCj8q1W5igAli+4uDdfrWu4Tnw==
-X-Received: by 2002:a05:6214:1847:b0:690:6c95:c861 with SMTP id d7-20020a056214184700b006906c95c861mr9381675qvy.48.1709843249794;
-        Thu, 07 Mar 2024 12:27:29 -0800 (PST)
-Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id ng10-20020a0562143bca00b0068fbe6d38f6sm9053251qvb.54.2024.03.07.12.27.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 07 Mar 2024 12:27:29 -0800 (PST)
-Message-ID: <8552a80d-5637-4d9a-a402-b1f45c3337bb@redhat.com>
-Date: Thu, 7 Mar 2024 15:27:28 -0500
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=s1/yid3DFZ6AgBzuA7MEw/SvgVHjFhazwFN+o+Ww9Mo=;
+	b=ecglJL4Jy2pGxgNsemQA2MrEgTuYj2avbETq/hrOYH5a4LS4MLnWq9u59sRNZSrel2Fj0/
+	NArbWFywyxgCxenk0NhvfZAHYEd7rvCjLnXsdfZr++WNcXfpeCGpWGaowZfJjdH8eZWq5N
+	KYJ2XpInC+Di7BPBqehDHg0Z6ikjDNy7zJA8owNndYlWzPuS+AzXkABx3+hcev0vq+d9Ga
+	BgvD0LIPmVSpPWCUfr6zJT0UrGVbTg20ALDy3oKPa+/zhonIIHq3iDAZR1kIbNPXpn0g1a
+	+K0lyXIWX/6HmkLuBLHEFwaAFzaWrYV9KL7cJJG6Zt8loMFKWfYoZEQuH740Pw==
+ARC-Authentication-Results: i=1;
+	rspamd-7f9dd9fb96-gcqr4;
+	auth=pass smtp.auth=dreamhost smtp.mailfrom=siddhesh@gotplt.org
+X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|siddhesh@gotplt.org
+X-MailChannels-Auth-Id: dreamhost
+X-Company-Juvenile: 67b4dd9f4103d073_1709843920461_2688753649
+X-MC-Loop-Signature: 1709843920461:3013621840
+X-MC-Ingress-Time: 1709843920460
+Received: from pdx1-sub0-mail-a239.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.102.58.45 (trex/6.9.2);
+	Thu, 07 Mar 2024 20:38:40 +0000
+Received: from [192.168.0.182] (bras-base-toroon4834w-grc-23-76-68-24-30.dsl.bell.ca [76.68.24.30])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: siddhesh@gotplt.org)
+	by pdx1-sub0-mail-a239.dreamhost.com (Postfix) with ESMTPSA id 4TrLjq6PnSz3Z;
+	Thu,  7 Mar 2024 12:38:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gotplt.org;
+	s=dreamhost; t=1709843920;
+	bh=s1/yid3DFZ6AgBzuA7MEw/SvgVHjFhazwFN+o+Ww9Mo=;
+	h=Date:Subject:To:From:Content-Type:Content-Transfer-Encoding;
+	b=bSd0uvIlS3yPwuq1agL5FJos6lPcLWL4SQbMbF5dAs4QKdg0ZfiUOKNlGOGbD7Dgu
+	 DCRoqXdew0a1hMYYy7PJwYC09NWe/etrTw6khMYawM5lzHYZU9Gb/PauNa4EYzgsW8
+	 hgljoq9TTCY5Wdewpx+CC+fo6VnS43jFUq6Uye3pFCkoSkkc6EJpUVywe3mIZ22hVy
+	 1LF8D4EsI0RZLMbzV+/tcBxFZj95q4L+jn2e+SSgCIFrk9S2vbdh8QyXxfauAzu0jz
+	 YG9lcaR6HVPBpA/EI4uffWDQow9L7ezVXLlwtCSzre4sSeaEKgyysLWl74q5zsnllG
+	 0N2FiZ4F5vfLw==
+Message-ID: <664e0f5c-db4c-42b4-a9d5-36f6c015268f@gotplt.org>
+Date: Thu, 7 Mar 2024 15:38:34 -0500
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
@@ -85,271 +104,34 @@ List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] faq: Reformat so that it's not a list
-To: Siddhesh Poyarekar <siddhesh@gotplt.org>,
- cti-tac@lists.linuxfoundation.org
-References: <20240307193019.4028812-1-siddhesh@gotplt.org>
- <20240307193019.4028812-6-siddhesh@gotplt.org>
-From: Carlos O'Donell <carlos@redhat.com>
-Organization: Red Hat
-In-Reply-To: <20240307193019.4028812-6-siddhesh@gotplt.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Subject: Re: [PATCH 1/5] projects/glibc: slightly adjust the structure
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
+To: Carlos O'Donell <carlos@redhat.com>, cti-tac@lists.linuxfoundation.org
+References: <20240307193019.4028812-1-siddhesh@gotplt.org>
+ <20240307193019.4028812-2-siddhesh@gotplt.org>
+ <191eb22c-ec30-4f01-a7b9-b7b9fa5ae0fb@redhat.com>
+From: Siddhesh Poyarekar <siddhesh@gotplt.org>
+In-Reply-To: <191eb22c-ec30-4f01-a7b9-b7b9fa5ae0fb@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 3/7/24 14:30, Siddhesh Poyarekar wrote:
-> Making it into subheadings and content instead not only makes it cleaner
-> looking, it also gives us a nifty bar on the right to scroll through
-> questions.
+On 2024-03-07 15:22, Carlos O'Donell wrote:
+>>   * Mailing lists
+>> @@ -81,7 +88,7 @@ The following is the suggested list of services to be migrated (with notes):
+>>     * Isolate BBB from other services.
+>>   
+>>   The current list of glibc services were put together as part of the
+>> -CTI TAC `glibc service enumeration <./enum>`_.
+>> +CTI TAC `glibc service enumeration <./enum.html>`_.
+> 
+> I don't think this is correct.
+> 
+> I agree the website link is broken, but it has to be a cross-document reference
+> that works when generated as html (rather than assume html).
 > 
 
-LGTM.
+Oops, looks like it just needed a :doc: prefix and not the .html suffix. 
+  OK if I fix this up and add your R-b?
 
-Reviewed-by: Carlos O'Donell <carlos@redhat.com>
-
-> Signed-off-by: Siddhesh Poyarekar <siddhesh@gotplt.org>
-> ---
->  source/faq/index.rst | 223 ++++++++++++++++++++-----------------------
->  1 file changed, 106 insertions(+), 117 deletions(-)
-> 
-> diff --git a/source/faq/index.rst b/source/faq/index.rst
-> index cb8a458..84ff30f 100644
-> --- a/source/faq/index.rst
-> +++ b/source/faq/index.rst
-> @@ -6,123 +6,112 @@ FAQ
->  
->  You have questions we have answers!
->  
-> -* Q: Can we keep deploying services as we have? 
-> -
-> -  * A: No. The GNU Toolchain is a critical foundation of trust for the GNU/Linux 
-> -    ecosystem and the demands on its infrastructure, services, and security
-> -    requirements have grown over time. The trend of increasing complexity to 
-> -    support its development and associated financial demands will not abate.
-> -    Different projects have different risk tolerances and the GNU Toolchain
-> -    must meet more stringent expectations to maintain the trust of the 
-> -    ecosystem. It is with this context in mind that CTI has been formed.
-> -
-> -* Q: What concrete steps will CTI help with?
-> -
-> -    * A: Some of the major goals include:
-> -
-> -        * Isolating all services in VMs or containers to increase service
-> -          security and reduce service resource interference. 
-> -
-> -        * Allow volunteers to focus efforts outside of core infrastructure
-> -          maintenance.
-> - 
-> -        * Prepare for additional software supply chain requirements from
-> -
-> -* Q: Why are you currently using Linux Foundation IT as the service provider?
-> -
-> -    * A: The CTI TAC recommendation is to use Linux Foundation IT services
-> -      for core infrastructure. The LF IT team already supports many of
-> -      the same services for the Linux kernel and at scale. The migration
-> -      would involve moving services from Sourceware.org to LF IT servers.
-> -      We continue to be thankful and appreciative of the time spent by
-> -      Sourceware.org volunteers in support of the current services.
-> -
-> -* Q: What is the urgency vs what is the timeline?
-> -
-> -    * A: The GNU Toolchain community should be making consistent forward 
-> -      progress to improve our infrastructure and cybersecurity position.
-> -      Showing progress is important for the ecosystem to trust us as a
-> -      secure and critical part of the software supply chain. We should
-> -      not wait until there are Cybersecurity regulations that are beyond
-> -      our ability to comply with as the FOSS ecosystem of tooling and
-> -      infrastructure. Projects of similar scope and importance have been
-> -      deploying significant resources for the use of the development community.
-> -
-> -* Q: Sourceware volunteers have fielded requests and organized volunteer 
-> -  efforts that have worked well. Does LF allow volunteers to administer 
-> -  the servers together with them? Have they in the past?
-> -
-> -    * A: The CTI TAC is the point of contact for volunteers.  CTI can fund 
-> -      multiple activities, by multiple entities, and the way in which the
-> -      volunteers engage may differ between them.
-> -
-> -* Q: How does this project relate to the GNU Project or the Free Software
-> -  Foundation (FSF)?
-> -
-> -    * A: Many of the GNU Toolchain components are a part of the GNU
-> -      Project, and contribute to the development of the GNU system.
-> -      The FSF supports the GNU Project, and in turn supports the GNU
-> -      Toolchain. The GNU Toolchain community works with the FSF via a 
-> -      working together fund (https://www.fsf.org/working-together/fund)
-> -      to support the development of the GNU Toolchain directly.
-> -      The Core Toolchain Infrastructure project is distinct from the
-> -      GNU Project and the FSF.
-> -
-> -* Q: How does this project relate to the GCC Compile Farm Project 
-> -  (https://gcc.gnu.org/wiki/CompileFarm)?
-> -
-> -    * A: The GCC Compiler Farm is a unique resource for the GNU Toolchain
-> -      and provides interactive systems for developers to manually test on 
-> -      a wide variety of hardware and software configurations. This is not
-> -      exactly the same set of requirements that the community might have
-> -      for securing a supply chain, or using modern CI/CD workflows.
-> -
-> -* Q: How will the composition of the Core Toolchain infrastructure project
-> -  reflect the communities it supports?
-> -
-> -    * A: Members of the GNU Toolchain community will always be invited to
-> -      become members of the technical advisory council for the project.
-> -
-> -* Q: What is the composition of the project steering committee?
-> -
-> -    * A: The project steering committee will be composed of sponsoring 
-> -      members of the Linux Foundation and members of the GNU Toolchain
-> -      community.
-> -
-> -* Q: What does the project TAC do?
-> -
-> -    * A: The TAC takes input from the GNU Toolchain community and works 
-> -      with the members to, implement, and resolve prioritized requirements.
-> -
-> -* Q: Is the GNU Toolchain development model going to change?
-> -
-> -    * A: No. The aim of the project is to provide additional infrastructure
-> -      for the community that is being made available to support the 
-> -      GNU Toolchain. All development changes will always be driven by the
-> -      community.
-> -
-> -* Q: Is Sourceware (https://sourceware.org/) going to be deprecated?
-> -
-> -    * A: The GNU Toolchain Infrastructure project is distinct from Sourceware.
-> -      The intent is to move critical infrastructure from Sourceware to the 
-> -      Core Toolchain Infrastructure project to provide paid services.
-> -
-> -* Q: Who can use the new infrastructure?
-> -
-> -    * A: That depends on the requirements given by the GNU Toolchain community.
-> -      The requirements from the community are input to the steering committee,
-> -      and so the answer depends largely on exactly what was the intended purpose.
-> -
-> -* Q: What can the new infrastructure be used for?
-> -
-> -    * A: That depends on the requirements given by the GNU Toolchain community.
-> -      The requirements from the community are input to the steering committee,
-> -      and so the answer depends largely on exactly what was the intended purpose.
-> -
-> -* Q: Are there any presentations covering CTI?
-> -
-> -    * Yes, in October 2022 the CTI TAC gave an FSF hosted community Q&A:
-> -      https://media.libreplanet.org/u/libreplanet/m/the-gti-project-a-conversation-and-community-q-a/
-> +Can we keep deploying services as we have?
-> +""""""""""""""""""""""""""""""""""""""""""
-> +No. The GNU Toolchain is a critical foundation of trust for the
-> +GNU/Linux ecosystem and the demands on its infrastructure, services, and
-> +security requirements have grown over time. The trend of increasing complexity
-> +to support its development and associated financial demands will not abate.
-> +Different projects have different risk tolerances and the GNU Toolchain must
-> +meet more stringent expectations to maintain the trust of the ecosystem. It is
-> +with this context in mind that CTI has been formed.
-> +
-> +What concrete steps will CTI help with?
-> +"""""""""""""""""""""""""""""""""""""""
-> +Some of the major goals include:
-> +
-> +* Isolating all services in VMs or containers to increase service security and
-> +  reduce service resource interference. 
-> +
-> +* Allow volunteers to focus efforts outside of core infrastructure maintenance.
-> +
-> +* Prepare for additional software supply chain requirements from
-> +
-> +Why are you currently using Linux Foundation IT as the service provider?
-> +""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +The CTI TAC recommendation is to use Linux Foundation IT services for
-> +core infrastructure. The LF IT team already supports many of the same services
-> +for the Linux kernel and at scale. The migration would involve moving services
-> +from Sourceware.org to LF IT servers.  We continue to be thankful and
-> +appreciative of the time spent by Sourceware.org volunteers in support of the
-> +current services.
-> +
-> +What is the urgency vs what is the timeline?
-> +""""""""""""""""""""""""""""""""""""""""""""
-> +The GNU Toolchain community should be making consistent forward progress
-> +to improve our infrastructure and cybersecurity position.  Showing progress is
-> +important for the ecosystem to trust us as a secure and critical part of the
-> +software supply chain. We should not wait until there are Cybersecurity
-> +regulations that are beyond our ability to comply with as the FOSS ecosystem of
-> +tooling and infrastructure. Projects of similar scope and importance have been
-> +deploying significant resources for the use of the development community.
-> +
-> +Sourceware volunteers have fielded requests and organized volunteer efforts that have worked well. Does LF allow volunteers to administer the servers together with them? Have they in the past?
-> +""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +The CTI TAC is the point of contact for volunteers.  CTI can fund multiple
-> +activities, by multiple entities, and the way in which the volunteers engage
-> +may differ between them.
-> +
-> +How does this project relate to the GNU Project or the Free Software Foundation (FSF)?
-> +""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +Many of the GNU Toolchain components are a part of the GNU Project, and
-> +contribute to the development of the GNU system.  The FSF supports the GNU
-> +Project, and in turn supports the GNU Toolchain. The GNU Toolchain community
-> +works with the FSF via a `working together fund
-> +<https://www.fsf.org/working-together/fund>`_ to support the development of the
-> +GNU Toolchain directly.  The Core Toolchain Infrastructure project is distinct
-> +from the GNU Project and the FSF.
-> +
-> +How does this project relate to the `GCC Compile Farm Project <https://gcc.gnu.org/wiki/CompileFarm>`_?
-> +"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +The GCC Compiler Farm is a unique resource for the GNU Toolchain and
-> +provides interactive systems for developers to manually test on a wide variety
-> +of hardware and software configurations. This is not exactly the same set of
-> +requirements that the community might have for securing a supply chain, or
-> +using modern CI/CD workflows.
-> +
-> +How will the composition of the Core Toolchain infrastructure project reflect the communities it supports?
-> +""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +Members of the GNU Toolchain community will always be invited to become members
-> +of the technical advisory council for the project.
-> +
-> +What is the composition of the project steering committee?
-> +""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +The project steering committee will be composed of sponsoring members of
-> +the Linux Foundation and members of the GNU Toolchain community.
-> +
-> +What does the project TAC do?
-> +"""""""""""""""""""""""""""""
-> +The TAC takes input from the GNU Toolchain community and works with the
-> +members to, implement, and resolve prioritized requirements.
-> +
-> +Is the GNU Toolchain development model going to change?
-> +"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +No. The aim of the project is to provide additional infrastructure for
-> +the community that is being made available to support the GNU Toolchain. All
-> +development changes will always be driven by the community.
-> +
-> +Is `Sourceware <https://sourceware.org/>`_ going to be deprecated?
-> +""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +The GNU Toolchain Infrastructure project is distinct from Sourceware.
-> +The intent is to move critical infrastructure from Sourceware to the Core
-> +Toolchain Infrastructure project to provide paid services.
-> +
-> +Who can use the new infrastructure?
-> +"""""""""""""""""""""""""""""""""""
-> +That depends on the requirements given by the GNU Toolchain community.
-> +The requirements from the community are input to the steering committee, and so
-> +the answer depends largely on exactly what was the intended purpose.
-> +
-> +What can the new infrastructure be used for?
-> +""""""""""""""""""""""""""""""""""""""""""""
-> +That depends on the requirements given by the GNU Toolchain community.
-> +The requirements from the community are input to the steering committee, and so
-> +the answer depends largely on exactly what was the intended purpose.
-> +
-> +Are there any presentations covering CTI?
-> +"""""""""""""""""""""""""""""""""""""""""
-> +Yes, in October 2022 the CTI TAC gave an `FSF hosted community Q&A <https://media.libreplanet.org/u/libreplanet/m/the-gti-project-a-conversation-and-community-q-a/>`_.
->  
->  -----------------
->  
-
--- 
-Cheers,
-Carlos.
-
+Thanks,
+Sid
