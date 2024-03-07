@@ -1,84 +1,84 @@
-Received: from smtp3.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896F513699B
-	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4068E13B288
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:26:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1709843157; cv=none; b=ZiwXUmZRFZOc3EuFJk/56r3ShWaCBY2ZNCS6af8ycAkjrD2P0cN7oR1zmIDCjByXLpRce5yTiPiTfrn12QTkwmQep2m17ikI1iLgsyq8jxe6onGLXeE20mfqpNxopr/Qm6kZo1Eg/kbV/RMoVXDVdkEQEG0Ty5XlgYaiczGe+Lc=
+	t=1709843207; cv=none; b=YPb5hEh6TkEn5vaqpJFX/MaymJ5ESIW4XrLs+RAAvAuCILIpYNt0VIrxnA2kLiQKhQzIjVYB4XEFwg9kiaJsseOiFClnWUuBQej7iT3kgRikY+B+I+ntGFh+sTJxlT5tOJiPk3XhgcR/WnHh2Ynfc6PoWLvYSrcFt4vs5j6Nz2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1709843157; c=relaxed/simple;
-	bh=CSezo2G5InOfeJhTLIEbYgE7kxzokENiwF4u7ilo5Eo=;
+	s=arc-20240116; t=1709843207; c=relaxed/simple;
+	bh=Ta2J02oT78sm+7l33tNVPaSLxz3H/B76fVMMhWVfp50=;
 	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=YGcrGaJgQB9jqLcE7fEu8jtNBkuJMcCcuC0aDbwABvci8X4nYg+rVe4jJe+TpsSnxAocRs0EF0EH2bvOJhMknyckqpSibiCF67Kp+/XiYgeo7hybVXtJUpvRIpi/EnoX5UyWhTGakwsBO+B1i2Ah1p27wZL9v6I8B/nrc0fv0AI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=H0Lts/qB; arc=none smtp.client-ip=140.211.166.136
+	 In-Reply-To:Content-Type; b=gJG075uekH81BRsWei16362HQ2cAPPtnVV5mjaesWt7a3APhIdq+vqKsSYmCmqCFD9Wt7+SvFLuEWldovRLkbOe+bmYDen3Go7ysmEavP2O0BQS04RSyxtxamxaKoSdOrI8qDnL0vlroi+WiufcLHPA8+izL6v1nVxfW/S247g8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Pg8rz7Jz; arc=none smtp.client-ip=140.211.166.138
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="H0Lts/qB"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Pg8rz7Jz"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp3.osuosl.org (Postfix) with ESMTP id 167AE6069F
-	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:25:56 +0000 (UTC)
+	by smtp1.osuosl.org (Postfix) with ESMTP id 0BC0081F07
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:26:46 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -0.599
+X-Spam-Score: -2.099
 X-Spam-Level:
-Received: from smtp3.osuosl.org ([127.0.0.1])
-	by localhost (smtp3.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id TCWr2x6gPlnt for <cti-tac@lists.linuxfoundation.org>;
-	Thu,  7 Mar 2024 20:25:55 +0000 (UTC)
+Received: from smtp1.osuosl.org ([127.0.0.1])
+	by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id BN9QW7fuqt1A for <cti-tac@lists.linuxfoundation.org>;
+	Thu,  7 Mar 2024 20:26:44 +0000 (UTC)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp3.osuosl.org 0243060640
-Authentication-Results: smtp3.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp3.osuosl.org 0243060640
-Authentication-Results: smtp3.osuosl.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H0Lts/qB
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp1.osuosl.org CDE3B81F03
+Authentication-Results: smtp1.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org CDE3B81F03
+Authentication-Results: smtp1.osuosl.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Pg8rz7Jz
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by smtp3.osuosl.org (Postfix) with ESMTPS id 0243060640
-	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:25:54 +0000 (UTC)
+	by smtp1.osuosl.org (Postfix) with ESMTPS id CDE3B81F03
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  7 Mar 2024 20:26:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1709843153;
+	s=mimecast20190719; t=1709843202;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Tv70uxjSTmjV7PVjTX91wu3jcbc6OBKFpOkVLuO/83o=;
-	b=H0Lts/qBHhh2bKPIpBlvIp0KqrPtfDO0bFG5H5fqbvZ5RdzfYW68V8CKmP+4+MEpCjJNTB
-	zf7L6E+4Yj1AyXDlCFAxM1DmPMzXoRxlKSglrfVqC4PArSvYF2FrsTtdfGplRNs+r5pUUG
-	6augY7GokFVrFuGULo/i3nqAxcPTZpE=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=hyOj13gBrlGZ0d6uLVvQ4bvrIRy/gYaIsuubbb/vcwg=;
+	b=Pg8rz7JzQD2ePKcld/rtA0t09SzRtvmmPtPlput3rYhmvz1a4ae9f42+N+Ru+C1ZBLuYIJ
+	rlIep+pHRRO/yZ59P0T+7NSbRSMk2CCs34uw5rZ/PC/eVwGVssZMH1fxrwY/3+3o2CXER7
+	3R83IiH5ozq/pr/FvwEZzCIo10g6TBg=
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-494-uS75cvj-MY-YULWF6xHH6g-1; Thu, 07 Mar 2024 15:25:51 -0500
-X-MC-Unique: uS75cvj-MY-YULWF6xHH6g-1
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-69046d68828so1166986d6.2
-        for <cti-tac@lists.linuxfoundation.org>; Thu, 07 Mar 2024 12:25:51 -0800 (PST)
+ us-mta-44-pG8YZZpxMO6HsjDzw3DXQg-1; Thu, 07 Mar 2024 15:26:41 -0500
+X-MC-Unique: pG8YZZpxMO6HsjDzw3DXQg-1
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-3c18df0db21so93035b6e.3
+        for <cti-tac@lists.linuxfoundation.org>; Thu, 07 Mar 2024 12:26:40 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709843151; x=1710447951;
+        d=1e100.net; s=20230601; t=1709843199; x=1710447999;
         h=content-transfer-encoding:in-reply-to:organization:from:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Tv70uxjSTmjV7PVjTX91wu3jcbc6OBKFpOkVLuO/83o=;
-        b=EFAEyJyVlAUhCgcdkvvJnmXdZfbDbjRTcYNOBtoy3STINs+6LVcICGSTsyrc+3vGDW
-         w8XGQRAQesK/7YTiBNokP2Wx0niPckcBKqF58KrQwyrRnnWLJ4X8MSdntTVvgxmMGiTU
-         voQ6KWl04CptBBXPMlSp5fVcX2KY7qQKqvdjC5kMEjtu5kJTtFna8dacCrYPaFF0URwx
-         HAR3k4l/LBFkz+t5apH8XxBQwPEhQsP0DKaxBWpOPIS3ZZTBA9qkbxyUInm1WXgO/txq
-         NM6RTXYVULJu6siDCSa3pFnTOISwjA6aeocLU3q6NrlI9wwAbfm+R56agy8UD/OhztMQ
-         Mr9g==
-X-Forwarded-Encrypted: i=1; AJvYcCV4nOVm/epLiyh0e2oM6jW3DZ97Orzusy+9uii9r0Vc/Saz6Dpbbk9xtkVZIfqtsTVYlSR7FVsYTBoYxiUeQdbeAdOSewn8bD8to/SILU21BEY=
-X-Gm-Message-State: AOJu0YzP5r1vOhEATSYjEPC68VOXus595GC9Hi2/7IcB5/nnWwK6Wevh
-	oHofut6DaF2fbw8GUy3AM8fIhsexsfHJS3xq/R/yV7cCeGfQxgc3yktOMnJebO9trG6SJms5C54
-	lwre4b5wUKcUyfto/YCpH/b/O+L/FQS6vc7UtDflwhA7+zkNtjo8YBjbDQcVsvwJEcZjN+iTxDN
-	D3
-X-Received: by 2002:a0c:e911:0:b0:690:5b78:5c10 with SMTP id a17-20020a0ce911000000b006905b785c10mr9682553qvo.26.1709843150908;
-        Thu, 07 Mar 2024 12:25:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEaxSOyk+nGR6UwtM2iiSvkxzEp7TDl4D9uY8faxOEfZUFfbMFU709GcHVSMEk3iaCZ2tb7ZA==
-X-Received: by 2002:a0c:e911:0:b0:690:5b78:5c10 with SMTP id a17-20020a0ce911000000b006905b785c10mr9682544qvo.26.1709843150633;
-        Thu, 07 Mar 2024 12:25:50 -0800 (PST)
+        bh=hyOj13gBrlGZ0d6uLVvQ4bvrIRy/gYaIsuubbb/vcwg=;
+        b=bh1GLHe7FL+r+OSogYJZ0yzbwSxUg15dUDobmjykSpJCb1FKzL1NReJoTxd4tzb65N
+         3WQJiytlKUeWM9cny4pMBJ8VvRnY8bGxGWRRWEHFWBwybwb7fYOsb542R2aHiuW/HHwI
+         wEud8tWEBOlhoUYl4uDtRmRHavBABXig79Br1hFlX76Qy08Thu4o/xfSHJU30QGQF1JB
+         y0uMELvQXoBUXho4pDzaSB91Uof1TgHWkF5Gr/W01hn8Gs7mWZ3aF2/O2dOtowBV7N7a
+         81n5CbXA88Cxn0t0+FRpGm49gV0eDZTt4LLW8+lo+zH9ljf6Sw4oa//0iBX40enIr4Fa
+         p8Yg==
+X-Forwarded-Encrypted: i=1; AJvYcCW3OHp4inpPwJkEGwJN2aufYD5DANkLbgM15C1fFrjeFuHb7CaqqvBB6y8z+S7h7D/BVKY4MOsW82axNUlOls0m4fuLeuzQCyEBB5vo/8YbUKw=
+X-Gm-Message-State: AOJu0YxSaHcOEYZB2yTugacdAOwtnY7ujePkOkrrwpQJsx7Y5I647iV4
+	VV3HbnAn8YLy7hEJdpxI3K+pX973EcL3YmRMrusv53+KrLMlQ/g/gwp9yjAZdQq0qJ7YOugWgA4
+	GpwXTsVR5335AeXbT0B6PMCtXRgHbF55tWzMBeyrKBIBRVU+QaJVPp53HYLZM6r+uFEJCS3Yzza
+	nQ
+X-Received: by 2002:a05:6358:3423:b0:178:6211:871 with SMTP id h35-20020a056358342300b0017862110871mr10288089rwd.0.1709843199768;
+        Thu, 07 Mar 2024 12:26:39 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IF/jNYQG5phPekQ4FXQc/OvyFtkacCaJfhxUC316Ec0XkxPt3sJ5T8m55RdbDOgCPRvG3N+Jw==
+X-Received: by 2002:a05:6358:3423:b0:178:6211:871 with SMTP id h35-20020a056358342300b0017862110871mr10288078rwd.0.1709843199531;
+        Thu, 07 Mar 2024 12:26:39 -0800 (PST)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id ng10-20020a0562143bca00b0068fbe6d38f6sm9053251qvb.54.2024.03.07.12.25.49
+        by smtp.gmail.com with ESMTPSA id ng10-20020a0562143bca00b0068fbe6d38f6sm9053251qvb.54.2024.03.07.12.26.38
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 07 Mar 2024 12:25:50 -0800 (PST)
-Message-ID: <901c3254-9fa3-4714-b6ac-547bd1a7afef@redhat.com>
-Date: Thu, 7 Mar 2024 15:25:49 -0500
+        Thu, 07 Mar 2024 12:26:39 -0800 (PST)
+Message-ID: <17bf1401-cc23-4151-bf0b-718ed31fb9e2@redhat.com>
+Date: Thu, 7 Mar 2024 15:26:38 -0500
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
@@ -86,14 +86,14 @@ List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] services: Clean up links to projects
+Subject: Re: [PATCH 4/5] tac/audit: Minor cleanups
 To: Siddhesh Poyarekar <siddhesh@gotplt.org>,
  cti-tac@lists.linuxfoundation.org
 References: <20240307193019.4028812-1-siddhesh@gotplt.org>
- <20240307193019.4028812-4-siddhesh@gotplt.org>
+ <20240307193019.4028812-5-siddhesh@gotplt.org>
 From: Carlos O'Donell <carlos@redhat.com>
 Organization: Red Hat
-In-Reply-To: <20240307193019.4028812-4-siddhesh@gotplt.org>
+In-Reply-To: <20240307193019.4028812-5-siddhesh@gotplt.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -101,51 +101,43 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 3/7/24 14:30, Siddhesh Poyarekar wrote:
-> Use links on project names instead of putting them in bulleted lists.
+> Subsume the sub-bullet into its parent and fix a dead link.
 > 
+
+Docs change is OK but HTML change is not.
+
 > Signed-off-by: Siddhesh Poyarekar <siddhesh@gotplt.org>
-
-LGTM.
-
-Reviewed-by: Carlos O'Donell <carlos@redhat.com>
-
 > ---
->  source/services/index.rst | 17 +++++++----------
->  1 file changed, 7 insertions(+), 10 deletions(-)
+>  source/tac/audit.rst | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
 > 
-> diff --git a/source/services/index.rst b/source/services/index.rst
-> index 84cb02b..34eba77 100644
-> --- a/source/services/index.rst
-> +++ b/source/services/index.rst
-> @@ -11,21 +11,18 @@ The following services are currently being provided by CTI via the Linux Foundat
+> diff --git a/source/tac/audit.rst b/source/tac/audit.rst
+> index a47e4e3..119f7c6 100644
+> --- a/source/tac/audit.rst
+> +++ b/source/tac/audit.rst
+> @@ -7,9 +7,7 @@ technical requirements of the community.
 >  
->  * Big Blue Button servers
+>  The audit will cover:
 >  
-> -    * Service uses BBB which is FOSS and LGPL-3.0 licensed.
-> +    * Service uses `BBB <https://github.com/bigbluebutton/bigbluebutton>`_
-> +      which is FOSS and LGPL-3.0 licensed.
->  
-> -      * ``https://github.com/bigbluebutton/bigbluebutton``
-> +    * glibc: Used for weekly `patch triage meetings <https://sourceware.org/glibc/wiki/PatchworkReviewMeetings>`_.
->  
-> -    * glibc: Used for weekly patch triage meetings.
-> -        * https://sourceware.org/glibc/wiki/PatchworkReviewMeetings
+> -  * Reviewing that services cover the current requirements.
 > -
-> -    * GNU Toolchain: Monthly office hours for the GNU Toolchain.
-> -        *  https://gcc.gnu.org/wiki/OfficeHours
-> +    * GNU Toolchain: `Monthly office hours <https://gcc.gnu.org/wiki/OfficeHours>`_
-> +      for the GNU Toolchain.
+> -    * Includes security requirements.
+> +  * Reviewing that services cover the current requirements, including any security requirements.
 >  
->  * gitolite servers
+>    * Reviewing that the services are being provided using FOSS.
 >  
-> -    * Service uses Gitolite which is FOSS and GPL-2.0 licensed.
-> -
-> -      * ``https://github.com/sitaramc/gitolite``
-> +    * Service uses `Gitolite <https://github.com/sitaramc/gitolite>`_ which is
-> +      FOSS and GPL-2.0 licensed.
+> @@ -21,7 +19,7 @@ by the TAC to discuss these with the community and current service
+>  provider.
 >  
->      * Core Toolchain Infrastructure project documentation repository.
->          * ``git clone gitolite.coretoolchain.dev:cti/cti.coretoolchain.dev``
+>  The CY24 audit has not yet been conducted, but the audit will review
+> -the current `services being used <../services/index>`_.
+> +the current `services being used <../services/index.html>`_.
+
+This needs to work across documents correctly and not assume HTML.
+
+>  
+>  -----------------
+>  
 
 -- 
 Cheers,
