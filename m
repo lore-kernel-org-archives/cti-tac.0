@@ -1,85 +1,101 @@
 Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B759654919
-	for <cti-tac@lists.linuxfoundation.org>; Fri, 22 Mar 2024 15:57:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1F4446AF
+	for <cti-tac@lists.linuxfoundation.org>; Mon, 25 Mar 2024 13:00:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1711123068; cv=none; b=QNXioq8KoAx+wSFgQweWkFbvq/6HZ+C2uFFMzC/NLTFus4jEpre3cBXHVBZzTVmhORI/rCK/6SqF1TCCDRN/eavBwGWZGeAqxtyy9ERRtSBF08tv44UNVHqobgbgXg3c+vPZhtmKGpIsue1BTUGz7rxCO5PO9KZHRWUWs6fKVYQ=
+	t=1711371642; cv=none; b=GI8wQLBY8GzG6m2R8reSmfmvo/uNFhMOjgiD5SNGOcJHNmXwihjM1znQvGCD1rX7zL0w/XX3LuinfYuqQX3marRtxEUEH7DYQHP1/awQaZ32sBtoN3Oh5f9sMd4GDAx9Ke8R0tKPLicuMX9idkGO8Kg1Nblq++bUVhdr2Qs5upo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1711123068; c=relaxed/simple;
-	bh=HmBKaZdTzB8bIKmWznfHw6hJhhQtAr9MS/yoOzrYrWg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lEYutmuaSabbBQ0pRce6HDYtsZDctyK5xzbwzhTrfokcKgv9DkYeldPt+VN+/gv+HukwLSE+eFVqfF6yBtzWn6xXB/Ei/8poGeLIHCupcZ0WfDTJpjaC1GWXUDm6ChJXKfwg/LhgCtIDC8RFDHKFXn8aqJPVbmY46F0iaS9pfME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SaTnVgXZ; arc=none smtp.client-ip=140.211.166.138
+	s=arc-20240116; t=1711371642; c=relaxed/simple;
+	bh=jm+AXV+/4+iKJQCapMy/nZRjGyZH/+HOu+mxZLuJLXA=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=EL1UZTsuY1tKtK199bxk7JQ1JonmjejVbVg5oHfwe7g6JE44bl4V1UtV0MZzSU4pd9io+898S1yMNTA9vZOfSdnkukKymeqmlFFW1mY4hZFiFA45os/s1wGS9pka3ympEbcwFR133npVw/qSWqO5j8DDMcOm1KahPXVvaOzG85k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FT+qwikW; arc=none smtp.client-ip=140.211.166.138
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SaTnVgXZ"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FT+qwikW"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp1.osuosl.org (Postfix) with ESMTP id 2A62982E19
-	for <cti-tac@lists.linuxfoundation.org>; Fri, 22 Mar 2024 15:57:46 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at osuosl.org
+	by smtp1.osuosl.org (Postfix) with ESMTP id 1309B81A27
+	for <cti-tac@lists.linuxfoundation.org>; Mon, 25 Mar 2024 13:00:41 +0000 (UTC)
+X-Virus-Scanned: amavis at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -4.401
+X-Spam-Score: -2.099
 X-Spam-Level:
 Received: from smtp1.osuosl.org ([127.0.0.1])
-	by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id wnbZ4iOwGVpm for <cti-tac@lists.linuxfoundation.org>;
-	Fri, 22 Mar 2024 15:57:45 +0000 (UTC)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=145.40.73.55; helo=sin.source.kernel.org; envelope-from=konstantin@linuxfoundation.org; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp1.osuosl.org 5854282D12
-Authentication-Results: smtp1.osuosl.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 5854282D12
+ by localhost (smtp1.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id jfVgTxtzDh_E for <cti-tac@lists.linuxfoundation.org>;
+ Mon, 25 Mar 2024 13:00:40 +0000 (UTC)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=codonell@redhat.com; receiver=<UNKNOWN> 
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp1.osuosl.org 30D1981B69
+Authentication-Results: smtp1.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 30D1981B69
 Authentication-Results: smtp1.osuosl.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SaTnVgXZ
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	by smtp1.osuosl.org (Postfix) with ESMTPS id 5854282D12
-	for <cti-tac@lists.linuxfoundation.org>; Fri, 22 Mar 2024 15:57:44 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 7DAA3CE1750;
-	Fri, 22 Mar 2024 15:57:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93022C433C7;
-	Fri, 22 Mar 2024 15:57:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1711123061;
-	bh=HmBKaZdTzB8bIKmWznfHw6hJhhQtAr9MS/yoOzrYrWg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SaTnVgXZAKP7gFIFsfPJTPm9UsV2YaALkidIrutWyHNeyyT1DYgy5nuPOtxzsu+XA
-	 k5POkNgmF2/OUhKk8FWfMtYMqU+jFVfkoI9+tOQ/1VtiBH/JR8oSl4sk336FCep+4R
-	 c/sE+3TdgGJahdB53HMhnJLLNXQiwZAQCKux4Lys=
-Date: Fri, 22 Mar 2024 11:57:38 -0400
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Ian Kelling <iank@fsf.org>
-Cc: cti-tac@lists.linuxfoundation.org
-Subject: Re: My suggestions on auditing that services are running free
- software
-Message-ID: <20240322-bipedal-nostalgic-adder-fec630@lemur>
-References: <87zfuqcvlo.fsf@fsf.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FT+qwikW
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by smtp1.osuosl.org (Postfix) with ESMTPS id 30D1981B69
+	for <cti-tac@lists.linuxfoundation.org>; Mon, 25 Mar 2024 13:00:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1711371639;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type;
+	bh=jm+AXV+/4+iKJQCapMy/nZRjGyZH/+HOu+mxZLuJLXA=;
+	b=FT+qwikW8DNbpvqk2Jw4KXK3KYZlFdIVHa1xPSehc/GESezqltJDz7KTCkClzysrVXJ6Iz
+	bY0mNIN3eMsRep6L8TRpi5AEAZTO4efFFB0B2uAw32ZhPn6lOLM+T3urg9DczpNx9XVOEE
+	07h9mVonXUoIfRzY/OpgYRa9iqIboRA=
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com
+ [209.85.221.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-272-5tfhc1TqM0aXMCAzcXvHug-1; Mon, 25 Mar 2024 09:00:36 -0400
+X-MC-Unique: 5tfhc1TqM0aXMCAzcXvHug-1
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-4d40305ddb3so668998e0c.1
+        for <cti-tac@lists.linuxfoundation.org>; Mon, 25 Mar 2024 06:00:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1711371635; x=1711976435;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jm+AXV+/4+iKJQCapMy/nZRjGyZH/+HOu+mxZLuJLXA=;
+        b=SneZhsd6MmUD5/fhm5CA4NgV6Y/LJDRlRQNxudVZG7vXLE18CwrJ0sufxpYm28Kycw
+         ZNV9G25HouQfDSci8+wEYKykn/eQIsUeSMnYvmgw7CFDheWTJJ3Ws8E2mUiQWX13IZGS
+         iRp1pHdWrq13sZ+mjEgWR1wOD95EKD76nTykquJFtR3Z+J8Ov6T+dMCGXCNWXSC0u9BH
+         rfrx+A0ca8S09XzvN13Sjf+ZC8gSzfFfavQBCmzkTVTElBxCNAcN90afY8NNCNjncMFn
+         UFN7U9BgX2LyTQLVkL1OHwDDd0oXfm1lS+EMZhapEZDiOIsBw4PdvVhfv1CbaqN21BLe
+         UOmA==
+X-Gm-Message-State: AOJu0Yz29jil1NLyj76N1xGZ5QzgKtFtwetfFf7LNNqZnwYH/t8Gjsn0
+	jBgj5axyEGkLJryP7P2kYC5O7jwAwtFTKXV6YC7xg+A94nrJmqXKa5olDB+sAhPMoVJxiR/n+9p
+	REh3lkwy5pNtbaxvuViF8bN1ibtq96PU8bmKzGZGVbP2peHcNpVKza36aMwAcVtTjG1QabQvvMT
+	WpZ/APxKyDzGV5syvWROdiu8kQEVioSnrd2rE63HHWfv9+9a8P9N3Etg==
+X-Received: by 2002:a05:6122:251e:b0:4d8:787c:4a6c with SMTP id cl30-20020a056122251e00b004d8787c4a6cmr4756038vkb.5.1711371635258;
+        Mon, 25 Mar 2024 06:00:35 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHfxvgjaYpoTggTOCEyy8e3Nk6wKi9gLZNc4XrXwSh3TQPDvZIJR2DIx8WwWcklc+Z9dF858R6+zeQqezqZq0g=
+X-Received: by 2002:a05:6122:251e:b0:4d8:787c:4a6c with SMTP id
+ cl30-20020a056122251e00b004d8787c4a6cmr4755968vkb.5.1711371634868; Mon, 25
+ Mar 2024 06:00:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
 List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <87zfuqcvlo.fsf@fsf.org>
+From: "Carlos O'Donell" <carlos@redhat.com>
+Date: Mon, 25 Mar 2024 08:00:00 -0500
+Message-ID: <CAEMqeSp5=zM=CNEkg1tNDUdXqJq=KnTjtqQsqj32uBnWENi3Yg@mail.gmail.com>
+Subject: Reminder: CTI TAC Meeting on March 27th at 11am EST
+To: cti-tac@lists.linuxfoundation.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Mar 22, 2024 at 04:35:13AM -0400, Ian Kelling wrote:
-> I suggest that CTI come up with a proposal/plan for how to implement the
-> audit. Eg, checking what software is being run and that users are able
-> to download a copy and that it is free software. The FSF will be
-> available to review the proposal.
+Reminder: CTI TAC Meeting on March 27th at 11am EST
 
-Before we go down that route, please note that LF IT does not provide backend
-access to third parties, so any audit plans will be limited to auditing
-documentation.
+BBB Conference link:
+ https://bbb.linuxfoundation.org/room/adm-iuc-px7-mk1
 
-We, of course, comply with licensing terms, so any AGPL-licensed software
-(such as public-inbox) is available for download (we run the upstream version
-without any modifications). Any free software without such requirement may
-have basic version info, not necessarily down to the exact patch level. For
-example, I doubt anyone benefits from knowing the exact version of Postfix
-used to send this mailing list message.
+Recurring last Wednesday monthly CTI TAC meeting.
+Agenda:
+- Standing monthly meeting for review.
+- Discuss current TAC topics and progress.
+- Discuss glibc use of CTI services vote.
+- Discuss CTI TAC documentation status.
 
-Best regards,
-Konstantin
+Cheers,
+Carlos.
+
