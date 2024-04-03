@@ -1,84 +1,81 @@
-Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+Received: from smtp3.osuosl.org (smtp3.osuosl.org [140.211.166.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 903D915443A
-	for <cti-tac@lists.linuxfoundation.org>; Wed,  3 Apr 2024 18:55:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBB115572B
+	for <cti-tac@lists.linuxfoundation.org>; Wed,  3 Apr 2024 20:05:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1712170518; cv=none; b=TFAUriNu38XWDdhyOcAizXcSJSqOWjACmGOpISSp0QnrZLSn2qwiFSWpoyDoZLSFkIHWOj/dXih1x+o0o27kaYj4xK/dGQtC3xNzt28uVX2EMcaL5gkqnUvORoYXJaRY5bkTomcdsY5z1YX2HreKJbvqvYKb0TBAZTnk0DvHHRo=
+	t=1712174752; cv=none; b=u7FEFz8R34FK+iVBr0D2bieefY+FtT3ECWtxf72Lgvrwuu4hgOOWmkPF1ht+Qp2ihDY2cj9Z0EPa3qEwm6Addh+g1DyErfgXfCZGRyySJWJN6jyJy/Jza/wQhQBNJXVuliEjnUm0ccTkW6REUQx0x3x+DTud0N0xVDdeVZy/ojE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1712170518; c=relaxed/simple;
-	bh=HF13a4n+Z3WCHQPBI+pvX8gteqWrlYJMeQtcXCKpJuU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KttJhJcna+B4s+4/bodUHAMez85SuwGDsT36ly21WbsiBMHzHTNOv8fIqLCbaxTXd25Q7Iuya16MDsxpUKQ96M3nBe05qaTyCt6sBuRXd/Rpp2jH1ME8vi2DVc8rSLzQSFtLSZCVTThIp4qWuDLbtsQ4ME+Fvu4vsgY6Vxgop9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fG9gVWL5; arc=none smtp.client-ip=140.211.166.137
+	s=arc-20240116; t=1712174752; c=relaxed/simple;
+	bh=g3LLFCxHCPmjtkKf5HfcasNUDarkdPC31hbv4fsEZF0=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=CKxsgennURlYEwQYBkuSD170a5IcDNcMLIYlcTXTLMiStdaXWtGxJnkGerGN1gZWvYxmp10ULQBC2kpzPz+Ta5+dDKHVjSpLm3XkSlA5vxyjUUj+310QmDLiiLiAApWwHKXAM1ePZ5vr2CJQwVyemF7HFD5QwsWmUgi14zxnTLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DhAoVDg8; arc=none smtp.client-ip=140.211.166.136
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fG9gVWL5"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DhAoVDg8"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp4.osuosl.org (Postfix) with ESMTP id 1C5F1417B0
-	for <cti-tac@lists.linuxfoundation.org>; Wed,  3 Apr 2024 18:55:17 +0000 (UTC)
+	by smtp3.osuosl.org (Postfix) with ESMTP id 79D5460EE5
+	for <cti-tac@lists.linuxfoundation.org>; Wed,  3 Apr 2024 20:05:50 +0000 (UTC)
 X-Virus-Scanned: amavis at osuosl.org
 X-Spam-Flag: NO
 X-Spam-Score: -2.099
 X-Spam-Level:
-Received: from smtp4.osuosl.org ([127.0.0.1])
- by localhost (smtp4.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id c-vxIa_x4N9q for <cti-tac@lists.linuxfoundation.org>;
- Wed,  3 Apr 2024 18:55:15 +0000 (UTC)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp4.osuosl.org 642D6417AB
-Authentication-Results: smtp4.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 642D6417AB
-Authentication-Results: smtp4.osuosl.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fG9gVWL5
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by smtp4.osuosl.org (Postfix) with ESMTPS id 642D6417AB
-	for <cti-tac@lists.linuxfoundation.org>; Wed,  3 Apr 2024 18:55:15 +0000 (UTC)
+Received: from smtp3.osuosl.org ([127.0.0.1])
+ by localhost (smtp3.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id BX2ZF_d3zTJQ for <cti-tac@lists.linuxfoundation.org>;
+ Wed,  3 Apr 2024 20:05:49 +0000 (UTC)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.129.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp3.osuosl.org 65FCF607C2
+Authentication-Results: smtp3.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp3.osuosl.org 65FCF607C2
+Authentication-Results: smtp3.osuosl.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DhAoVDg8
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by smtp3.osuosl.org (Postfix) with ESMTPS id 65FCF607C2
+	for <cti-tac@lists.linuxfoundation.org>; Wed,  3 Apr 2024 20:05:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1712170513;
+	s=mimecast20190719; t=1712174748;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Qi1QLsLS21dIjJlfYhbFTXLxwgsXMZsL0WSDAJMrSKM=;
-	b=fG9gVWL5YuEvAVS8ve0fO104YK6HLc6ybgQ4y+rWG6NMXqlglJ9G/aaEb8IrVlxOtKQByK
-	edeeojE1QggrCt0ylTjOIe00zMLT1Zv9+1r47NzqQzR4ZMsxGoffx3B+Z2gCpmt7y8kvTP
-	eVZyKgjB51M0VnBwEa1T1+ScpH+5IXg=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:autocrypt:autocrypt;
+	bh=AUHihK7XOdFDmQBk3retHL0SFpXFHAR2Qz3xqlzw3s4=;
+	b=DhAoVDg8c2a2a+Jlm/BNqVOp5HWoIBxqKmB8QQiKwzc97UqRQcTDJItJpPoSGXO+FjzxkD
+	sjfWoojTMvMYyyAdSsDacrU2igasfjJqrLT9CGR5AvYRfwcKPmJoT5jq6V5zj0ottqXj/I
+	/ukH3XjHYI1ibyQ9BwM55f1WeBbEs1U=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-460-QzvfwlRvNnqNL4iv7GgWfw-1; Wed, 03 Apr 2024 14:55:12 -0400
-X-MC-Unique: QzvfwlRvNnqNL4iv7GgWfw-1
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-6992c8f3c45so1248066d6.2
-        for <cti-tac@lists.linuxfoundation.org>; Wed, 03 Apr 2024 11:55:12 -0700 (PDT)
+ us-mta-479-6E3szZoWOeec1jYw8KlYtA-1; Wed, 03 Apr 2024 16:05:46 -0400
+X-MC-Unique: 6E3szZoWOeec1jYw8KlYtA-1
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-78a6aabb595so25133885a.2
+        for <cti-tac@lists.linuxfoundation.org>; Wed, 03 Apr 2024 13:05:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712170512; x=1712775312;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
-         :references:cc:to:content-language:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Qi1QLsLS21dIjJlfYhbFTXLxwgsXMZsL0WSDAJMrSKM=;
-        b=uF1mrrR177cU7Yn2hVlcVMpmavUWVC656NYqXRN6CopkW34wMXr0y9IFaZw3wqf+78
-         w2opD/OQon0EOCxbf58y9IANhlVAWu9uMud+S0Y+BbSsYP8CtZ2wnO+PntwrcXn4HiAW
-         7S+NaqRAMRHI5cwQGf9Pm0vpJnXnR54pkgdCDqwOv6qzT3Ak+u++mtQfBJ6N1zdlAWPA
-         zVdZBJ/pEJJ0VJY7f08bqtQ3tr86juKfbGKU+QakQbKcvh0XacULdA/Xo2SKGBfgNxQw
-         xC/bF6wBGHbJ6bbWQ5A4KwUgIIY+/at1llr/Y8zbMCV/xbyCu5xkqAwljcZunFOa2Jhn
-         fvDg==
-X-Gm-Message-State: AOJu0YzfDkCWiUwQGGy6fFU5Bg+YCh8qx0DOAw8AlYvuWTAAJFccf8x2
-	vSE4YwfOjZjcA5hDDijeTGFJzq5O76YpekwY+GtLm5XE9P4xIrS6zqp5XTbDP2SsHkKn7iCa59I
-	Po1vd4XSGOvp2nfaBbmJVM2/VrrtwMLqlGkwusRcXWIzixQkeMszrq9M4Y4j7UuiQ+fTOKqynuB
-	KA
-X-Received: by 2002:a05:6214:202e:b0:699:2cc3:9b55 with SMTP id 14-20020a056214202e00b006992cc39b55mr227739qvf.51.1712170511846;
-        Wed, 03 Apr 2024 11:55:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF09tZsab7+x3A4hLwx5sF9gHhLyQHpi7VZHgxBKz//eM6CwKXNCoQd12L/uwqya4hge3pwJw==
-X-Received: by 2002:a05:6214:202e:b0:699:2cc3:9b55 with SMTP id 14-20020a056214202e00b006992cc39b55mr227723qvf.51.1712170511497;
-        Wed, 03 Apr 2024 11:55:11 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1712174745; x=1712779545;
+        h=content-transfer-encoding:organization:autocrypt:subject:from:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=AUHihK7XOdFDmQBk3retHL0SFpXFHAR2Qz3xqlzw3s4=;
+        b=B28SPFMCGxm9knrnIGIg2KDyBMUUCGEgX3eiFFti6C10yTlRV235XfnfGuL4vkbPqr
+         8fK0EGptTEwKNu+t6xtrVDKkY3oCs8UnZpLiw5wx7blUOt5DJFrYRYsUgQ4NYG7jOeHH
+         CFJwv/yrs7JtbEsoNdqDrG5wTzgrKmxqYY9XQyj7rxZgDFO4ZSu0yrWSkOjffMko2+yL
+         7hIUfNNb9LdkxjW6ppkJSC7KzaYk9hVcX1yrmifY8xPSkAUKBhCnzhvoYjVCCneQBDli
+         /RBiNMeVXUlQujNM7H1MKSAjheLlRiHI1DHgEkc+spbg9HFCP0TOm2aYpW0a8C9tZTJ8
+         EuDg==
+X-Gm-Message-State: AOJu0YxAA9ex4WbzZuZxkNYYRXWBLv3DmL9it/3WI8GTmN7IgoCNcEsf
+	IWGUtS3rU0HVm3ZQubixAMz5hpTVQfieMwp6XN080cenQhld697iBNZdNmsFdNGF/IJr6nQxrkP
+	XzSiwhIMkV81yHNflUfhBOu8/zgUjkUQ2YLzmfaX2TyHYSgZOX/KzSs1hZcSEVA5/uzumLXSEN6
+	eXsgDEYn9UBnF9ikhpc4jaf7A5uJ+A5thKYu0vNy8qYbaze8dGBA==
+X-Received: by 2002:a37:db0a:0:b0:78d:33b5:3668 with SMTP id e10-20020a37db0a000000b0078d33b53668mr442184qki.48.1712174745255;
+        Wed, 03 Apr 2024 13:05:45 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHNku3BT0NcQuGjR3J+vmZaz7XOWGYvSNiZZ6vRT2nMfnI7QyY3RGot0oN9zLqVAQOFqRXajA==
+X-Received: by 2002:a37:db0a:0:b0:78d:33b5:3668 with SMTP id e10-20020a37db0a000000b0078d33b53668mr442151qki.48.1712174744720;
+        Wed, 03 Apr 2024 13:05:44 -0700 (PDT)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id q15-20020ad45caf000000b00698facb19d5sm4599199qvh.106.2024.04.03.11.55.10
+        by smtp.gmail.com with ESMTPSA id q2-20020ae9e402000000b007887d30dbb7sm5358207qkc.60.2024.04.03.13.05.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Apr 2024 11:55:10 -0700 (PDT)
-Message-ID: <380b365e-8d5f-4150-affd-32b12c895e59@redhat.com>
-Date: Wed, 3 Apr 2024 14:55:09 -0400
+        Wed, 03 Apr 2024 13:05:42 -0700 (PDT)
+Message-ID: <b79e90ee-6824-4b22-a367-09740e4df746@redhat.com>
+Date: Wed, 3 Apr 2024 16:05:41 -0400
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
@@ -86,14 +83,11 @@ List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: My suggestions on auditing that services are running free
- software
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Ian Kelling <iank@fsf.org>
-Cc: cti-tac@lists.linuxfoundation.org
-References: <87zfuqcvlo.fsf@fsf.org>
- <20240322-bipedal-nostalgic-adder-fec630@lemur>
+To: cti-tac@lists.linuxfoundation.org,
+ Bennett Pursell <bpursell@linuxfoundation.org>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>
 From: Carlos O'Donell <carlos@redhat.com>
+Subject: CTI Planning for glibc migration - Meeting Notes 2024-04-03
 Autocrypt: addr=carlos@redhat.com; keydata=
  xsFNBFef5BoBEACvJ15QMMZh4stKHbz0rs78XsOdxuug37dumTx6ngrDCwZ61k7nHQ+uxLuo
  QvLSc6YJGBEfiNFbs1hvhRFNR7xJbzRYmin7kJZZ/06fH2cgTkQhN0mRBP8KsKKT+7SvvBL7
@@ -139,49 +133,60 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  nat9vl9mBm15b76RHvKNlRcPbB9YYCbS5fhN2ObAsVbV1c5TdBCp8lp1Fa3YK0TA+WpNZVHK
  vjq6hMJAjA==
 Organization: Red Hat
-In-Reply-To: <20240322-bipedal-nostalgic-adder-fec630@lemur>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 3/22/24 11:57, Konstantin Ryabitsev wrote:
-> On Fri, Mar 22, 2024 at 04:35:13AM -0400, Ian Kelling wrote:
->> I suggest that CTI come up with a proposal/plan for how to implement the
->> audit. Eg, checking what software is being run and that users are able
->> to download a copy and that it is free software. The FSF will be
->> available to review the proposal.
-> 
-> Before we go down that route, please note that LF IT does not provide backend
-> access to third parties, so any audit plans will be limited to auditing
-> documentation.
+Attendees:
+- Konstantin (LF IT)
+- Carlos O'Donell (TAC)
+- David Edelsohn (TAC)
+- Siddhesh Poyarekar (TAC)
+- Bennett Pursell (OpenSSF)
 
-I agree, and I would not want any service provider to give backend access to third parties
-because it creates an increased security risk to support the audit. The cost of compliance
-is relevant here if it creates a security risk. We can achieve compliance without the
-additional risk.
+CIT kickoff discussion about glibc service migration to LF IT services.
 
-For me as a CTI TAC member is reasonable to have a documented list of the versions of the
-software that was being run, audit the list, and update the list with versions on the
-CTI website.
+- Carlos: Do we have a CTI GB to sign off on the process?
+- David: Not exactly.
+- Carlos: What would we need to do?
+- David: We promised the CTI GB would be open.
+- David: Agreed with Jeffrey Borek to go through the executive committee for the reading of our CTI proposal.
+- Carlos: Can the OpenSSF just say it's part of CTI and become the single member of the GB and vote.
 
-> We, of course, comply with licensing terms, so any AGPL-licensed software
-> (such as public-inbox) is available for download (we run the upstream version
-> without any modifications). Any free software without such requirement may
-> have basic version info, not necessarily down to the exact patch level. For
-> example, I doubt anyone benefits from knowing the exact version of Postfix
-> used to send this mailing list message.
+[Notes: Agreed to take this conversation offline, but we need a LF IT SOW to create the proposal
+that goes before the OpenSSF GC as part of the open governance process to review the SOW and costs]
 
-The purpose of the audit is to ensure that we meet the ethical repository hosting criteria
-and we can meet those obligations by ensuring we run unpacked distro versions or unpatched
-upstream versions of the software. Where we deviate from upstream or distro versions we should
-do so only briefly to address security issues. Knowing the exact version of Postfix is *less*
-important to me than knowing that we are running without any local patches applied and using
-the standard distro version or standard upstream release. So it would be a checkbox item for
-me to ask "Are we using the distro version? Are we using upstream directly?"
-
-Does that make sense?
+- Carlos: So we need a migration plan.
+- Konstantin: What services will be migrated?
+- The amount of data in each thing.
+- The number of users.
+- Access to various services.
+- Carlos: https://cti.coretoolchain.dev/projects/glibc.html#service-migration
+- Konstantin: The most complex migration is bugzilla.
+- Konstantin: Likewise with Patchwork it requires some surgery.
+- Siddhesh: Can we make a clean break?
+- Carlos: I recommend a clean break.
+- Konstantin: Setup a coretoolchain.dev bbb instance?
+- If you wanted to start a fresh instance then you could own the instance for future migrations.
+- Carlos: That makes sense to me.
+- Siddhesh: Is it based on upstream BBB or is it based on distro BBB?
+- Siddhesh: If the vendor has some patches on top of BBB that should be OK as long as they continue to track upstream.
+- Carlos: What is next?
+- Konstantin: Can we reuse git.coretoolchain.dev?
+- Carlos: Yes, I assume these services are isolated?
+- Konstantin: glibc devs have no access to gcc repos.
+- Carlos: For mailing lists can we clone the old ones too?
+- Konstantin: Yes.
+- Konstantin: Let me take the current list of services.
+- Carlos: Detailed service information https://cti.coretoolchain.dev/projects/enum.html#gnu-c-library
+- Konstantin: Switching away from CentOS 7 and RHEL9, with a deadline being June.
+- Konstantin: To write up an SOW.
+- Bennett: The GC is every other week. High bandwidth. GB is once a quarter. May 16th next GB.
+- 6 weeks to target SOW to GB
+- 1 week earlier for GC at least.
+- In the next 2 weeks want something solidly drafted to socialize.
 
 -- 
 Cheers,
