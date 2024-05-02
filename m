@@ -1,139 +1,152 @@
-Received: from smtp3.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AA517107D
-	for <cti-tac@lists.linuxfoundation.org>; Tue, 30 Apr 2024 12:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=140.211.166.136
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1714480926; cv=pass; b=Q/fRsUgXnAugSj5D/GMP1zgiiD81BxvchP/iQIY5qtHwPThSTe1Ht9ydnXQ8nxCxCyrshPHKHGRkDoT0+ENhTM9WhkrdXBz0oHCyhWYIYmwIOe6snPJEn7mR/PUTXTb0R1vJTm5dRdzam4s1BVblCFPv2A3sEaPD7u0r8hxtrIs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1714480926; c=relaxed/simple;
-	bh=LEP+ZUxord0PMcY5XcUc9jr/ogGaT/ZZoaK8i5VMiwc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bj8MNLp7vCe1wNA91jRdMaXOZsirUG5NeXLQ9tGjOMf9pWpx07vEY7T06vhFNyeXpMc0/286p/KPf9JS0lRiQgRpO2J08f3g3MGWQLEcCVGKJAp/ZtY0UYuOE4GyVMXVP2dDjTVsnhbSQPEKq7o4aI1dNsOAxwl0tethR01p1oI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=gotplt.org header.i=@gotplt.org header.b=aVcPwdQt; arc=pass smtp.client-ip=140.211.166.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914FA15FA74
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  2 May 2024 19:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.137
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1714678075; cv=none; b=g7NLqZP3FJW8AqP2MsrKmOTc2urDEHUNR1MZQ6O1MYeSLrvJKK1m5aqz3IF6Pdl6x+o/GQL8JEr81TPZY3Rw7qe9YaofvRtOdEWSfPpX/hjz237caez6CxhezEqKUuZ/YVUBPlBlMwd2oEiJ62pQYvtCjQ90DKPQ6SC9ZrFd13c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1714678075; c=relaxed/simple;
+	bh=crGmjOCxthSH9uUjayoOoZRvULBY54m7ZpOIpntnKDk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=gE8y2WKGSbOIUX5vtbLadqPRxxLF8ZD1v02VAUlAZpW5Ml+WCQlThYdr+pFgR0jRlrlefU0AoKid/g5lzHZynG44b8XkSsnmCsqF2hoQIHPvDOc8bJ/yIY1Ea/CGW10ohIO7AqxpdtM9E+jlDz0NpChyVtbfpXj+5rWy8MmyTjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ForreDGx; arc=none smtp.client-ip=140.211.166.137
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gotplt.org header.i=@gotplt.org header.b="aVcPwdQt"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ForreDGx"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp3.osuosl.org (Postfix) with ESMTP id E9B1260A37
-	for <cti-tac@lists.linuxfoundation.org>; Tue, 30 Apr 2024 12:42:04 +0000 (UTC)
+	by smtp4.osuosl.org (Postfix) with ESMTP id 477694183C
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  2 May 2024 19:27:54 +0000 (UTC)
 X-Virus-Scanned: amavis at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -2.098
+X-Spam-Score: -2.099
 X-Spam-Level:
-Received: from smtp3.osuosl.org ([127.0.0.1])
- by localhost (smtp3.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id J93G0u_bFxTL for <cti-tac@lists.linuxfoundation.org>;
- Tue, 30 Apr 2024 12:42:03 +0000 (UTC)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=23.83.209.151; helo=quail.birch.relay.mailchannels.net; envelope-from=siddhesh@gotplt.org; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp3.osuosl.org 44A8F605BB
-Authentication-Results: smtp3.osuosl.org; dmarc=none (p=none dis=none) header.from=gotplt.org
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp3.osuosl.org 44A8F605BB
-Authentication-Results: smtp3.osuosl.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gotplt.org header.i=@gotplt.org header.a=rsa-sha256 header.s=dreamhost header.b=aVcPwdQt
-Received: from quail.birch.relay.mailchannels.net (quail.birch.relay.mailchannels.net [23.83.209.151])
-	by smtp3.osuosl.org (Postfix) with ESMTPS id 44A8F605BB
-	for <cti-tac@lists.linuxfoundation.org>; Tue, 30 Apr 2024 12:42:00 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 0FFDA813D3;
-	Tue, 30 Apr 2024 12:41:56 +0000 (UTC)
-Received: from pdx1-sub0-mail-a249.dreamhost.com (unknown [127.0.0.6])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 80767802F1;
-	Tue, 30 Apr 2024 12:41:55 +0000 (UTC)
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1714480915; a=rsa-sha256;
-	cv=none;
-	b=gsFSdnkd8oqfYfdLCZpDnLNwPrER9zIbw+Ify6LWBsRvVbAuk8fqzHM86kudbIpWKcsNEt
-	nFsdd1tXBMzaHZc+AADuKL5GT0Hv/reRbNzEY8gCRtJuf5WM3SxjNUO125abO42l3OIBGw
-	Qj+sWEp405K1uQVI4WKWZABy49ROa3qTR20f0xvh/tHqil7kHFcdT/6OfIYl8P7WahWddS
-	bmKX1x8NZyugmOtAy1PZM0h3t0bj+6d/LzSNC9DXiC7S5bVkLtgqzmFegvR/YEUoRz0du2
-	U8UwhQOVm2M3fzuX7vicawSVlOuAseDH+3nVvBRqU6o2G4dI7NiMAq5oC1uB3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1714480915;
+Received: from smtp4.osuosl.org ([127.0.0.1])
+ by localhost (smtp4.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id FnqLRNy876VS for <cti-tac@lists.linuxfoundation.org>;
+ Thu,  2 May 2024 19:27:52 +0000 (UTC)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=josmyers@redhat.com; receiver=<UNKNOWN> 
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp4.osuosl.org E599C40723
+Authentication-Results: smtp4.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org E599C40723
+Authentication-Results: smtp4.osuosl.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ForreDGx
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by smtp4.osuosl.org (Postfix) with ESMTPS id E599C40723
+	for <cti-tac@lists.linuxfoundation.org>; Thu,  2 May 2024 19:27:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1714678070;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=3xMywuVVLqX++e9wBRUrF3AaNCY5g/BBhkNtOIfbUoM=;
-	b=kD65RIGEgm6e4FnWA3pPDCQb8GhTs4HcFnvad25Yoe8nr7iFD+YpKBbr04CKrCGznRANCz
-	DMk82tXYaZTxq468CbCnbo16BGnSOF7wBf+iRvaqULCFyRIxQbgOCFi3Xh2yb0p4VTnlyY
-	8li8MdIa8b22jqcoOAA6uZAumw+VSnaXx6ebrVYUiHS/uQ2hv29xDas5FzO82L3KBqCrGh
-	tyhgBrDabTuQw4DLoDrLCRo3mdq4T3OxaAlkew7+31QdsRndRp5X6jMv+LaQpsSofiX34E
-	gJuS+yNpWTqDs5l5AKpFeTA5TnOjwFOhjJXpoh8+iec7zfDu7zWYM+GE4cEeYQ==
-ARC-Authentication-Results: i=1;
-	rspamd-67db6f49c6-dzcnc;
-	auth=pass smtp.auth=dreamhost smtp.mailfrom=siddhesh@gotplt.org
-X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|siddhesh@gotplt.org
-X-MailChannels-Auth-Id: dreamhost
-X-Skirt-Spot: 222986b875348bc6_1714480915863_1052026325
-X-MC-Loop-Signature: 1714480915863:2018158252
-X-MC-Ingress-Time: 1714480915862
-Received: from pdx1-sub0-mail-a249.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.105.11.149 (trex/6.9.2);
-	Tue, 30 Apr 2024 12:41:55 +0000
-Received: from [192.168.0.182] (unknown [142.198.113.116])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: siddhesh@gotplt.org)
-	by pdx1-sub0-mail-a249.dreamhost.com (Postfix) with ESMTPSA id 4VTKZq0xgHzCY;
-	Tue, 30 Apr 2024 05:41:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gotplt.org;
-	s=dreamhost; t=1714480915;
-	bh=3xMywuVVLqX++e9wBRUrF3AaNCY5g/BBhkNtOIfbUoM=;
-	h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
-	b=aVcPwdQtZ3PP9ttnMS74D+dDM9c8mKF3Q42/L/UefJY9LYUouycT4id+RWDGIjVXD
-	 dGtKvEirm5EQHyRCGSLnvYSlH2BscDhC9pO0txytvlmyooiNWQzO/6z8CxpuwtNNzP
-	 cPjj6aGoA5401+GmH5K9aPaq6F5PyXOTrsAmKQWz7i6s0yhNeZc4sL/hfanZfwD9cr
-	 /Mg7qTM5BL711aqoNw0wzXBMeypCK6CtjM0UKYoW8LF2DjNG7fqZTkH3rNkSvCXNJ5
-	 LqOpyrYu+Rsh7KT8bD9dt5ZaeaNVDVde2zledZj8KBKCzcYf8WdVKpnxxAbDesUKFU
-	 uxTA/ExLGIaeA==
-Message-ID: <6bcada32-c63f-4906-9fea-3daf53966b03@gotplt.org>
-Date: Tue, 30 Apr 2024 08:41:44 -0400
+	 in-reply-to:in-reply-to:references:references;
+	bh=lZZYb2jGwQzE0q1FlfHl1ZjiOT4vjBFNcqkGYkPyweA=;
+	b=ForreDGxNT5R8T9XY1gR64rsEX4SxB7RF9vX4jXjxa8ZY/wRLbbyRxlexTau8HAc2a4p8J
+	kqvZa/LVh/6tdQhescb5HZD2Bmc2wQ04BjJt9AWapM3gQyAUckOW+bLFuFJh2QPpmBzez4
+	lqx6Kp13sVLpQlHkBwM0x+P2/hoksNw=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-450-oRI5CaXhMR-zStHZF-AXYQ-1; Thu, 02 May 2024 15:27:49 -0400
+X-MC-Unique: oRI5CaXhMR-zStHZF-AXYQ-1
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-419ec098d81so35781285e9.2
+        for <cti-tac@lists.linuxfoundation.org>; Thu, 02 May 2024 12:27:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714678067; x=1715282867;
+        h=mime-version:references:message-id:in-reply-to:subject:cc:to:from
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=lZZYb2jGwQzE0q1FlfHl1ZjiOT4vjBFNcqkGYkPyweA=;
+        b=K+v5w85ox07OEhwB5+gEy/SHDj0pKfxe5WtPhYrCcU06XAaQ/lN0Y4bj9EHqBAUzLl
+         gW83CL1YEWTjeMrEqqGkQ0OzQHqSChJDubaEefYzX3u7A/VuuOBctog9c+Sq6YmIqNGX
+         imo3yArnb+rA6B752UnrIQmYauiMgJd9alegl61MJySOpxXgOHhV4B4oFN+Skh9enblJ
+         rvP6jlad9nLeaU5LlPS27QDT3WSPk7GREN6K9d/2EdslvXlMnOC0LjA5W/haE/jZycwq
+         Ejs63gEN9O90ojUJ5BYw+3bjxY8bb5YKq8fuIF47c0uyNODtJf8X5IKFjLGGyfHWU4dX
+         YI6Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUFvJFgY2Tc2WK8PTu3ysEbNMVCFcXZo1Lul19uc+UEb+BolG11I8xzbHwZGhcmLyloCqeMOh9pYFZxe/XCAsV6yoasxGnN2InXnooBQu5bdCU=
+X-Gm-Message-State: AOJu0Yxx9GBX5xl2zif0USUyW5dVTl40Wg81hqImuXm0ux8pKkOsnXWo
+	/q3s1aIysuDi0Eeji4pdzpG1jwd3xKz20KXuE61a9lMrAKLEOxTsCzxrTzoqdD33dyjJUXNtz5v
+	J8EN5eULqv15HNFQ2uOf250eUktRD38CMLDvt+G6LUUNCFR+Y2v8kZ3Iwyzn+Wa16BAvnQwPGDV
+	fE
+X-Received: by 2002:a05:600c:4e8a:b0:419:f088:249c with SMTP id f10-20020a05600c4e8a00b00419f088249cmr560110wmq.12.1714678067522;
+        Thu, 02 May 2024 12:27:47 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGMXMCLC9AWZi6TilfJ4Dt0uj49l58uQDA4FCOB4yLa+nGNQ9VfyHiYUZXhme9tt5k/1cHPxg==
+X-Received: by 2002:a05:600c:4e8a:b0:419:f088:249c with SMTP id f10-20020a05600c4e8a00b00419f088249cmr560096wmq.12.1714678067094;
+        Thu, 02 May 2024 12:27:47 -0700 (PDT)
+Received: from digraph.polyomino.org.uk (digraph.polyomino.org.uk. [2001:8b0:bf73:93f7::51bb:e332])
+        by smtp.gmail.com with ESMTPSA id bh10-20020a05600c3d0a00b0041c130520fbsm2908174wmb.46.2024.05.02.12.27.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 May 2024 12:27:46 -0700 (PDT)
+Received: from jsm28 (helo=localhost)
+	by digraph.polyomino.org.uk with local-esmtp (Exim 4.95)
+	(envelope-from <josmyers@redhat.com>)
+	id 1s2c5c-0045NI-Ka;
+	Thu, 02 May 2024 19:27:32 +0000
+Date: Thu, 2 May 2024 19:27:32 +0000 (UTC)
+From: Joseph Myers <josmyers@redhat.com>
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+cc: Siddhesh Poyarekar <siddhesh@gotplt.org>, 
+    cti-tac@lists.linuxfoundation.org
+Subject: Re: Hashing out the scope of work
+In-Reply-To: <20240430-polar-jaguar-of-debate-04ddba@lemur>
+Message-ID: <9df22f6d-c854-ff6d-8c67-286366d070ae@redhat.com>
+References: <20240424-viridian-peccary-of-honor-4eaeed@meerkat> <2293a3bb-5780-ec5a-ca72-e19671dccb51@redhat.com> <20240429-proficient-pastoral-whippet-bcc376@lemur> <6d25ccc7-ef3e-a885-b085-51185c23c91@redhat.com> <060ff9e5-785a-4963-8d92-2638db3228da@gotplt.org>
+ <de67e18-d847-717e-a8d-dbfe7d2044d7@redhat.com> <20240429-rousing-mamba-of-improvement-cabefb@lemur> <30dc33a-69de-39e6-fe7d-bd21c99ccecf@redhat.com> <20240430-polar-jaguar-of-debate-04ddba@lemur>
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
 List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Hashing out the scope of work
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Joseph Myers <josmyers@redhat.com>
-Cc: cti-tac@lists.linuxfoundation.org
-References: <20240424-viridian-peccary-of-honor-4eaeed@meerkat>
- <2293a3bb-5780-ec5a-ca72-e19671dccb51@redhat.com>
- <20240429-proficient-pastoral-whippet-bcc376@lemur>
- <6d25ccc7-ef3e-a885-b085-51185c23c91@redhat.com>
- <060ff9e5-785a-4963-8d92-2638db3228da@gotplt.org>
- <de67e18-d847-717e-a8d-dbfe7d2044d7@redhat.com>
- <20240429-rousing-mamba-of-improvement-cabefb@lemur>
- <30dc33a-69de-39e6-fe7d-bd21c99ccecf@redhat.com>
- <20240430-polar-jaguar-of-debate-04ddba@lemur>
-Content-Language: en-US
-From: Siddhesh Poyarekar <siddhesh@gotplt.org>
-In-Reply-To: <20240430-polar-jaguar-of-debate-04ddba@lemur>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
 
-On 2024-04-30 08:30, Konstantin Ryabitsev wrote:
->> I think it's the details of what patches / patch series still need
->> review that's the most valuable part to preserve and migrate.
+On Tue, 30 Apr 2024, Konstantin Ryabitsev wrote:
+
+> On Mon, Apr 29, 2024 at 09:58:18PM GMT, Joseph Myers wrote:
+> > > For example, for bugzilla we'd need to prepare a query to filter 
+> > > bugs and comments by product and component -- to only include those 
+> > > belonging to glibc. However, how do we go about filtering users? 
+> > > User records are not tied to a specific product or component. We can 
+> > > try to have a large query limiting the users to just those accounts 
+> > > who have commented on glibc bugs, but this is going to be hairy -- 
+> > > someone could have commented on a bug that started out filed under a 
+> > > different product/component.
+> > 
+> > The simple answer there is not to filter users.  It's OK to have more 
+> > users than necessary in the new database.
 > 
-> I think we can accomplish this without having to touch the DB. We can
-> identify the patches that are still open and replay them from the
-> mailing list into the new system. This would be a lot simpler than doing
+> Is it okay with the users, though, that they suddenly have accounts on a 
+> totally different system belonging to a totally different organization?  
+
+If that's a concern, I wouldn't expect it to be particularly hard to 
+identify a more precise set of users: there's a precise set of bugs to 
+copy (i.e. those, whether open or closed, that are against the glibc 
+product at the time of the move - not anything that was once opened 
+against the glibc product but is currently associated with a different 
+product) and each bug has a limited set of relevant people (reporter, 
+assignee, CC, anyone who did any action recorded in the bug's history).
+
+If an account was blocked for spamming and gets copied, it should still be 
+blocked after the move.
+
+> > > The same problem is with patchwork -- migrating just the subset of 
+> > > the database that belongs to glibc lists is going to be very 
+> > > difficult, especially with the kind of data model that patchwork 
+> > > has. Is it the CI data that you want to preserve?
+> > 
+> > I think it's the details of what patches / patch series still need 
+> > review that's the most valuable part to preserve and migrate.
+> 
+> I think we can accomplish this without having to touch the DB. We can 
+> identify the patches that are still open and replay them from the 
+> mailing list into the new system. This would be a lot simpler than doing 
 > database surgery.
 
-That would also allow the trybots to run a second time, flagging patches 
-that no longer apply.  It'll be a decent way to weed out outdated 
-patches too.
+Where patchwork lists patch series as such, is this automatic based on the 
+mailing list messages?  (I think the grouping of patches awaiting review 
+into series is worth preserving.)
 
-thanks,
-Sid
+-- 
+Joseph S. Myers
+josmyers@redhat.com
+
