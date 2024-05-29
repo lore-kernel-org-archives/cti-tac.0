@@ -1,85 +1,85 @@
-Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A587180A9F
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 29 May 2024 12:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44EC1BF2B
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 29 May 2024 13:51:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1716985772; cv=none; b=byT0/RnvoFp56VH26N++weZjsTNdqnAh68BFORnLQXFRSa0RazA6gs7ZFx3N211BNZHYVjMCzPqu8cr9oJEM0fdF+ltOPl3UzLmuw++oWyGJ2KgroHp77LUq1yrBoVEMErNV8eYfRkGVmpmnVX/aLjo3guLOWCSfFBL/9YHR9Rk=
+	t=1716990687; cv=none; b=lOv6ZHVozEbVtaPJJw4GmiFfM0ETWlwcNvTw4MFjeW7r8Ayn6unvpWN+B5z7sDSBg6FB74vOQ0WjfAMHYrHTd2iDQuuVHLRvE6XgFqO3SNnTRQhNJtCoVOEUi2pM1SDaz9SFz47YQE/FTOSPMn6FEfCHbspbjgvxSzAtLj2TJRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1716985772; c=relaxed/simple;
-	bh=gPChJWspS2nxYFD3KnGF4+crDDHliRY81IcpX5J1DKU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-type; b=VvVqGz+FdncIx7oYtx8o9GCJwU2fgRUVKrtRkXVBNN36c2cSxajrwKkt4zT7b5uoD5u27EqaALyTi/IqkHSerx2qjLeJ5CFC6ajxGVdGcwc9Ld8j7VeR4lAoZ3nDoVyiyM5YBfJCzXNoWFgD6QMF9hykRsXehTaU5fmzTKalybQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GH7/15J4; arc=none smtp.client-ip=140.211.166.137
+	s=arc-20240116; t=1716990687; c=relaxed/simple;
+	bh=7SNitj48l3dxuK11j+NG/16tpJAGQdOtLe9KBGS2dpY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-type; b=dtejAKj/5ryIOwifNmWiCgVbiHFlodq1NmdftsC9j40Wc2KLFHRTuxF3TpHPkaD6chC8jK20AoVd6/+B2JGRsi1b0GFoRGSlpTIS7ILKFP39cJRe41DWcDJlTmu+4uswKC0WylBRua/5Yw06JB5TPyN/58uJMTszKMSm33378Ic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SZFQ0uEG; arc=none smtp.client-ip=140.211.166.138
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GH7/15J4"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SZFQ0uEG"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp4.osuosl.org (Postfix) with ESMTP id BDD1840806
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 29 May 2024 12:29:30 +0000 (UTC)
+	by smtp1.osuosl.org (Postfix) with ESMTP id 5068181400
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 29 May 2024 13:51:25 +0000 (UTC)
 X-Virus-Scanned: amavis at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -2.099
+X-Spam-Score: -2.098
 X-Spam-Level:
-Received: from smtp4.osuosl.org ([127.0.0.1])
- by localhost (smtp4.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 4uYMSZHRm-7g for <cti-tac@lists.linuxfoundation.org>;
- Wed, 29 May 2024 12:29:29 +0000 (UTC)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp4.osuosl.org 5CBF940905
-Authentication-Results: smtp4.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 5CBF940905
-Authentication-Results: smtp4.osuosl.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GH7/15J4
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by smtp4.osuosl.org (Postfix) with ESMTPS id 5CBF940905
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 29 May 2024 12:29:28 +0000 (UTC)
+Received: from smtp1.osuosl.org ([127.0.0.1])
+ by localhost (smtp1.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id 62Kcn-Zj3PpK for <cti-tac@lists.linuxfoundation.org>;
+ Wed, 29 May 2024 13:51:24 +0000 (UTC)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.129.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp1.osuosl.org 19E75813D8
+Authentication-Results: smtp1.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 19E75813D8
+Authentication-Results: smtp1.osuosl.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=SZFQ0uEG
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by smtp1.osuosl.org (Postfix) with ESMTPS id 19E75813D8
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 29 May 2024 13:51:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1716985767;
+	s=mimecast20190719; t=1716990682;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=r45auKqnq8iv/mob6H5i1HuVYic1esu0sUwwDlS6wiM=;
-	b=GH7/15J4OjVetP9ywTnTnFGr/89JKC9RWFuX/4Q6VzKMcPNFdKDWv5+5HTnT3NCpkn2qPo
-	32o5YuvWYHrYeFjBXWF1o0hEcMj2FlEqN2ghlEIR+3IQNF6cRXi4sEdAqfRk3o+9wm4kkn
-	JdYhRQkSW9/LyZSWG/PvTjNWg1OnjnA=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=LfRCojBQwPsfhJPIQsUYqMNg2g+BTxJ33Ida+GnS6Hg=;
+	b=SZFQ0uEGmeS71XPISAiWUK1MR6i3vB0a74mqnxAp7lRGE4MRBiSjQReG4XYhguK+I7Ilc+
+	+dlSCAnVxbs25QbS1o6pGJYMf9Ge701UULRTzpB2g3AfAqHKQ9kLbmDIi4hhWiKNsK9obA
+	UoNmZNeRmyj0yufiGFuowdVK/nmJXIY=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-384-p1txZx3SPvKkxBp1BOUL3Q-1; Wed, 29 May 2024 08:29:26 -0400
-X-MC-Unique: p1txZx3SPvKkxBp1BOUL3Q-1
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-794e752ff0dso126785a.0
-        for <cti-tac@lists.linuxfoundation.org>; Wed, 29 May 2024 05:29:25 -0700 (PDT)
+ us-mta-475-qGVlPE83N2OLbK8Hln9oCg-1; Wed, 29 May 2024 09:51:21 -0400
+X-MC-Unique: qGVlPE83N2OLbK8Hln9oCg-1
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-6ada58d2d50so6058866d6.1
+        for <cti-tac@lists.linuxfoundation.org>; Wed, 29 May 2024 06:51:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716985765; x=1717590565;
+        d=1e100.net; s=20230601; t=1716990680; x=1717595480;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=r45auKqnq8iv/mob6H5i1HuVYic1esu0sUwwDlS6wiM=;
-        b=a3ZEBbJCgfL6gzOxI19g5N6zwaqyh4W/KmctFbQjdk6ZwTO0b8Jkcj5eGMtZN1Nd0Z
-         hr8nSj+X5tzX1P19BQl5inVdsfNJKxXu7g49R2dIdUrcsRJucUd+Np1u8xBXV7fIng5s
-         SyO5dG/Zeh4fbSbhCeze9/dpk9gyf0LdIscEiJtz14H/9FNTOLg9nrt2DaqkCjbJpFNW
-         tb4ijieDrhUlHpX9iCNZLKppAeCaPpS5575EegXDW0d8RUZlh59pY02Pl4LahWw80moA
-         3LElVehFTxxo0lS9AodVI8mCXZaRsJfPVx+ZnYBppeW67NKYxyb7CvvEDOJq3Rrn7EoD
-         G8wA==
-X-Gm-Message-State: AOJu0YxC9vDIVGCY0GmwKYKayVoqkOZNEpUAyth8pPzjiuEM0ubSGk9s
-	b6ZN4vsUkl3Ac6e+8DBgCY7O8nbn0BWpdodizh2yTDx2UNCWsx239frTleRGcOy2mCkhRksiwjT
-	a0HCJ4ImoyfYeH+ZRyQrTHAvYrIy+gvHPxu9RpueU+Lkg1qEDQatcGpnZxU3qIj6BnRW0k6a1/m
-	ad4rJ24KrhQFvFK/s7CeHLmrW10tJDGdVX5mLb07h6i3y9a/6ybg==
-X-Received: by 2002:a05:620a:4116:b0:794:e4b6:65d3 with SMTP id af79cd13be357-794e4b66af8mr134107385a.55.1716985765214;
-        Wed, 29 May 2024 05:29:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IESwD2CXHu0ra31sCLvSJ9vQZhfD1Z+JVwrUCxyd5sbPCPJ/OQGwbRYvFUj8m0SUR14MPRA8g==
-X-Received: by 2002:a05:620a:4116:b0:794:e4b6:65d3 with SMTP id af79cd13be357-794e4b66af8mr134103585a.55.1716985764559;
-        Wed, 29 May 2024 05:29:24 -0700 (PDT)
+        bh=LfRCojBQwPsfhJPIQsUYqMNg2g+BTxJ33Ida+GnS6Hg=;
+        b=QPmzNxG5fjjXIoimRIB8iG1oI9fQRlAh7QdBSGxIIGhqK7NHFuuc6Bb6F0ja2AhA12
+         +E23DhesQ4TKZoRo65Ekc+r4xWFUK9mh+amQo9IAhKNwsK0uaOpWlQidPIZ9wchRWjJX
+         sw37/pUQKO/uk5dMgEYn+ORlZJThVpMk/1fS0TtdWsTjgw/I21Ji2Lj8r1MzVr+pInHQ
+         rTr6grnWAmem18jcloUtGgMlTIxNrLiviB1MUjU3vlpNhw/j4l09sYUOF1It3L6lDN1f
+         x/ByXO52ruhfqT7K2nbz9Wm9jx5Fs2Etq5ArOrvbADsL2h8HSSCgI12cq/B6Ukb6pGDo
+         tvvA==
+X-Gm-Message-State: AOJu0YyIkHZKA1H46aiTvXJZjIA68fSZwS9rb1X7FAB8srdOiIXO6Hmi
+	/5+luMDKiiqgGRecTvImoaa3D+rUsm5xKQBgkQFELHGFK2QsXq47xMe8u22GEyLtnz+2j8z8O8i
+	KWoPcdbZF5wHpfDa9lm6gNd0uR2DZtGxU6lU/Lh7yzb5Uj7R6skjzgpGgo5vzm1F5rVo+0MnFmD
+	FWMk4B3qRxlJHs808cmJuXaoIzimfNFaAsUGRMqxqLjjUUzNHkWg==
+X-Received: by 2002:a05:6214:5d93:b0:6ab:756c:83e0 with SMTP id 6a1803df08f44-6abc7b936b9mr174388616d6.13.1716990680405;
+        Wed, 29 May 2024 06:51:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGmBT+VIkpu0ZG7ps+/UOPp82GC3+AnLzYhyF8+uy/B4731JWZXtq6VwLIzoL378IrHXHypMw==
+X-Received: by 2002:a05:6214:5d93:b0:6ab:756c:83e0 with SMTP id 6a1803df08f44-6abc7b936b9mr174388246d6.13.1716990679598;
+        Wed, 29 May 2024 06:51:19 -0700 (PDT)
 Received: from athas.redhat.com ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-794abd064b8sm462246285a.74.2024.05.29.05.29.24
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6ac162f2907sm54496506d6.99.2024.05.29.06.51.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 May 2024 05:29:24 -0700 (PDT)
+        Wed, 29 May 2024 06:51:19 -0700 (PDT)
 From: Carlos O'Donell <carlos@redhat.com>
 To: cti-tac@lists.linuxfoundation.org
 Cc: Carlos O'Donell <carlos@redhat.com>
-Subject: [COMMITTED] services/index projects/enum: Update spelling.
-Date: Wed, 29 May 2024 08:29:00 -0400
-Message-ID: <20240529122921.3902195-1-carlos@redhat.com>
+Subject: [PATCH] source/faq/index: Update FAQ.
+Date: Wed, 29 May 2024 09:48:40 -0400
+Message-ID: <20240529135110.3917584-1-carlos@redhat.com>
 X-Mailer: git-send-email 2.45.0
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
@@ -92,137 +92,104 @@ X-Mimecast-Originator: redhat.com
 Content-type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Update the services and enumeration spelling words to allow
-`make spelling` to pass cleanly.
----
- source/name_wordlist.txt     |  1 +
- source/projects/enum.rst     | 41 +++++++++++++++++++++++++++++++++++-
- source/services/index.rst    |  2 +-
- source/spelling_wordlist.txt | 13 +++++++-----
- 4 files changed, 50 insertions(+), 7 deletions(-)
+Update the FAQ with additional entries as requested by CTI TAC
+review.
 
-diff --git a/source/name_wordlist.txt b/source/name_wordlist.txt
-index 25eecdb..593473e 100644
---- a/source/name_wordlist.txt
-+++ b/source/name_wordlist.txt
-@@ -34,3 +34,4 @@ Poyarekar
- Schwab
- Siddhesh
- Simon
-+Tromey
-diff --git a/source/projects/enum.rst b/source/projects/enum.rst
-index 34f11aa..b036660 100644
---- a/source/projects/enum.rst
-+++ b/source/projects/enum.rst
-@@ -439,7 +439,7 @@ GNU Binary Utilities
-      mailing list (each repository configures the destination, and for
-      binutils-gdb, this this a "dynamic" configuration via the email_to.py
-      script mentioned above allowing the destination to vary depending
--     on which files got modified, whether they are binutils fils or GDB
-+     on which files got modified, whether they are binutils files or GDB
-      file, or both).
+Add information about relevant national standards and why we want
+to advance the state of our current infrastructure.
+
+Add information about service bringup and how to achieve that.
+
+Signed-off-by: Carlos O'Donell <carlos@redhat.com>
+---
+ source/faq/index.rst | 60 +++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 59 insertions(+), 1 deletion(-)
+
+diff --git a/source/faq/index.rst b/source/faq/index.rst
+index 66458c1..81bdc3c 100644
+--- a/source/faq/index.rst
++++ b/source/faq/index.rst
+@@ -8,7 +8,7 @@ You have questions we have answers!
  
- * Web-based navigation of the Git repository
-@@ -1024,3 +1024,42 @@ Originally posted to the CTI TAC mailing list here: https://lore.kernel.org/gti-
- * :ref:`genindex`
+ Can we keep deploying services as we have?
+ """"""""""""""""""""""""""""""""""""""""""
+-No. The GNU Toolchain is a critical foundation of trust for the
++The GNU Toolchain is a critical foundation of trust for the
+ GNU/Linux ecosystem and the demands on its infrastructure, services, and
+ security requirements have grown over time. The trend of increasing complexity
+ to support its development and associated financial demands will not abate.
+@@ -16,6 +16,38 @@ Different projects have different risk tolerances and the GNU Toolchain must
+ meet more stringent expectations to maintain the trust of the ecosystem. It is
+ with this context in mind that CTI has been formed.
  
- * :ref:`search`
++The global focus on security is clear and present and in direct relation to
++the effective functioning of economies and societies. The GNU Toolchain plays
++a hugely important role in companies and communities of all sizes, providing
++tooling for compilation, assembly, linkage, running and debugging of
++critical software.
 +
-+.. spelling::
-+   htdocs
-+   Pre
-+   computable
-+   irker
-+   irkerhook
-+   gdbadmin
-+   gccadmin
-+   addusers
-+   gnutools
-+   fortran
-+   libstdc
-+   wwwdocs
-+   pre
-+   py
-+   usr
-+   libstdcxx
-+   classpath
-+   symlink
-+   symlinks
-+   redirections
-+   descr
-+   formatter
-+   writeBitmaps
-+   devel
-+   AdFfi
-+   denyNonFastforwards
-+   passwd
-+   contrib
-+   www
-+   sc
-+   Texinfo
-+   preprocessing
-+   oftc
-+   maintainership
-+   pw
-+   prs
-+   ssh'ed
-diff --git a/source/services/index.rst b/source/services/index.rst
-index d5c565e..978e07a 100644
---- a/source/services/index.rst
-+++ b/source/services/index.rst
-@@ -30,7 +30,7 @@ The following services are currently being provided by CTI via the Linux Foundat
++In order to continue to support these communities we must start to adhere to
++the modern cybersecurity principles including moving towards zero-trust
++architectures with strong application sandboxing for all provided services
++e.g. NIST SP.800-207, separate and protect each environment involved
++in software development e.g. NIST SP.800-218A PO.5.1, and use multi-factor,
++risk-based authentication and conditional access for each environment.
++
++Governments around the world have increased their focus on Cybersecurity and
++resilience in the face of cybersecurity attacks. In the European Union with
++the creation of the Network and Information Security Directive (NIS 2016/1148,
++NIS2 2022/2555), the Cybersecurity Act (2019/881), and now the Cyber Resilience
++Act (2022/0272). In the United States with the publishing of the Executive
++Order 14028 "Improving the Nation's Cybersecurity", with NIST's
++Secure Software Development Framework (SSDF SP 800-218A), Cybersecurity
++Framework 2.0 (CSF 2.0), and Software Supply Chain Security Guidance.
++
++Several of the components of the GNU Toolchain meet the definition of NIST's
++"critical software" since they underpin ICAM (Identity, Credentials and
++access management), network control (DNS stub resolver), and key operating
++system components. We want to expand and continue to support FOSS in all
++of these use cases we should strive to meet the increasing cybersecurity
++best practices.
++
++The purpose of CTI is to help meet these requirements now and into the future
++to ensure FOSS and the GNU Toolchain can be used by these users and communities.
++
+ What concrete steps will CTI help with?
+ """""""""""""""""""""""""""""""""""""""
+ Some of the major goals include:
+@@ -109,6 +141,32 @@ That depends on the requirements given by the GNU Toolchain community.
+ The requirements from the community are input to the steering committee, and so
+ the answer depends largely on exactly what was the intended purpose.
  
-     * `Top level website <https://subspace.kernel.org/>`_ uses
-       `Sphinx <https://www.sphinx-doc.org/en/master/>`_ which is FOSS
--      and BSD licesned.
-+      and BSD licensed.
- 
-     * `Mail delivery <https://subspace.kernel.org/software.html>`_ uses
-       `Postfix <https://www.postfix.org/>`_ which is
-diff --git a/source/spelling_wordlist.txt b/source/spelling_wordlist.txt
-index e5662b8..1975aab 100644
---- a/source/spelling_wordlist.txt
-+++ b/source/spelling_wordlist.txt
-@@ -1,4 +1,5 @@
- Cron
-+Cyber
- Cybersecurity
- Django
- Pipermail
-@@ -32,26 +33,28 @@ gnupload
- gpg
- html
- https
--irkerhook
-+irc
-+jit
- libc
- mlmmj
-+namespaces
- ncftpput
- networkless
-+perl
- postfix
- pre
--prs
--pw
--py
-+preprocess
- rabbitmq
- rebasing
- repo
- rst
-+rsync
- runtimes
-+sandboxing
- simark
- sourceware
- spamassassin
- spammy
--ssh'ed
- svn
- testresults
- toolchain
++How are services validated prior to migration?
++""""""""""""""""""""""""""""""""""""""""""""""
++Services are validated on a per-service basis, with per-service functionality
++being tested. Given the focus on strong service isolation and resilience the
++inter-service integration pieces can and should be added in stages e.g.
++email to bugzilla, git send-email to mailing lists, as services that can
++communicate are brought online.
++
++The intent is not to stand up a monolithic integrated set of services, but to
++start small and create well-isolated services that can operate independently
++with loose coupling.
++
++Are all services migrated at the same time?
++"""""""""""""""""""""""""""""""""""""""""""
++There are no plans to construct a prototype of the entire constellation of
++enumerated services for a project that is to be migrated to CTI services.
++
++Instead the approach taken is to stand up well-isolated services that can
++operate independently of each other and with high resilience, and then add
++the inter-service integration functionality.
++
++Since many of the services being provided are known to already be deployed
++in production for other projects there is a lot of existing experience
++to support deployment. What needs to be done is to ensure stronger isolation
++between services as part of improving the project's cybersecurity position.
++
+ Are there any presentations covering CTI?
+ """""""""""""""""""""""""""""""""""""""""
+ Yes, in October 2022 the CTI TAC gave an `FSF hosted community Q&A <https://media.libreplanet.org/u/libreplanet/m/the-gti-project-a-conversation-and-community-q-a/>`_.
 -- 
 2.45.0
 
