@@ -1,83 +1,84 @@
-Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+Received: from smtp3.osuosl.org (smtp3.osuosl.org [140.211.166.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F17017623D
-	for <cti-tac@lists.linuxfoundation.org>; Tue, 11 Jun 2024 12:18:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D2717BB25
+	for <cti-tac@lists.linuxfoundation.org>; Tue, 11 Jun 2024 12:25:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718108333; cv=none; b=CqGAH4GanW0epeEBdoJRf3mJMDI8s9P9RIc3z4iV2v0s/DtLZSWLzIAyWaceSbWgGol/FbbLS74VjeV3wcb6ztRPTOP+DS1ctUoiMBEpIA2zW4HIp9pxR5ogSZ6YpXDo2N1IZLpSwNtzJBo9h3hrcSS2quFcDqep3hWkFAKShzA=
+	t=1718108741; cv=none; b=Yy9XN25caORZlcdqI2reWFlA3iagPUELHZKe0h4MCcNGXXWdJIkoaSjwhkd/pxHxKFsOuNgdFf7UImHI1XvqlpEN3PNcbtj6GU8EclDPqkSE6kRRu5s78w7V/hZOLbSPevu/TMADRp8wKZNpUAw4PAnbxpeFDblKGMt5eR+D+xo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718108333; c=relaxed/simple;
-	bh=S0WtSV1MhI+teR51TQj9ywfGLMmqYxWs4Uj6YrM937Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XhA4z1zDLKNFTKirkF2pHNkBTTTTaons6uWvbTaKEv9i7xWkdkYRTq00HfnAShIlhTklCkqDxCEjdQPzlSeQKlxXGQN8Mvkw+joVUBcCF/BY6MysvKn7LgiUwLgJafsjln4AJL/e+osSOvASZlL7rEPW+zGlFDUVYlfPv4SnjUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TxQKp/rv; arc=none smtp.client-ip=140.211.166.137
+	s=arc-20240116; t=1718108741; c=relaxed/simple;
+	bh=LZ9CvMcbaxnLSNYDuQef1LQwQO7F7OZ9WJcJbR7Rsb8=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=tMwRABb3XWRzZ+2t7LXTfgTiKS7YTR6Qt+xGUbxfNl7L+kG9Q+EXmnWNEdCHTty7ffK97hLiYvCVtsuLyh+UlZ5cWifCilm45l7wgy2gU8wgit1F0iUVtB5xvejKbuZSipXq33R0NXk/xvXWDWGPZt9xPlUTD/bziCC2MPM7n6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=jEYvtmxV; arc=none smtp.client-ip=140.211.166.136
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TxQKp/rv"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="jEYvtmxV"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp4.osuosl.org (Postfix) with ESMTP id 520074023F
-	for <cti-tac@lists.linuxfoundation.org>; Tue, 11 Jun 2024 12:18:52 +0000 (UTC)
+	by smtp3.osuosl.org (Postfix) with ESMTP id 9900760859
+	for <cti-tac@lists.linuxfoundation.org>; Tue, 11 Jun 2024 12:25:39 +0000 (UTC)
 X-Virus-Scanned: amavis at osuosl.org
 X-Spam-Flag: NO
 X-Spam-Score: -2.099
 X-Spam-Level:
-Received: from smtp4.osuosl.org ([127.0.0.1])
- by localhost (smtp4.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id VzZn6pj6twzH for <cti-tac@lists.linuxfoundation.org>;
- Tue, 11 Jun 2024 12:18:51 +0000 (UTC)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp4.osuosl.org 537204022F
-Authentication-Results: smtp4.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 537204022F
-Authentication-Results: smtp4.osuosl.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TxQKp/rv
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by smtp4.osuosl.org (Postfix) with ESMTPS id 537204022F
-	for <cti-tac@lists.linuxfoundation.org>; Tue, 11 Jun 2024 12:18:51 +0000 (UTC)
+Received: from smtp3.osuosl.org ([127.0.0.1])
+ by localhost (smtp3.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id K3BbkjjrNRvQ for <cti-tac@lists.linuxfoundation.org>;
+ Tue, 11 Jun 2024 12:25:39 +0000 (UTC)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.129.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp3.osuosl.org C06A3607BE
+Authentication-Results: smtp3.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp3.osuosl.org C06A3607BE
+Authentication-Results: smtp3.osuosl.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jEYvtmxV
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by smtp3.osuosl.org (Postfix) with ESMTPS id C06A3607BE
+	for <cti-tac@lists.linuxfoundation.org>; Tue, 11 Jun 2024 12:25:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1718108329;
+	s=mimecast20190719; t=1718108737;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QKxFH9vj+d9mPCUcBMD8ipekCA6So+FjrxBuaY6Q3+k=;
-	b=TxQKp/rv/E/DU4s7iXTGSI74EcmtWcqUdTdnJOA100mF5X/+nnt7yE2IqeCQkHj94xBoSb
-	bqqES1khuBaioLJZX2l9v8B36svJSL/Z9KcP5H3bHr0x4VeU7fdZbGD+cmJJkJtpsmGUEr
-	A1O8S4ofkboGNSHL05FoDpTUlGRlPhc=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=wK//oSxrJlcJQHiE4K0ncJTj8niea/vVsP2B+jo2ggg=;
+	b=jEYvtmxVptL76jCymfr2yYWG103456cCOzKGNgl8AzBBnTH9g07vQ17oBvZa0nRfNh2h/7
+	grhhpq5NgDwfoPiVPGr27CAfd51P2U0TTpEDvMnChqmsUCj4mc9VjMxYK+WMUFlabekKuC
+	CRt4xLWOsq4AkLc1x/YG1mxU74EQcQg=
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+ [209.85.210.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-168-6SeklDbXN1q8n0PztV4_4g-1; Tue, 11 Jun 2024 08:18:48 -0400
-X-MC-Unique: 6SeklDbXN1q8n0PztV4_4g-1
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-795cce8b773so116776385a.3
-        for <cti-tac@lists.linuxfoundation.org>; Tue, 11 Jun 2024 05:18:48 -0700 (PDT)
+ us-mta-21-ssban6b5PzamwwNxtk6TAQ-1; Tue, 11 Jun 2024 08:25:35 -0400
+X-MC-Unique: ssban6b5PzamwwNxtk6TAQ-1
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-6f9866bd6d6so3057854a34.1
+        for <cti-tac@lists.linuxfoundation.org>; Tue, 11 Jun 2024 05:25:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718108328; x=1718713128;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
+        d=1e100.net; s=20230601; t=1718108734; x=1718713534;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:to:from:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QKxFH9vj+d9mPCUcBMD8ipekCA6So+FjrxBuaY6Q3+k=;
-        b=lFsdBSh/cYC0rNLV40yGNBPEbwy0f4uhwpzcax3YUOhKbZzRTnfT6peaSXD7yOCeBc
-         h2AopAeIZX91CJl3ZTSN4DHUP3tUozxo9laGO70pzi9PMR/LdJ0/my3veqFCc2YEHrl1
-         fy3Gmjr63d93TUaDawXPAWIGkovC1qFxOea0IfELGFzbhmjs6CuseewQZiZI9fvyP7bE
-         9yIJBsVTSls0TiPh5ooUbmt0XaHTtz56I1dZGSGTirn/iHEHLwDvMbRI3zjbPAtckSJI
-         GqDvSQe7nC3ORLhjT+t3gm5kerXgI7G1ZoD8PD30hu95qJyWMYs3PZ2Yn3HrU4KtoeSl
-         45fA==
-X-Gm-Message-State: AOJu0YyJeie6L1+Bd0lBpQZ4EJ3KW5xmhQS3B0UvL152lbznXt3SbQb3
-	pfMGitTYnriaeUKMuzM/wWCrRrOmQLvajOD+OQMgQbonOjylnnliA6vYJ1gUVJHOuS6tMSCbg6G
-	olh407SaMeIbF1RnwMp4F++7MudZkh9qFSqR3k3pioTvleDxFhtzXK5IuoT7wJ0oO456d
-X-Received: by 2002:a05:620a:4688:b0:795:478e:a1ed with SMTP id af79cd13be357-795478ea2dcmr1478359285a.77.1718108327767;
-        Tue, 11 Jun 2024 05:18:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IELNs329cVWXD9uFMumK7IgQZsgy8v/fVMASn8iKSmJqXyrtXlVN23THucJPBuHU5IAVlrwZA==
-X-Received: by 2002:a05:620a:4688:b0:795:478e:a1ed with SMTP id af79cd13be357-795478ea2dcmr1478357985a.77.1718108327413;
-        Tue, 11 Jun 2024 05:18:47 -0700 (PDT)
+        bh=wK//oSxrJlcJQHiE4K0ncJTj8niea/vVsP2B+jo2ggg=;
+        b=u6UE9nzhiT/tTKxBxmvOKHC0YwTHRWV3Fyzb/P5qDX9E/gMQ2i8XvjvtcXeHIAcZi5
+         xqDXMT/Mkgf1ImEXs0INWWsb3r7jDCHNjPxoW1kUYyhN1QQmP1gqeW+fW/nuTwalxXXW
+         sGKuQYmYEIly+QETY52YkZ7EztiZcFjGEkPXGYqOkiBpjPxi7yfk1hXTuNSc2L9KpnrA
+         15C4+asHdnHJPaQ9CVjF2e5w/EOmZbYVnI0AKRWS0tiJSUAgZhgjCnZ+AzluuvB4QU8C
+         8tfucA+9IxVlDFXrNJsMtoyxQEkSIOujmWu1maXjVVt2NRZXkvrC85nflUCyu3ygipaK
+         1dFA==
+X-Gm-Message-State: AOJu0Yy6ap1Y2aDK7a+fm3p5De9JtP7lCe9n+GJhF+6YbpPiD6Du+LZK
+	CbAylUy44QrRaX5eIUf8LoZH9ucj9xuGNw9KkHs0xOM4wI0rfCn3Y+QKFroMOX/yXANrvdWV3OD
+	JqhFHBcBGhzZKh5/IQmaDbXR9oAqcuIuBWOLm5JlaGxstlxBJVViChFfDsHr5ErskBjkMCEdwwj
+	opRZrLvGGswnLUHGy7LkpZ9/JicXpRHeCVpnqKMqberoZeyICjHA==
+X-Received: by 2002:a05:6830:6a87:b0:6f9:89ca:fbe3 with SMTP id 46e09a7af769-6f989cb0065mr10862089a34.17.1718108734544;
+        Tue, 11 Jun 2024 05:25:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG8cjOvJyPwvFa/lG43oYOMiSmIMy3ndPhOdJxILVf/cWt5WNB2Tyv+28BA5SjOpK9vgNcSsw==
+X-Received: by 2002:a05:6830:6a87:b0:6f9:89ca:fbe3 with SMTP id 46e09a7af769-6f989cb0065mr10862069a34.17.1718108734149;
+        Tue, 11 Jun 2024 05:25:34 -0700 (PDT)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-79532813a4fsm509450885a.13.2024.06.11.05.18.46
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-797f065ca76sm4376785a.50.2024.06.11.05.25.33
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Jun 2024 05:18:47 -0700 (PDT)
-Message-ID: <73f1388d-3285-4b9a-b7b0-67d78f906a2d@redhat.com>
-Date: Tue, 11 Jun 2024 08:18:46 -0400
+        Tue, 11 Jun 2024 05:25:33 -0700 (PDT)
+Message-ID: <24d36a5a-fdbd-4efb-9f30-c21a71484f03@redhat.com>
+Date: Tue, 11 Jun 2024 08:25:32 -0400
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
@@ -86,13 +87,11 @@ List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] source/faq/index: Update FAQ.
-To: "Frank Ch. Eigler" <fche@redhat.com>
-Cc: cti-tac@lists.linuxfoundation.org,
+From: Carlos O'Donell <carlos@redhat.com>
+To: cti-tac@lists.linuxfoundation.org,
  Siddhesh Poyarekar <siddhesh@redhat.com>
 References: <20240529135110.3917584-1-carlos@redhat.com>
  <c8da333c-1734-423a-976f-d2114ce597c0@redhat.com>
- <20240605183306.GC6896@redhat.com>
-From: Carlos O'Donell <carlos@redhat.com>
 Autocrypt: addr=carlos@redhat.com; keydata=
  xsFNBFef5BoBEACvJ15QMMZh4stKHbz0rs78XsOdxuug37dumTx6ngrDCwZ61k7nHQ+uxLuo
  QvLSc6YJGBEfiNFbs1hvhRFNR7xJbzRYmin7kJZZ/06fH2cgTkQhN0mRBP8KsKKT+7SvvBL7
@@ -138,39 +137,30 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  nat9vl9mBm15b76RHvKNlRcPbB9YYCbS5fhN2ObAsVbV1c5TdBCp8lp1Fa3YK0TA+WpNZVHK
  vjq6hMJAjA==
 Organization: Red Hat
-In-Reply-To: <20240605183306.GC6896@redhat.com>
+In-Reply-To: <c8da333c-1734-423a-976f-d2114ce597c0@redhat.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 6/5/24 2:33 PM, Frank Ch. Eigler wrote:
-> Hi, Carlos -
+On 6/5/24 11:41 AM, Carlos O'Donell wrote:
+> On 5/29/24 9:48 AM, Carlos O'Donell wrote:
+>> Update the FAQ with additional entries as requested by CTI TAC
+>> review.
+>>
+>> Add information about relevant national standards and why we want
+>> to advance the state of our current infrastructure.
+>>
+>> Add information about service bringup and how to achieve that.
 > 
->> [...]
->>> +In order to continue to support these communities we must start to adhere to
->>> +the modern cybersecurity principles including moving towards zero-trust
->>> +architectures with strong application sandboxing for all provided services
->>> +e.g. NIST SP.800-207, separate and protect each environment involved
->>> +in software development e.g. NIST SP.800-218A PO.5.1, and use multi-factor,
->>> +risk-based authentication and conditional access for each environment.
->> [...]
+> Any input from the TAC?
 > 
-> Thank you for offering those extra book references.  It would help
-> even more if there were an itemized list of those particular
-> suggestions or mandates from those books are of your interest, and how
-> each is absent on sourceware vs. to be satisfied at lf.  In other
-> words, offer a way for someone to verify problem, incompliance and
-> compliance.
+> I plan to push this next week as the FAQ items noted here expand on the
+> existing answer we had, and other answers are following what we're doing
+> today.
 
-Such an answer goes beyond what I would normally put into an FAQ. The 
-intent of the FAQ is to be smaller quick to read answers to specific
-questions.
-
-Such an answer could also be viewed as antagonistic towards Sourceware and
-I don't want it to be seen that way. I would like to continue collaborating
-now and into the future with you and the other overseers.
+Pushed live.
 
 -- 
 Cheers,
