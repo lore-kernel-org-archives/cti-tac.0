@@ -1,82 +1,84 @@
-Received: from smtp2.osuosl.org (smtp2.osuosl.org [140.211.166.133])
+Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8AB72141C9
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 30 Oct 2024 15:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC13C8EB
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 30 Oct 2024 16:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730303975; cv=none; b=FXozJolv/Z5fPvUWk850fJXGv5ybDorcy4XagF5HC/C5SYAmC9UH8qrFf/sjy6OQfXhSdIKqPft2qTiiAhaeYul0Rm6t1ePIhXhh55sw5tDl/HEKgPTivNOOiEaBCZrWcpEBU6CgnE7wNGQVeChYOIDteV2h6DUlkMREv21XhdQ=
+	t=1730307142; cv=none; b=adtMtRy6uhhyccar4ZVtAfQQelJass3VmFLM4HCe/dZFFcnUaWSCOK8j8dT7oNoilhbN3AoaHbj8gy3z6MLIX5ASjAHQR/ltv9qiyWdwkSYyYo4V56kJ4s73y9yy7o5MT96pQEijpD/DSp5IFyY1Yh5OyXLFUxdWoH30FQHtBDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730303975; c=relaxed/simple;
-	bh=CpYz7VPtoFgt0kmeiqX+ZCBjCetdM9pwBsHAkfByCJM=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=qZAIxBLxHd4VlWaj3LDo7fD7Q14RrmCrDTWWyTnFQacVtXgJnVsDpi5ZrS08+E2k3i10e9pbEzlMH56iArh3C6ysayPExdNzCpP9BNSkLzwR4mDw1/8WFC+ugUDRCO14FuA9KaLfJW0wA2yjtiKklfdJLeFwwJ/WsDEZR0RfkSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JaZr4bWc; arc=none smtp.client-ip=140.211.166.133
+	s=arc-20240116; t=1730307142; c=relaxed/simple;
+	bh=VHOvznZkpAQ1XYiyVzfYC4zJ1p5LrhcS4s6qdRsUmMM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a9tXYro5sLJ22+1OTqGakKboqlHuXkfQdqwgo/d92KAGyWhDiw8RXE6OolPZ5JLN519FmpBT6YuGrjSZUwV3GnJekj/sXi6WlgDtuMX9N0umeJ9MBv/w0Aygrhu6QX7DT6wG8knVbOpqXKz+U0xoV3U+nCn044NhZfzLH838LPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RTwPTok1; arc=none smtp.client-ip=140.211.166.137
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JaZr4bWc"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RTwPTok1"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp2.osuosl.org (Postfix) with ESMTP id 24AD340193
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 30 Oct 2024 15:59:33 +0000 (UTC)
+	by smtp4.osuosl.org (Postfix) with ESMTP id B7F77401EF
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 30 Oct 2024 16:52:20 +0000 (UTC)
 X-Virus-Scanned: amavis at osuosl.org
 X-Spam-Flag: NO
 X-Spam-Score: -5.79
 X-Spam-Level:
-Received: from smtp2.osuosl.org ([127.0.0.1])
- by localhost (smtp2.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id hX-6s_fhPLeG for <cti-tac@lists.linuxfoundation.org>;
- Wed, 30 Oct 2024 15:59:32 +0000 (UTC)
+Received: from smtp4.osuosl.org ([127.0.0.1])
+ by localhost (smtp4.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id IJPZLr2TM2wj for <cti-tac@lists.linuxfoundation.org>;
+ Wed, 30 Oct 2024 16:52:19 +0000 (UTC)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp2.osuosl.org B3D13400FC
-Authentication-Results: smtp2.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org B3D13400FC
-Authentication-Results: smtp2.osuosl.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JaZr4bWc
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp4.osuosl.org 34B004011B
+Authentication-Results: smtp4.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp4.osuosl.org 34B004011B
+Authentication-Results: smtp4.osuosl.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RTwPTok1
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by smtp2.osuosl.org (Postfix) with ESMTPS id B3D13400FC
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 30 Oct 2024 15:59:31 +0000 (UTC)
+	by smtp4.osuosl.org (Postfix) with ESMTPS id 34B004011B
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 30 Oct 2024 16:52:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1730303970;
+	s=mimecast20190719; t=1730307137;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:autocrypt:autocrypt;
-	bh=DK9n0PipBtdHV13cMt6zG0FudzhT9Ccu/JAJFsFl3SM=;
-	b=JaZr4bWcZRf2iq4GqlQltBPKtuUg7jpidjPCST6MqHo3TVcv96cl2rOkvG6kWXeNFLOabt
-	9e3z3/aBD41ZDyhA334haumDsLYLv1bikLH5ETddPz3GDDKId3kCiS7Ts36vaEO+jttFWT
-	KdT65q8HuYJCOt29rxL06ICwd1M2bHs=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=NfV/9uELHfT5+ze67OXmo20DJJDpDvvKqCuKw6FlBTs=;
+	b=RTwPTok1pJQxwxgHuLHgqZqBUF5/Ar0DTmjUrCoB7pczTujhonoze1MQeXbT74UzlQm3lp
+	BpcWf4hKR6GLyfzgA+fjkuGa7HPJdeXGCl9xY69YFQrrhkv3edHNyQfDDwCOrpX3SHd0bb
+	2AWgzeWb54e+k6v3+lJekOzTM5iXXro=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-642-EtbBfR3zMqKEU9MQBAqn8A-1; Wed, 30 Oct 2024 11:59:28 -0400
-X-MC-Unique: EtbBfR3zMqKEU9MQBAqn8A-1
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-7b14a4e771fso319111185a.3
-        for <cti-tac@lists.linuxfoundation.org>; Wed, 30 Oct 2024 08:59:28 -0700 (PDT)
+ us-mta-134-cvhdilfpOdW0xkv7o7mguw-1; Wed, 30 Oct 2024 12:52:16 -0400
+X-MC-Unique: cvhdilfpOdW0xkv7o7mguw-1
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-6cbe933e877so939836d6.1
+        for <cti-tac@lists.linuxfoundation.org>; Wed, 30 Oct 2024 09:52:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730303968; x=1730908768;
-        h=content-transfer-encoding:organization:autocrypt:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DK9n0PipBtdHV13cMt6zG0FudzhT9Ccu/JAJFsFl3SM=;
-        b=OzXQOqO7HzK0yFBXKy9AADp1chsisMHfaVYM86xWYsRBAO7bRlW44v2YoE20bOOSzk
-         eFdp+RByvyXSMj+Q8dt8/6IHZTkDCgKKOnGeWpRU6JOWCtsKiqyTv6kJ3DIzqT+VIRsz
-         OcbsmWYtBU9NE0WIjBkZKykXw8xMVfTPqN2k5izImXULaooqLIgOWqZFhcvJlkVuBuV2
-         aGtaRpeXhNfAgjdZXWb/4P3GGCBJXJDCuuLz3t972uzOVx0jHHGubxLoWBHX+r1+Z5gW
-         gE85kwHxgxHSOiJQepuhzq3ScchVmllB0THKEGlkySKrZT+25+2MfATefgtpe9n2QRY1
-         qaMA==
-X-Gm-Message-State: AOJu0YxjXYexaDceDoNzjTgzi+Ky4u+9G/+ZWVbU1wpZ59YxIWWJPVVw
-	rjwNFKg8VMhow0dzFyv2mWqiY5F2se0qzyKD/g+BaL5koMZQy/QpjN/OHY9c2v9iV/zppVntbcf
-	F9ZJ7I9B99u34PtVjkzKbv5JZMVkEKd/WmPeTN6/+ZNxdLUBSC1EGPdAedEpr/tLlg2xo6zOG/n
-	rN50kUzxd5JH9VB5jJNNJ/WNgKDaJCGljQAZOXoeheRp5HL4Vz3A==
-X-Received: by 2002:a05:620a:4110:b0:7b1:4d7f:b03b with SMTP id af79cd13be357-7b193f38b9bmr2031790785a.42.1730303968167;
-        Wed, 30 Oct 2024 08:59:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFMSta/AMfGtHdOEoiK8LjIAQk9tbDhINNsErazKEtf7NWwwsgTOaW60kPqgeE0HRxQ/UB/fQ==
-X-Received: by 2002:a05:620a:4110:b0:7b1:4d7f:b03b with SMTP id af79cd13be357-7b193f38b9bmr2031787785a.42.1730303967608;
-        Wed, 30 Oct 2024 08:59:27 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1730307136; x=1730911936;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NfV/9uELHfT5+ze67OXmo20DJJDpDvvKqCuKw6FlBTs=;
+        b=aqUNfErij/qULwoD2MzAv3V+CkC4C4T+kCQLdAJvjiO0yQCEC2JY2cKbIi23etHyDN
+         jVHZmjtiCdOniyOzIF5hFdfW1GCgdLmugYS7MDq746CgscGfVwe9lQsKSbMKGY/2V9NV
+         glh2lig8An7Kt4WPNFzj5xdSWxSRpqiceB+pDPENNvlPHBIHAzOhy7mqlYzYU3hJqaSi
+         pXccB7iJ10GaeHXHW+7gfOLdwj0pDYjh5rDzmaoGujHEIlzLlz9IlaNiJAWLzAgiP5q4
+         XNR52OHwApLkLV1FsMjcBX+2b6fNqRlIHFhqzDuc8uBcUWVG6IfeZ4zPVvbIBqT3wL6d
+         uDIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVlY1BTDVLzOovaz1+QrV4rPoWryFW1i8nbhQi+gEopu8GRRhjCa/mdIoC06IjOt5kQZweIEPCC@lists.linuxfoundation.org
+X-Gm-Message-State: AOJu0YzAsURrRQuDsRzjFFHlQ6UWf13ahfg/F+l0x6MpkMpoRxuj592t
+	qHzXmLm+K5czkQ1OEZG4T76VGPLNeSmzX7DIRRImM8CjDCEU3rPFCVh1/kI4fLxe5mFqiyiVyrP
+	/r/izsCawZoHcG4QCKSMzgBSL4temLyv3s0fTXgLQGULHDTr9ZoaTE8x7Hiq1lJ3jPbCV
+X-Received: by 2002:a05:6214:43ca:b0:6ce:2651:f3b1 with SMTP id 6a1803df08f44-6d1858412b6mr243865566d6.41.1730307135978;
+        Wed, 30 Oct 2024 09:52:15 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFdrg4r3m4ke93xr955K5oRmrYre+tGnBsnogIB7YPq1FgIdwooUPTx2J4YOwDYmn1Ts53eBA==
+X-Received: by 2002:a05:6214:43ca:b0:6ce:2651:f3b1 with SMTP id 6a1803df08f44-6d1858412b6mr243865336d6.41.1730307135609;
+        Wed, 30 Oct 2024 09:52:15 -0700 (PDT)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7b18d359a47sm521020185a.125.2024.10.30.08.59.27
-        for <cti-tac@lists.linuxfoundation.org>
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6d179a2fd62sm53370936d6.131.2024.10.30.09.52.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Oct 2024 08:59:27 -0700 (PDT)
-Message-ID: <1d7c45d0-0587-4ae9-98b4-2b8997236b79@redhat.com>
-Date: Wed, 30 Oct 2024 11:59:26 -0400
+        Wed, 30 Oct 2024 09:52:15 -0700 (PDT)
+Message-ID: <5691d7c8-f92e-46f3-8edf-c83e085dbfa2@redhat.com>
+Date: Wed, 30 Oct 2024 12:52:13 -0400
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
@@ -84,9 +86,20 @@ List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: cti-tac@lists.linuxfoundation.org
+Subject: Re: Core Toolchain Infrastructure - October 2024 update
+To: Mark Wielaard <mark@klomp.org>
+Cc: gcc developers <gcc@gcc.gnu.org>,
+ glibc developers <libc-alpha@sourceware.org>,
+ gdb developers <gdb@sourceware.org>,
+ binutils developers <binutils@sourceware.org>,
+ Overseers mailing list <overseers@sourceware.org>,
+ cti-tac@lists.linuxfoundation.org, =?UTF-8?Q?Zo=C3=AB_Kooyman?=
+ <zoe@fsf.org>, "Karen M. Sandler" <karen@sfconservancy.org>
+References: <9ee5b9e1-3f84-4d9e-8249-7a4bf8080bb0@redhat.com>
+ <20241030103912.GD28606@gnu.wildebeest.org>
+ <3a2c2d35-3b86-4286-a393-5ec166659f92@redhat.com>
+ <ae8662fd114be6b26300e85173cfcd1068421abf.camel@klomp.org>
 From: Carlos O'Donell <carlos@redhat.com>
-Subject: CTI TAC Meeting Notes 2024-10-30
 Autocrypt: addr=carlos@redhat.com; keydata=
  xsFNBFef5BoBEACvJ15QMMZh4stKHbz0rs78XsOdxuug37dumTx6ngrDCwZ61k7nHQ+uxLuo
  QvLSc6YJGBEfiNFbs1hvhRFNR7xJbzRYmin7kJZZ/06fH2cgTkQhN0mRBP8KsKKT+7SvvBL7
@@ -132,45 +145,100 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  O4uRThl5mMDx8MXQz6M9qQ5anYwre+/TudTfCzcTpgXod1wEqi2ErJ5jNgh18DRlSQ3tbDvG
  O0FatDMfJw==
 Organization: Red Hat
+In-Reply-To: <ae8662fd114be6b26300e85173cfcd1068421abf.camel@klomp.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-​CTI TAC Meeting Notes 2024-10-30
+On 10/30/24 11:45 AM, Mark Wielaard wrote:
+> Hi Carlos,
+> 
+> On Wed, 2024-10-30 at 08:32 -0400, Carlos O'Donell wrote:
+>> I can get down to specific requirements and possible solutions for them, including
+>> things like securing logins with 2FA etc. Which *could* be solved by Sourceware
+>> today possibly using Nitrokeys (open hardware and FOSS), for example.
+> 
+> Yes, a nitrokey distribution scheme is part of the Secure Sourceware
+> Project Goals: https://sourceware.org/sourceware-security-vision.html
 
-Present:
- * Carlos O'Donell
- * Joseph Myers
- * David Edelsohn
- * Siddhesh Poyarekar
- * Adrianne Marcum (OpenSSF)
- * Kris Borchers (OpenSSF)
+Have you broken down those project goals into actionable steps that could be taken?
+
+For example filing Sourceware Infrastructure bugs for each service that needs to be
+migrated into a VM and isolated (with a top level tracker for "Increased isolation")?
+
+If you're going to ask for funding, having a list of concrete goals the funding
+will solve, broken down to the level at which you can write an SOW, is very very
+beneficial.
  
-Agenda:
- * Carlos: Posted CY24Q3 update.
-  * https://lore.kernel.org/cti-tac/9ee5b9e1-3f84-4d9e-8249-7a4bf8080bb0@redhat.com/
-  * David: The requirements from various governments, business partners, that these are requirements coming down from upcoming regulations.
- * Carlos: Present my current view of NIST SP 800-218 and certain steps where we align and where we don't.
- * Carlos: Look at OpenSSF best practices badge and requirements for where we align or don't align with the current infrastructure.
- * Introduction from Kris Borchers (OpenSSF). Experience with several other foundations.
- * Carlos: Added Kris to the official calendar invite.
- * Carlos: Asking Joseph if this layout meets the requirements raised at the previous TAC meeting to call out specific standards and page and item references.
- * Joseph: Yes, but presumable focused on the systems related to CTI and CTIs scope.
- * Carlos: Agreed, but I'm starting by telling a story that SSDF has many reasonable requirements, some which we meet with community process, but then move on to the other requirements.
-  * Siddhesh: Definitely need a table. Focus should be a structured table.
- * Carlos: Concern that for entries that are contentious
- * Siddhesh: C++ Compiler Flag guide that the OpenSSF publishes is a structure we could borrow from? What about things that Sourceware cannot provide?
- * Carlos: Noting here https://github.com/ossf/wg-best-practices-os-developers/blob/main/docs/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C%2B%2B.md for reference.
- * Carlos: I'll use the structure of this for the document with a table on top.
- * Carlos: I have a note from downstream that the LLVM Foundation and developers in the organization are pusuing a review of best practices from the OpenSSF. We can do the same?
- * Carlos: Which is the best practices badge for OpenSSF that has silver and gold?
- * David: https://www.bestpractices.dev/en/projects/5321
- * David: Each criteria is at a given level, particularly silver and gold.
- * Next steps:
-      * AI: Carlos to complete and publisize the glibc notes about specific NIST SSDF steps.
-      * AI: Siddhesh to look at GCC and OpenSSF Best Practices badge and infrastructure requirements.
+> We discussed this with OpenSSF and submitted a funding request to
+> OpenSSF Alpha Omega for this particular part. OpenSSF initially was
+> supportive to funding these kinds of security plans, but they have been
+> silent for the last couple of months. If you have contacts to get this
+> going forward again that would be great.
+
+I do have contacts at the OpenSSF and I'd be glad to help. We just met with one of
+their team members today as part of the CTI TAC meeting.
+
+Do you have your funding request anywhere that I can read it?
+
+>> Having all the details spelled out would allow Sourceware to make progress on the
+>> same issues raised, and I can even file infrastructure bugs if that helps.
+> 
+> Yes, please file bugzilla reports against the Sourceware Infrastructure
+> project:
+> https://sourceware.org/bugzilla/buglist.cgi?product=sourceware&component=Infrastructure
+> Or bring it up on the overseers list or during the Sourceware open
+> office hours. https://sourceware.org/mission.html#organization
+
+For tracking purposes I'll file them as Sourceware Infrastructure bugs and
+we can go from there.
+
+>> My deepest concerns here is that Sourceware PLC cannot convince larger sponsors
+>> to provide the funding to do what needs to be done to scale out and improve our
+>> services.
+> 
+> Thanks for your concern. The whole idea of setting up Sourceware as an
+> organization with Conservancy as a fiscal sponsor is precisely to make
+> these kind of sponsorships easy. And to expand funding to be able to
+> accept community donations and grants:
+> https://sourceware.org/donate.html
+
+What you have done is make it *possible* for an organization to place money at the
+fiscal sponsor for the mission you've set out, and while this is a measure of ease,
+the hardest step is still to come. You need to convince sponsors to donate.
+
+David, Joel and I have been the trustees of the GNU Toolchain Fund since we worked
+with the FSF to set it up in 2017. Since then the hardest step is getting larger
+sponsors to support.
+
+How have your fund raising activities been going for the Sourceware fund at the SFC?
+
+Have you allocated and spent any of that funding to move the project goals forward?
+ 
+>> I'm excited that the GNU Toolchain community is looking at different workflows and
+>> solutions, but if I'm honest the same question of funding and service/workload
+>> isolation applies.
+>>
+>> I'm *more* excited to pay Codeberg directly to support the GNU Toolchain to support
+>> the development of Forgejo, particularly given that larger groups like Fedora are
+>> considering Forgejo.
+> 
+> Yes, we did already discuss this. But it is too early for that. Richard
+> setup a wiki page for the Forge Experiment that includes a list of
+> various bugs/issues in Forgejo that we would like to see resolved
+> before we can call the experiment an success.
+> https://gcc.gnu.org/wiki/ForgeExperiment
+> When we are a bit further into the experiment to know which ones are
+> real blockers, we could fund the work to get those done.
+
+Yes, I agree we're too early.
+
+Fedora has commented publicly that Codeberg's informal position was that they
+probably did not have the capacity to host a project of Fedora's size.
+
+https://discussion.fedoraproject.org/t/a-vote-in-favor-of-forgejo/112059/5
 
 -- 
 Cheers,
