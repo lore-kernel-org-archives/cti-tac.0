@@ -1,137 +1,104 @@
 Received: from smtp2.osuosl.org (smtp2.osuosl.org [140.211.166.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35CD1AD3F5
-	for <cti-tac@lists.linuxfoundation.org>; Mon,  4 Nov 2024 10:50:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7194A376E0
+	for <cti-tac@lists.linuxfoundation.org>; Mon, 25 Nov 2024 14:01:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730717443; cv=none; b=psgdsTKeAIXygQQY/+y58pe5vcW4kVu6aVLCyDlSxHxEbirTJCM/R+AVDVeK4m5EGsqKAGalAmVeYqFtwQxJ+6Xs7BIfD4/idSJ3UCq1c99FJ9AuT7fJamzIYS9DHaf18463JOsEsbX579W3Syoct9VDk/kGfUCjwhiL47PPxjo=
+	t=1732543269; cv=none; b=L73sQA1dnV4+XIddArdicsoKNsasw5pIBrkjm6FBSQ/5vUl0VkdDSyitDBkgJbjDo+vL1Jpj3HJX818+JlXDcLj7gtuI4raiXRTarl5zFdm0sCMhNoVRta9eOUrVdy4LSt/OML0/bXTHO45WjffZw9d7u21t3DaSlu4oPUANEvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730717443; c=relaxed/simple;
-	bh=/JEcYAKiFx6wU4BrpVZvQ3DItskofGiK7L8KaENBeDw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bQAdaC2KwGTsJSwQPVpmVzSoqCG0GT3SSLrS1L85wK7kzxTAWeeDKORbbxwfSaoc7OJG5GC07tEa+6bTmVL5x1wtbfJ8NhUTqsvdgcRHRUko/mbUiUxIUCDmktrdYTkj/VXdKYNyIEV44QOKqNrAZJcNrXKv2Nz6NaGpqV6CTjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.133
+	s=arc-20240116; t=1732543269; c=relaxed/simple;
+	bh=MP6NYwfRoX/MQKXL67vzPhbeXMt0W1NTloWfTQKj+2k=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=WqhiTEWxfUpv7yJ998UoKl3a1qeD8+rdKMubO02BMvmlcg/UenKN26cDDCPpVrmA45/a8eLhk6M71Ls0n/eMGtsiADBSYxhKcVJ8NHqXnUXjj2g6Tw91qdWpxE+h0LvDyEb9AoBChdUe3X0gjo0IH3eUBEhjewRKYha669LoxhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RAm2iltT; arc=none smtp.client-ip=140.211.166.133
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RAm2iltT"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp2.osuosl.org (Postfix) with ESMTP id 482E840258
-	for <cti-tac@lists.linuxfoundation.org>; Mon,  4 Nov 2024 10:50:40 +0000 (UTC)
+	by smtp2.osuosl.org (Postfix) with ESMTP id CBE3142FF1
+	for <cti-tac@lists.linuxfoundation.org>; Mon, 25 Nov 2024 14:01:07 +0000 (UTC)
 X-Virus-Scanned: amavis at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -5.591
+X-Spam-Score: -5.793
 X-Spam-Level:
 Received: from smtp2.osuosl.org ([127.0.0.1])
  by localhost (smtp2.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id HptCk2Jl0cq3 for <cti-tac@lists.linuxfoundation.org>;
- Mon,  4 Nov 2024 10:50:39 +0000 (UTC)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=45.83.234.184; helo=gnu.wildebeest.org; envelope-from=mark@klomp.org; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp2.osuosl.org 4B4714023C
-Authentication-Results: smtp2.osuosl.org; dmarc=none (p=none dis=none) header.from=klomp.org
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org 4B4714023C
-Received: from gnu.wildebeest.org (gnu.wildebeest.org [45.83.234.184])
-	by smtp2.osuosl.org (Postfix) with ESMTPS id 4B4714023C
-	for <cti-tac@lists.linuxfoundation.org>; Mon,  4 Nov 2024 10:50:36 +0000 (UTC)
-Received: by gnu.wildebeest.org (Postfix, from userid 1000)
-	id CFC62303C2A0; Mon,  4 Nov 2024 11:50:33 +0100 (CET)
-Date: Mon, 4 Nov 2024 11:50:33 +0100
-From: Mark Wielaard <mark@klomp.org>
-To: Carlos O'Donell <carlos@redhat.com>
-Cc: gcc developers <gcc@gcc.gnu.org>,
-	glibc developers <libc-alpha@sourceware.org>,
-	gdb developers <gdb@sourceware.org>,
-	binutils developers <binutils@sourceware.org>,
-	Overseers mailing list <overseers@sourceware.org>,
-	cti-tac@lists.linuxfoundation.org,
-	=?iso-8859-1?B?Wm/r?= Kooyman <zoe@fsf.org>,
-	"Karen M. Sandler" <karen@sfconservancy.org>
-Subject: Re: Core Toolchain Infrastructure - October 2024 update
-Message-ID: <20241104105033.GB25396@gnu.wildebeest.org>
-References: <9ee5b9e1-3f84-4d9e-8249-7a4bf8080bb0@redhat.com>
- <20241030103912.GD28606@gnu.wildebeest.org>
- <3a2c2d35-3b86-4286-a393-5ec166659f92@redhat.com>
- <ae8662fd114be6b26300e85173cfcd1068421abf.camel@klomp.org>
- <5691d7c8-f92e-46f3-8edf-c83e085dbfa2@redhat.com>
+ id Ey_qex0I5W2b for <cti-tac@lists.linuxfoundation.org>;
+ Mon, 25 Nov 2024 14:01:05 +0000 (UTC)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.129.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=codonell@redhat.com; receiver=<UNKNOWN> 
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp2.osuosl.org 7E9DB40C58
+Authentication-Results: smtp2.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org 7E9DB40C58
+Authentication-Results: smtp2.osuosl.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RAm2iltT
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by smtp2.osuosl.org (Postfix) with ESMTPS id 7E9DB40C58
+	for <cti-tac@lists.linuxfoundation.org>; Mon, 25 Nov 2024 14:01:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1732543262;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type;
+	bh=MP6NYwfRoX/MQKXL67vzPhbeXMt0W1NTloWfTQKj+2k=;
+	b=RAm2iltTTcqJkETcijKrnzm0VTqcmOGnI3OPnOxGAUY8M2C0vPhXQcWYQV/u4htzLLVGwM
+	1JpszaM9mrZQP/+x37wJc/18fMwdgyxqO6YQpRt1mAPcWCaqtMn7xjA2TyWmfx27TdkYJr
+	yayz4jCTK9/aAvCHeWN2vwfX83GvNOU=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-139-kbmsN_WxP3ur_b8pFZHChw-1; Mon, 25 Nov 2024 09:00:58 -0500
+X-MC-Unique: kbmsN_WxP3ur_b8pFZHChw-1
+X-Mimecast-MFC-AGG-ID: kbmsN_WxP3ur_b8pFZHChw
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-6d366683f4aso71006316d6.3
+        for <cti-tac@lists.linuxfoundation.org>; Mon, 25 Nov 2024 06:00:57 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732543256; x=1733148056;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=MP6NYwfRoX/MQKXL67vzPhbeXMt0W1NTloWfTQKj+2k=;
+        b=GKKCaP6RZLajKD8GTgwiWf0nbZkHWJjEvkYzwsd2WAjslgLQBr+uPjXZGeOG/hnWMY
+         PVjmFGm2/D67WpURWZZt2tJWxxjvJsKFv0UXjReBG0TVNr957Ie8ktNn7JydBtjx1CvO
+         MyxA4GlOpbJSeTV323L+si8VQSLEyhpYp9S0VDBjHS9lhUmQpnuvayH4GlQLN5VuqHxZ
+         AT68EXSgVfjsJrym+ZUkdfLESpSXW1G5+BQvRubQur8+Gg2RFc6IXkkU6/ln1cRvc3Q7
+         t5ix4/nZ1oJNZfYQsa6T8TGlX6MHFMY+Xo3bqMhJJTbKsXmi5f+Bwjj8ejGwK734gkqI
+         X7wg==
+X-Gm-Message-State: AOJu0YwOtGNzEMBiQwyImXIgJgIq3FZcmkrjOwfWBVIQUf+PBKh7SkzH
+	k5yKVVnII2oX2wSg9ZS2iRYDgTFy2uDR6oTtccCWkdH3gEBEKAw5kx3GcYDpDcJJuT06fNJDNw4
+	lYyLZTzHKJgQMJ1UalRupiM8FoOTvMuHDpZ5VekcLAr2z0/tkoAdxaenUcgN6bIj4ruzzINqCRK
+	a9UIV6pk+KzRGpIEbRlMRBnrKn7+7OR/kWXivXtOb/2nJ7n2nxMDex1A==
+X-Gm-Gg: ASbGncuyZfC0ZH0YjOQSDdJGIOUhj3MdKKApZfKl2Yu2ZNVb+2l6952EidSzu59PXlx
+	mIvtA3QJhtT11ZR436rv2ZnxBzxoJzR0=
+X-Received: by 2002:a05:6214:cc4:b0:6d4:1d6f:8fb9 with SMTP id 6a1803df08f44-6d451362880mr260169106d6.47.1732543256341;
+        Mon, 25 Nov 2024 06:00:56 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGytWlQnDhaJgyCgLhVSESz95/hhTnyS6B37KEpKmAKkY7vwR6HJhqJT1UUwowG7njQl5/Rc6t/fABQNfKOg+E=
+X-Received: by 2002:a05:6214:cc4:b0:6d4:1d6f:8fb9 with SMTP id
+ 6a1803df08f44-6d451362880mr260167636d6.47.1732543255065; Mon, 25 Nov 2024
+ 06:00:55 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
 List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5691d7c8-f92e-46f3-8edf-c83e085dbfa2@redhat.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+From: "Carlos O'Donell" <carlos@redhat.com>
+Date: Mon, 25 Nov 2024 10:00:00 -0400
+Message-ID: <CAEMqeSrqsq5Dhqjdye6ZZuz-z-UyFW4eOZPT5OcFUDLhR5-geQ@mail.gmail.com>
+Subject: Reminder: CTI TAC Meeting on November 27th at 11am EDT
+To: cti-tac@lists.linuxfoundation.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: zQsDlhz5xkCSnK9hYENUXw_fIEKnM14cTFFx36lpkII_1732543257
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Carlos,
+Reminder: CTI TAC Meeting on November 27th at 11am EDT
 
-On Wed, Oct 30, 2024 at 12:52:13PM -0400, Carlos O'Donell wrote:
-> > We discussed this with OpenSSF and submitted a funding request to
-> > OpenSSF Alpha Omega for this particular part. OpenSSF initially was
-> > supportive to funding these kinds of security plans, but they have been
-> > silent for the last couple of months. If you have contacts to get this
-> > going forward again that would be great.
-> 
-> I do have contacts at the OpenSSF and I'd be glad to help. We just
-> met with one of their team members today as part of the CTI TAC
-> meeting.
+BBB Conference link:
+ https://bbb.linuxfoundation.org/room/adm-iuc-px7-mk1
 
-Thanks, I see the OpenSSF General Manager and the Technical Program
-Managers have gotten different positions or moved on from OpenSSF. I
-added the new contacts to reach out to.
-
-> > Yes, please file bugzilla reports against the Sourceware
-> > Infrastructure project:
-> > https://sourceware.org/bugzilla/buglist.cgi?product=sourceware&component=Infrastructure
-> > Or bring it up on the overseers list or during the Sourceware open
-> > office hours. https://sourceware.org/mission.html#organization
-> 
-> For tracking purposes I'll file them as Sourceware Infrastructure
-> bugs and we can go from there.
-
-Thanks, that would be useful input.
-
-> >> My deepest concerns here is that Sourceware PLC cannot convince
-> >> larger sponsors to provide the funding to do what needs to be
-> >> done to scale out and improve our services.
-> > 
-> > Thanks for your concern. The whole idea of setting up Sourceware as an
-> > organization with Conservancy as a fiscal sponsor is precisely to make
-> > these kind of sponsorships easy. And to expand funding to be able to
-> > accept community donations and grants:
-> > https://sourceware.org/donate.html
-> 
-> What you have done is make it *possible* for an organization to
-> place money at the fiscal sponsor for the mission you've set out,
-> and while this is a measure of ease, the hardest step is still to
-> come. You need to convince sponsors to donate.
-
-The hardest step and what cost most of the energy was setting up the
-organization, the PLC, working out our relationship with our fiscal
-sponsor, making sure to get the governance right. And setting rules
-for making sure to preserve software freedom and diversify income
-sources.
-
-Large monetary donations from corporations are certainly nice, but you
-have to make sure the community keeps in control. Having large
-corporations dominate the funding is risky, so we are also explicitly
-looking at individual donations and grants.
-
-Our largest sponsors provide hardware and services directly instead of
-exchanging money. https://sourceware.org/mission.html#sponsors
-They are valued partners with who we can discuss community and
-services goals. For example about cyber security regulations.
-
-> How have your fund raising activities been going for the Sourceware
-> fund at the SFC?
-
-Very well, thanks. See our last yearly report:
-https://inbox.sourceware.org/20240529190215.GA26515@gnu.wildebeest.org/
-We have been getting more hardware and assistence from our sponsors to
-expand our services and are pulling in ~$250,- dollars a month from
-individual donations and small grants. We are currently just spending
-~5% of that to make sure we are building up enough reserve to be able
-to replace any hardeware and services in case one of our regular
-sponsors might have to drop out.
+Recurring last Wednesday monthly CTI TAC meeting.
+Agenda:
+- Standing monthly meeting for review.
+- Discuss current TAC topics and progress.
+- Discuss glibc use of CTI services.
 
 Cheers,
+Carlos.
 
-Mark
