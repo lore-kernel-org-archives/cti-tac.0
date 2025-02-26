@@ -1,88 +1,88 @@
-Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
+Received: from smtp3.osuosl.org (smtp3.osuosl.org [140.211.166.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECD613957E
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 29 Jan 2025 16:45:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739BC2144AF
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 13:12:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1738169157; cv=none; b=dE5tQ12/cVvhimPeyzFMLXhPt+mQyg+t4J6eaGHfJMKJulYHSpYLJCEcSHPp7C1CPfgYTRhfo5pN/DHcxuWY0yLcSVZxlriVqdwrt4LyNToGNX3cp9EjqEHkU2wCaJJfjBAb4D5HAWvwj95/TF60ymjkhJeyNV0SaIoiF8Un89s=
+	t=1740575571; cv=none; b=KBWa76qyqPoSTJ9e/f2GkLD3uQR7zm3Wtmh75NLusgF0cvdMZxOmlYy2GLmcJk7JLxQiluuYNliqy256f84HC2ZL35DFvbh6cTv4fOr06XF0ogZ9TQGt8i1K3mLdr5MEQ+41wS2PXvHfsbTW07vbH9HpMBK/U2GKhTDXHN97JXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1738169157; c=relaxed/simple;
-	bh=iyZitSxVkPh17QC8XB+FoDyuIy26RZptTBVIxxGobIQ=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=GQYbgqT1VAuaeFoVF73QPqSiunGdXNh5o5UiFYh87icXuRH2d4U2uZIpP8ToB68Iu8Ux20a7r3T+m0ynirVZMkReSzVQo8bbSvHA9YvIC95D9XkI8/poY5Nww+HIvtpg1S7c2yn8Jx+IUTqUm7oZUXAgo+EifdK2SBVslNiOuHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MQ3wqsb0; arc=none smtp.client-ip=140.211.166.138
+	s=arc-20240116; t=1740575571; c=relaxed/simple;
+	bh=ii4VSbV76E2hzsGKsg2FfXvqfOT+Z7m0RGpMEjG9+R8=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=qNujZuWDe79vwGLc43gLT+e6nv4DifTg9opNw+q1KXmy6QoGnG/pta3hpl5u9IrcQqgSBTqUTxdufe8P4oglkMZyj1mWG2JVj1d7HaDv3ZfZnw8ldFqbvm4nx/RiFnwnkU3ZDTXak6TjHyf+eq9IcE6U2A74zHzUtIzt/MhXLkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MHPCwzDc; arc=none smtp.client-ip=140.211.166.136
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MQ3wqsb0"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MHPCwzDc"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp1.osuosl.org (Postfix) with ESMTP id EF39280D87
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 29 Jan 2025 16:45:55 +0000 (UTC)
+	by smtp3.osuosl.org (Postfix) with ESMTP id 0375E60862
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 13:12:50 +0000 (UTC)
 X-Virus-Scanned: amavis at osuosl.org
 X-Spam-Flag: NO
 X-Spam-Score: -5.79
 X-Spam-Level:
-Received: from smtp1.osuosl.org ([127.0.0.1])
- by localhost (smtp1.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id isYnZMdx-1U5 for <cti-tac@lists.linuxfoundation.org>;
- Wed, 29 Jan 2025 16:45:55 +0000 (UTC)
+Received: from smtp3.osuosl.org ([127.0.0.1])
+ by localhost (smtp3.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id CvqutH9jQRRQ for <cti-tac@lists.linuxfoundation.org>;
+ Wed, 26 Feb 2025 13:12:49 +0000 (UTC)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.129.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp1.osuosl.org D0DDD811F6
-Authentication-Results: smtp1.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org D0DDD811F6
-Authentication-Results: smtp1.osuosl.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MQ3wqsb0
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp3.osuosl.org 370BC60762
+Authentication-Results: smtp3.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp3.osuosl.org 370BC60762
+Authentication-Results: smtp3.osuosl.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MHPCwzDc
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by smtp1.osuosl.org (Postfix) with ESMTPS id D0DDD811F6
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 29 Jan 2025 16:45:53 +0000 (UTC)
+	by smtp3.osuosl.org (Postfix) with ESMTPS id 370BC60762
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 13:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1738169152;
+	s=mimecast20190719; t=1740575567;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:autocrypt:autocrypt;
-	bh=QwkO1qpPaUT5Er4Px2cZTVgGU3bsPE5fGJKK68EjTao=;
-	b=MQ3wqsb0BcArqvrkv2b90wJsXJpvmTQ+cVwyEFdGajdCuyVhE5yKA6/ePuNoL5sz+GqTYq
-	lucSWpX59Jgdq6LvGTWVKSB/HcefS/YlNpCZgEa9FFf4w0feEL9RN6ry0H6TQexKyDu/ST
-	yXbeoWd461wN8u/fTiTJqVh/vQudG08=
+	bh=94gF98gP/Hdd9H4+7BU0PmhPqMKf3JlT24dCIP98jTA=;
+	b=MHPCwzDceDzrCRG9wgtLgF6Z17lEbjVWK2z+vR7u15NHjL0D+rSwrjc+E1PZSaDzJtmdBu
+	MKxxTQaF4nL4gwj5w0dPU4YZB1pqLrTCqDoJkbzfSnsnFmt1e+44l6Nv4z/8NggzDliW/1
+	fxr7nj0bEjg+zJ/WaGh1VvoqOPmYGGA=
 Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
  [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-281-F8KiuJWVMJe3194uq4d1Yw-1; Wed, 29 Jan 2025 11:45:51 -0500
-X-MC-Unique: F8KiuJWVMJe3194uq4d1Yw-1
-X-Mimecast-MFC-AGG-ID: F8KiuJWVMJe3194uq4d1Yw
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-6d8860ab00dso111262346d6.0
-        for <cti-tac@lists.linuxfoundation.org>; Wed, 29 Jan 2025 08:45:51 -0800 (PST)
+ us-mta-481-cjJpqbo_N5ylpnhiEPJfGg-1; Wed, 26 Feb 2025 08:12:46 -0500
+X-MC-Unique: cjJpqbo_N5ylpnhiEPJfGg-1
+X-Mimecast-MFC-AGG-ID: cjJpqbo_N5ylpnhiEPJfGg_1740575565
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-6e4f08c54e6so58008126d6.1
+        for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 05:12:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738169151; x=1738773951;
+        d=1e100.net; s=20230601; t=1740575565; x=1741180365;
         h=content-transfer-encoding:organization:autocrypt:subject:from:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QwkO1qpPaUT5Er4Px2cZTVgGU3bsPE5fGJKK68EjTao=;
-        b=Wkf0KII3Hk7G7sEDvtcLt7fUDUfhqpzMi5iZ+vxFZutEIhJ+F7CQtRdbsJVjRjC5w+
-         7/ulXq0TyOMops9k7afeuJOxfjxrlhwgH7bWuXssOtdAzoCkeUlrfkxbXOOBHBQiaf58
-         k7HLSMht+z6HL6at9vO7z5sKpLU+XhDtTWjhGlGb1sDYzfYuisoij4snrcsDpNoe+HCO
-         Wa1fCZ8W3oUqXYG/Uh8pwsyF4uh1MkOCUUI65KlgK6W1cbxwgWMWN8nEZSUzlThIZjyB
-         iwzEo0J/KIBir9g2720L1uJTS+SEvbiwZpjArDsnGpFIuosb5lDNeEy5OxlFR1X6RN3E
-         hkaw==
-X-Gm-Message-State: AOJu0Yx1IuX8X1tDrFK+xc38lof0nw2mS3EpJZgl4TM/zdTtMIpZQUQD
-	igQDqN+5p0tjrW8nnwPALGFImsI+8LSVfqrY2nooSP5mUZCOjOK8FI1BB4GPWEL+oB67m5KaHkO
-	Viut77NiaSSrXbUMvm8pCstn4qHeXTUFYPxCCA6Ew7H1wneyo2oynzSbJOvVXLxHpNQoKK/9bo6
-	LBn253ND5irdsgKdPKLaqKJVpJcCt7n6kHleJkvQYHzOFSdvs1vg==
-X-Gm-Gg: ASbGncsGPXoPpv5JjmkqtsnEClgcJFjZEUW685c6LV2R/MW7fQnrsaOtpfk7hWImndw
-	OjO98BQcuEvIznYdOb6F5my8AO9Iin7Rt8cdeVpLGg9BAuHN0vukUOTmap6yzEOWajU+57rywjC
-	BwCFMfndFfEonmPLFOLIY5lnMBwfPqxhHYTH1bQTdMSK6L2uN0v/qsuBIv/RuZudIv7VpKowuv6
-	w6BCPRSwbJbPvXUApqYcz6w0RjZIsUQ81xqEA0RumGyIjVWlp6Ns6loMClh/Qx/fcaNTn/A01Vc
-	IRuy9A==
-X-Received: by 2002:a05:6214:c2a:b0:6d8:d84d:d938 with SMTP id 6a1803df08f44-6e243c647d6mr60499986d6.28.1738169150693;
-        Wed, 29 Jan 2025 08:45:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGNyeYJUzDWUh9PpPbvBxnCNFJUCnpZzhLQ5wQPpYFDCrYbheRlj2xFdo6mBwxgscdnFzG1YQ==
-X-Received: by 2002:a05:6214:c2a:b0:6d8:d84d:d938 with SMTP id 6a1803df08f44-6e243c647d6mr60499546d6.28.1738169150237;
-        Wed, 29 Jan 2025 08:45:50 -0800 (PST)
+        bh=94gF98gP/Hdd9H4+7BU0PmhPqMKf3JlT24dCIP98jTA=;
+        b=MvXPiKXGOukiuMoWhzFd/r5y2Z2yaRirq6NhIxRi89EjPXg+xhNOpSSWghJ4LvRDBw
+         /7oE1bNyOSl5lti8tdLfaBjaYq+DvdzDureqMLUggtkWqlbCUv4IdzaLoQVG0nxIVQXb
+         yVERfW1c8/x9T3pJmUEWfmovQ8MLH0utnSATYdLCJoYCZZT7udXlfePSjVMj3kd8tQlr
+         X4wlgGEH8b4BlGRuw8flc+IFC9jcAY3VxQRvdsJHTdhfcmEVbGz3H+sHxLdN3f//mCO0
+         ZWbbA2JpRKhUrNtMWlTEMEqJMgjm01RVUccTw8QLv6xFMmE1y2iRDd7vblj5zuIPXB9k
+         /ymQ==
+X-Gm-Message-State: AOJu0Yy8586aLoh3aKJjCtlNoj1mhJgH5yjMkP3KzgijKisXjPks6DlT
+	7FCwW4m+xcZSADyOW0ViQ3EQrzDT37j+rIG/RVnD88mC+Y0/KErBZMoQN7k5otfA3iZGtGpwCko
+	4vo+5tAh8LB1LC0PV+8WO7jMLc9sDDNMhRz6gGghoOxr92xSAwH5JBGggqtJgyFH+qJzKOVxQXg
+	F8T0kDP+hnNFFlIRdgFPFkCwmhZHBEnMk9VY6D0vLPgrFE6PnnLQ==
+X-Gm-Gg: ASbGnctLHpUdaDWhIqZZ9hMPSpYe9wQM8EZRciY+Qa9LjK8AXCiSHETcNczlbRKwSXL
+	/BklAwxcJ4wH/sTKFR2Uvmml0LTsLd5SAZUdq3ypTkPiTVptlmzHHttNMjtF8tDed1WATw1FH+t
+	dXNWJrOInxhiMCe8/nKBC5o8AzEHVysQ0K6XtgixDvScMIjvalmYGppuuDRBCuMQ516qeoDe6iZ
+	377vu4oQCoG+y000t6ZM4Eku51pwDivNR/pEWzaJIZOKlWHD3ziti+GmtjMmo9JWiggZlpEluKM
+	1qUUWiy7SzKXUh+9
+X-Received: by 2002:a05:6214:27c6:b0:6e6:684f:7f78 with SMTP id 6a1803df08f44-6e886871063mr42275376d6.3.1740575565182;
+        Wed, 26 Feb 2025 05:12:45 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGenCEYgcf6E2j3e2lS4LGHL1fJTHQ3sYPM3so++v6ZNDnRBhW57IyfEGnPiaRhrdUs252N1g==
+X-Received: by 2002:a05:6214:27c6:b0:6e6:684f:7f78 with SMTP id 6a1803df08f44-6e886871063mr42275096d6.3.1740575564616;
+        Wed, 26 Feb 2025 05:12:44 -0800 (PST)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6e2051369e7sm57182826d6.11.2025.01.29.08.45.49
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6e87b087147sm21681686d6.41.2025.02.26.05.12.43
         for <cti-tac@lists.linuxfoundation.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jan 2025 08:45:49 -0800 (PST)
-Message-ID: <50dd80af-7b74-41f8-b3b1-48bb1b9b483d@redhat.com>
-Date: Wed, 29 Jan 2025 11:45:48 -0500
+        Wed, 26 Feb 2025 05:12:44 -0800 (PST)
+Message-ID: <29ffeff2-ea80-4b61-96fc-bc75fbfd7b77@redhat.com>
+Date: Wed, 26 Feb 2025 08:12:43 -0500
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
@@ -92,7 +92,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: cti-tac@lists.linuxfoundation.org
 From: Carlos O'Donell <carlos@redhat.com>
-Subject: CTI TAC Meeting Notes 2025-01-29
+Subject: glibc status update - Week ending January 31st.
 Autocrypt: addr=carlos@redhat.com; keydata=
  xsFNBFef5BoBEACvJ15QMMZh4stKHbz0rs78XsOdxuug37dumTx6ngrDCwZ61k7nHQ+uxLuo
  QvLSc6YJGBEfiNFbs1hvhRFNR7xJbzRYmin7kJZZ/06fH2cgTkQhN0mRBP8KsKKT+7SvvBL7
@@ -139,39 +139,33 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  O0FatDMfJw==
 Organization: Red Hat
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 0MRJpQDNC8RUtVyj-zoq6rKB0QXUCDxjAXu8Mh23DSc_1738169151
+X-Mimecast-MFC-PROC-ID: F7_7RX0OHrYO6Ki-CrPaBGxMF4jslsgL6li6ivLNMgA_1740575565
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-​CTI TAC Meeting Notes 2025-01-29
+At the last CTI TAC meeting I decided to switch to weekly reporting on the
+progress I'm making going through and creating the justifying glibc policy
+for the CTI changes we're requesting.
 
-Present:
- * Carlos O'Donell, Joseph Myers, Siddhesh Poyarekar.
- * Kris Borchers (OpenSSF), sends regrets since he can't sign in.
+I'm driving this from the NIST SP 800-218 perspective which has a good
+framework for making these kinds of decision, and has all sorts of places
+to state what and why we want and need those changes.
 
- Agenda:
- * Carlos: Still writing updates for the glibc community.
-  * https://sourceware.org/glibc/wiki/CTI
-  * https://sourceware.org/glibc/wiki/CTI/Policy/glibc
- * Carlos: Change in strategy. I didn't make enough process in December and January to publish my document and glibc policy. I'm going to switch to doing a weekly report to the CTI TAC mailing list with my updates to drive the completion of the document by end of February. Strategy going forward is walking the NIST SP-800-218 items (~14 pages) in order and identifying the glibc policy, how Sourceware does or does not meet that, and how CTI would meet that.
- * Carlos: The lynch pin in the argument is that we are doing this because we want to show FOSS can and will support the security and safety requirements of all users, including downstream distributions.
- * Carlos: Tracking NIST SP-800-218 page references in the document for anyone following along, but providing rewritten language that is more developer friendly.
- * Siddhesh: Discuss best practices badge for OpenSSF.
-  * Carlos: There are some "Met" statements in the PASSING badge that are hand waved. Particularly around static analysis for each release.
-  * Carlos: To limit scope my question from the previous meeting was limited to evaluating the infrastructure requirements from the OpenSSF best practices passing, silver and gold levels. For example Eclipse foundation requires 2FA.
- * Joseph: Discuss the experimental Forge and forge-like services and the potential security characteristics of the forge?
-  * Carlos: Can I do this last? I'm prioritizing what we do today.
-  * Joseph: Yes, this is a future option for development that would need to be evaluted.
- * No further requests from the CTI TAC to CTI board or the OpenSSF.
- 
-Next steps
- * Siddhesh to go check silver and gold best practices badge levels and report on infrastructure requirements.
- * Carlos to start posting weekly updates about the writeup, with the goal to complete in February and publish a CTI update for the first quarter with that text. Working through 14-15 pages of the practices and tasks.
- * CY25Q1 udpate posted with glibc notes about policy and why we want to meet that policy.
+Current status looks like this:
+
+PO [In progress] 13 sections.
+- Started PO.1.1 "Identify and document all security requirements"
+PS [not started] 4 sections.
+PW [not started] 16 sections.
+RV [not started] 9 sections.
+
+Note: Sending these out backdated.
 
 -- 
 Cheers,
 Carlos.
+
+
 
