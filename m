@@ -1,88 +1,88 @@
-Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
+Received: from smtp2.osuosl.org (smtp2.osuosl.org [140.211.166.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D71F7464
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 13:16:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A5F7464
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 13:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740575818; cv=none; b=lHbo/JGLQhraOyoiXbGRUOlfWa09Xb99rgjLT2KuXnvlw87gQ44t5sD2OZbcdzUJRFY5YuW3Kj14anf7uAoNMt2QhuZn5lck1TlRp2KdIqGcpHWLcIgSDqvLQiByDIYBI7BErK9x4qon/IrjTSrXwVwPgPWR4qf5tLDAy4wlzf8=
+	t=1740575825; cv=none; b=XFGCsyvCK1toMYSXhUV7+wj+/5Xw08kF57WNoGEyFPoyLNSf9ffQhEdfxuCEtJh3r3ywKcqbFwOc35Ef4fua0noXMAfqG6mi+gxFKhMWjLlnhZgueTJ3x+mH6ECKPvzcTigKJvI8rA8J395Y2Gn8tFpSqYWwiyPH+Fb0XfvycOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740575818; c=relaxed/simple;
-	bh=BeHu2qbyvtL+Q+6k2SCeCQLHG66du3eQoxyuwTD91Kw=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=QpyI+fN96mh+9M9y4Ke9JM4T/jDeEiVzKGkr+G2/El9gKeTstqv178yxv85Jl/jKBagqrGnSmravT1RGuYQbyg2O28GhuVDOGH46IFhSdRTLBuuWUmDbD8Um/aDAyK0Rfr+aIVfY5qyt6EnGZZXR3eO2gVeWIXqGM2ftCRwSZKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=M8bnhn7U; arc=none smtp.client-ip=140.211.166.138
+	s=arc-20240116; t=1740575825; c=relaxed/simple;
+	bh=B34ihJynxq5TzKI2c2WovOlx7iCHbHg6EMYzoqAhqoc=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=AAagwjCStuBdZNd+hdDKrS2CklmKpoA08i/bEdOI/S0AF/twPd4SAnCxec9PDzEULqirTmwJgdiDptcbdIX/RSwhaPcvTXYOz9pPF619pfGRUWo7OX4NOOxV21O6DGIjLldDqlDsHrlLhuZeXbeUzg/+ShTRBnM+ytLU7io+2d4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FHZT6PIv; arc=none smtp.client-ip=140.211.166.133
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="M8bnhn7U"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FHZT6PIv"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp1.osuosl.org (Postfix) with ESMTP id A7DA582C18
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 13:16:56 +0000 (UTC)
+	by smtp2.osuosl.org (Postfix) with ESMTP id 3375C403B4
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 13:17:04 +0000 (UTC)
 X-Virus-Scanned: amavis at osuosl.org
 X-Spam-Flag: NO
-X-Spam-Score: -5.79
+X-Spam-Score: -5.793
 X-Spam-Level:
-Received: from smtp1.osuosl.org ([127.0.0.1])
- by localhost (smtp1.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id Rjz_TIkhvsZ3 for <cti-tac@lists.linuxfoundation.org>;
- Wed, 26 Feb 2025 13:16:56 +0000 (UTC)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.129.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp1.osuosl.org BE14F81A65
-Authentication-Results: smtp1.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org BE14F81A65
-Authentication-Results: smtp1.osuosl.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=M8bnhn7U
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by smtp1.osuosl.org (Postfix) with ESMTPS id BE14F81A65
-	for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 13:16:55 +0000 (UTC)
+Received: from smtp2.osuosl.org ([127.0.0.1])
+ by localhost (smtp2.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id KwzCrvvXKovp for <cti-tac@lists.linuxfoundation.org>;
+ Wed, 26 Feb 2025 13:17:03 +0000 (UTC)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp2.osuosl.org E38DE401F6
+Authentication-Results: smtp2.osuosl.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp2.osuosl.org E38DE401F6
+Authentication-Results: smtp2.osuosl.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FHZT6PIv
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by smtp2.osuosl.org (Postfix) with ESMTPS id E38DE401F6
+	for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 13:17:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1740575814;
+	s=mimecast20190719; t=1740575821;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:autocrypt:autocrypt;
-	bh=/kmE6HMNyKZ1ezZ7HZ1FRdfDGg2FIMGYLJISlsGn6nA=;
-	b=M8bnhn7ULczugsHlkbySFgYWXm4uJeSjxowXxyHZ+8GekemIPbpeA6Ko1SKToz6Gxn+njn
-	hSRyiCr6n/m+fZf93An3KXXtKaAlfu+u9xK2fr/4r9oIwlulWf7+m7AbjJzIIzU1TU946t
-	Q17GRNjNmAKrDUksnxKQe0t7vQLiFrc=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=fZv2K1CttvJYLtszmuuXz60fnKCkyCHKYCzgtu547Jg=;
+	b=FHZT6PIv5JEjKcXYNqSFRpPGhjoORESy3l/n0DJwGsk5tpHvBLP5PqcE2uWGRYicjtuN2q
+	Zb2Bt6yvYyaZaPL1+i46/qewSZjtuXjUvVbUdvOTT0GgiUxEnu2oDcDdejLBc5cE3WTmcI
+	8AidznKT4MCHJZyNmVMquaN9CQlSTGA=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-627-x8qHHr9wNEa9JS8G8SXoFg-1; Wed, 26 Feb 2025 08:16:53 -0500
-X-MC-Unique: x8qHHr9wNEa9JS8G8SXoFg-1
-X-Mimecast-MFC-AGG-ID: x8qHHr9wNEa9JS8G8SXoFg_1740575813
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-6e66c51e5e8so123018886d6.0
-        for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 05:16:53 -0800 (PST)
+ us-mta-126-8ccmMDVgMYCxKyuaG5WmqQ-1; Wed, 26 Feb 2025 08:17:00 -0500
+X-MC-Unique: 8ccmMDVgMYCxKyuaG5WmqQ-1
+X-Mimecast-MFC-AGG-ID: 8ccmMDVgMYCxKyuaG5WmqQ_1740575820
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-7c09d61bf4aso1151351585a.1
+        for <cti-tac@lists.linuxfoundation.org>; Wed, 26 Feb 2025 05:17:00 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740575812; x=1741180612;
+        d=1e100.net; s=20230601; t=1740575819; x=1741180619;
         h=content-transfer-encoding:organization:autocrypt:subject:from:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/kmE6HMNyKZ1ezZ7HZ1FRdfDGg2FIMGYLJISlsGn6nA=;
-        b=pQmU7z45MjA0aTBd0s8qrQ40Dtm2GMPvLUYr4pnAfYNo8FQRnXdO6IVMr1g9LA2jDf
-         JQEa00rxAab95246yIc5AC2hSfmZKyTQ1zuIqDPzbdGAQ26Ux+g69+aQqVxEYJKrBNyF
-         PzPg1MeVcEu+HpLQQnj3YZO5KdyJ6SO3WsZw/IWiloHeWTK/W/4/a5i5K7yr6AcK3+C4
-         2hzNU2kRn1jU4y/6x98CZ8JRR6nP5iLWZUKFMdrf/WsIi4jrAXE9MjSl6lyfrdxOKGP7
-         YCHBUM/Qn6xv+VpE5IGK5xDEf030zm8Qv65Q5Nh8TolbkAwwSjgpEm/GMMp1GKFs4MJu
-         7leg==
-X-Gm-Message-State: AOJu0Yx6cMm/fvwLdhniWYduxCmGOHj1j9KYp8me986eLLWhc8MW73bm
-	teu1Jr1KulybS22AW7ywCBI6dhmsEb8wKC4dX8hdPYa1/kOPcd0FaCV80IVMesYg7weEsANTw85
-	S9vlb8Vv+ha97JollSS9oeG3DO6yfwqnN7nlr8tgiZ/3gJzZaM8oAhLBwPj9lPXW9MsCbSag/V7
-	gYzEsed4Zx5thzueDAMp8nDjVqpLq+pgNC3r/iVRst7z57AYKugA==
-X-Gm-Gg: ASbGnctE3887qbM9RCoTPPKBBWVEB20n76XVNZewCIv3uxre2KeVViisu2Jz+14IDBP
-	vEhTdzZ48kYCcPP/Y4LJxPIbfJ6CgfSFi5tGb+hUfWs+yXxgsj1nTSmibsg29w9X+L9aauoSAv1
-	luIoXTkv423q48UwkbSQ60I/ubIST6nShjNFeAqiBgDcnrK2KQPBFL1STNfl9Le1bmzOcNhRte1
-	/0pf4/0rxd1U5VEx4fWMtvNg9Zkv1ZnvRAWU6621pnW3Nae1qo3BIE86Mb2ehjF9Svc84ViywAo
-	YOWPdHDypsNO/Jsc
-X-Received: by 2002:a05:6214:d8a:b0:6e6:64a5:e18d with SMTP id 6a1803df08f44-6e6ae7f8290mr288162866d6.17.1740575812614;
-        Wed, 26 Feb 2025 05:16:52 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IE22Q7FUCo+M/4jef8FDdEEwAodrj4bpyKtBO2Rp9gI2Im5LoCydPGAvKjyZ3WNt0IelLTtmw==
-X-Received: by 2002:a05:6214:d8a:b0:6e6:64a5:e18d with SMTP id 6a1803df08f44-6e6ae7f8290mr288162606d6.17.1740575812278;
-        Wed, 26 Feb 2025 05:16:52 -0800 (PST)
+        bh=fZv2K1CttvJYLtszmuuXz60fnKCkyCHKYCzgtu547Jg=;
+        b=UACSPnqEv7BM6433PBDJqDI70ejOkGT3H1DauVVlYnSyi0OOXmliUnofDGGEE/rGuY
+         wKuewFA4lHoHe5yWQ+I71D9raxmNN+Mi7P6s6rLq5zv3qibXzpGgkRsG9pzPtvtCgANx
+         cqEDcDS2q3GpVF+ThZ2RAvYh9pRFYqtHvg4et8wRy7A8no2TJjyqhjpEW0Y13P+SGLu0
+         HU6wfVGUn5TAmQsFtw0abrn7GegQV05Tp1KTgELI8ITN9F8caTvD7Ye8zOFQ+K1RE1vr
+         0OsKHu3afV9CyU+7BYzk3KRVFEuN9boqVq6O0HyocBgasKuTZr0+JO1m4W8SHsZHMQkj
+         Mcew==
+X-Gm-Message-State: AOJu0YwNpf+ZPJYtNxcS79ywjRRghk4s0817cLtVcdktFrf/IR9wbmfm
+	eHm+rgEdAZ1mZb2Qt+AbYM/zToLEw5s1uPpgBKgMO83Wae0+MW1YZMpGSrEjh8Zo/JQnQfJ3IJe
+	U8gk2rdOK2ThV3p9CKQq0f89QKiOTBaBpWHXFFkV5uPwPgwHPBuHW+wx6mA+2m/jdsmTQEI1I5l
+	z0idew8g+/ZUUYxThuOtcx7BiyYdwfcSSbWdRQOFrukeuHdqNYog==
+X-Gm-Gg: ASbGncuGH+yIHvwzD3H4TixxgSWgFLkbzT9Dj3PI4ANBYxFeSdK68c5hTRd8T12D4I6
+	6NxUnGHe6Oz2F57fdLPOCd7F7dN+FOZgwixkfPjLiryIh9LVE+lR8boCEMRX0bCcOIk1qK03bVm
+	xt4ygmTGnlWxsxOSSz984Z+NFcJn/VfK81upmHa6a4qJmAkEkzaY2TCjkSmksgDyNX1s9g6jYzp
+	hV27D6RGzEZR86dqRte6V7/SVxQQR75pu8PW025OipgGO67M1/C1TwXrbP044WEjiLPuUiaQ2fL
+	gfnOt8QZPkNUjtOr
+X-Received: by 2002:a05:620a:17a9:b0:7c0:c4a0:bff2 with SMTP id af79cd13be357-7c23c04898emr1128800785a.54.1740575819706;
+        Wed, 26 Feb 2025 05:16:59 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEU6QZ4ZT8/3wrlzji6tVITJdhOjTinkxXZkPfWhmL3vw2jcb9fdC1y83yRu2bbL5BFboG2Aw==
+X-Received: by 2002:a05:620a:17a9:b0:7c0:c4a0:bff2 with SMTP id af79cd13be357-7c23c04898emr1128796585a.54.1740575819235;
+        Wed, 26 Feb 2025 05:16:59 -0800 (PST)
 Received: from [192.168.0.241] ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6e87b17194csm21692936d6.97.2025.02.26.05.16.51
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-7c23c339e0dsm238739085a.91.2025.02.26.05.16.58
         for <cti-tac@lists.linuxfoundation.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Feb 2025 05:16:51 -0800 (PST)
-Message-ID: <7058f3a0-0068-4c88-8125-17158058deb5@redhat.com>
-Date: Wed, 26 Feb 2025 08:16:50 -0500
+        Wed, 26 Feb 2025 05:16:58 -0800 (PST)
+Message-ID: <2d1abfa8-0977-4ac3-8605-ac82a0846927@redhat.com>
+Date: Wed, 26 Feb 2025 08:16:58 -0500
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
 List-Id: <cti-tac.lists.linuxfoundation.org>
@@ -92,7 +92,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: cti-tac@lists.linuxfoundation.org
 From: Carlos O'Donell <carlos@redhat.com>
-Subject: glibc status update - Week ending Feb 7th
+Subject: glibc policy update - Week ending Feb 14th
 Autocrypt: addr=carlos@redhat.com; keydata=
  xsFNBFef5BoBEACvJ15QMMZh4stKHbz0rs78XsOdxuug37dumTx6ngrDCwZ61k7nHQ+uxLuo
  QvLSc6YJGBEfiNFbs1hvhRFNR7xJbzRYmin7kJZZ/06fH2cgTkQhN0mRBP8KsKKT+7SvvBL7
@@ -139,7 +139,7 @@ Autocrypt: addr=carlos@redhat.com; keydata=
  O0FatDMfJw==
 Organization: Red Hat
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: m-T6Ch0VLF3L_eO6OblYI1I3gKKrUceNIat5eSUN3OA_1740575813
+X-Mimecast-MFC-PROC-ID: 9_iXwdmJN1sAiii0TUboxj764qE4BfPEF-S130qYojc_1740575820
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
@@ -150,7 +150,39 @@ Current status looks like this:
 https://sourceware.org/glibc/wiki/CTI
 https://sourceware.org/glibc/wiki/CTI/Policy/glibc
 
-Didn't make any progress this week.
+- In a discussion with David Edehlson I mused that we were using NIST's
+  SP 800-218 because it was what I *thought* was the best, but this got
+  me considering a review of the existing documents and what we would use
+  for comparative reference.
+
+- Reviewed Common Criteria again for the second time.
+  - Some of the items in CC are applicable but because the
+    standard itself is high level and Government controlled it doesn't
+    apply to us.
+  - Lots of documents to review here, skipped a number that don't matter,
+    and while some do like the OSPP pieces, they are more for deployment
+    and not infra like CTI.
+
+- Reviewed ISO 27001:2022 which is often quoted for infosec and cyber
+  security.
+  - This document is very much like NIST SP800-218, but less well
+    organized IMO and as a closed paid standard it makes it difficult
+    to hand out copies for review.
+  - As an ISO member I had access and went through the 26 pages.
+
+- Reviewed TOGAF from the OpenGroup
+  - Closed standard.
+  - The standard itself is massive and very proscriptive as
+    to how enterprise software shoudl be developed.
+  - Not going to use this standard.
+
+- Reviewed PCI DSS standard, 35 pages.
+  - No easily applicable to glibc or software standards.
+  - Skipping this. Took notes and decided we won't use this for
+    our own review process.
+
+Next week
+- Review OWASP SAMM, BSIMM, and update justifications.
 
 -- 
 Cheers,
