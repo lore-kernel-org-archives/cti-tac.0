@@ -1,92 +1,92 @@
-Received: from smtp3.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642272D46B3
-	for <cti-tac@lists.linuxfoundation.org>; Thu, 29 Jan 2026 22:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF01336C0AA
+	for <cti-tac@lists.linuxfoundation.org>; Thu, 29 Jan 2026 23:04:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769727303; cv=none; b=CT9ElSjDsSALL2YnqI/cg9HPHLEQRQanRwnvAFPTtJlCpIJ6UL/CzVVkCIawaKOizFUKzGRccpKeoudLaHdh9cRzWcuS6fm9mY8EbVfS3CfO9aVbyK5jhB2TOzkfR3jhzhyIdc8BCAfE7jzTAfc+7R9sT3jBLd4cfO9MWj6iPz0=
+	t=1769727874; cv=none; b=ie+F9gQvzHDAlI5o2q9Nxqd+uL9ONroymcYBNcywHBpArETWrwoO+v3pVP1Nmz4y6ZlE5cpFSE17AJKnblPpg0dlNu1l2BugXLs9LGFbOWSYMexjRHBq09Ah4uZ0YDyAdBwMrpj4p54w5uVK75E/yX2bSJtdL7tqOZyusK5X3Vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769727303; c=relaxed/simple;
-	bh=zMhBm9320XP4dIxkNnEX87enGzYpPse3pTd0Rb5cXug=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-type; b=Cx44YTKmX9xNKJVeh6ouEufQTlx9awUa1El2Fr8znNuzc4UqQby4cnApQTk2zz3L+16tdrEBaOeaR/XEWqZ5eS+9THrcgTUhTE2XIKKhNvPL5ebeZWg05fnOsgqaj3PTSwXhFAriiUFGa2Rg8CHoIQa1q9ikecWxChuf6Gh6sMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XNzBNdtC; arc=none smtp.client-ip=140.211.166.136
+	s=arc-20240116; t=1769727874; c=relaxed/simple;
+	bh=tOmIerLNc4HjNzJAwGX9EpdFRiEmwgjrxwTSOLAZBb4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-type; b=nCz/+8dbkNrV2hALRzdMOsk2NUm0iIsRJw7JrtB3HbjNaDPip5CflLLM1cVBPcaWSSUa2D4Yf9eQn9N1cFptRrQZkMGhm9qE/tPnXXKO5yJ4oftSScBlU3izwm16b0SuZUHlHnWW3M/FFhpkmnA9ENHG+g0MQ8dx6ZRhbXoA3Qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PVnnaoqd; arc=none smtp.client-ip=140.211.166.138
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XNzBNdtC"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PVnnaoqd"
 Received: from localhost (localhost [127.0.0.1])
-	by smtp3.osuosl.org (Postfix) with ESMTP id 0E46A60BF2
-	for <cti-tac@lists.linuxfoundation.org>; Thu, 29 Jan 2026 22:55:02 +0000 (UTC)
+	by smtp1.osuosl.org (Postfix) with ESMTP id 7C85180C6F
+	for <cti-tac@lists.linuxfoundation.org>; Thu, 29 Jan 2026 23:04:32 +0000 (UTC)
 X-Virus-Scanned: amavis at osuosl.org
 X-Spam-Flag: NO
 X-Spam-Score: -5.792
 X-Spam-Level:
-Received: from smtp3.osuosl.org ([127.0.0.1])
- by localhost (smtp3.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id dCIV2b53BFPv for <cti-tac@lists.linuxfoundation.org>;
- Thu, 29 Jan 2026 22:55:01 +0000 (UTC)
+Received: from smtp1.osuosl.org ([127.0.0.1])
+ by localhost (smtp1.osuosl.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id Ap7Eib-gFL0g for <cti-tac@lists.linuxfoundation.org>;
+ Thu, 29 Jan 2026 23:04:31 +0000 (UTC)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=carlos@redhat.com; receiver=<UNKNOWN> 
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp3.osuosl.org 0378C60A9A
-Authentication-Results: smtp3.osuosl.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp3.osuosl.org 0378C60A9A
-Authentication-Results: smtp3.osuosl.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XNzBNdtC
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp1.osuosl.org 5F05080C68
+Authentication-Results: smtp1.osuosl.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.osuosl.org 5F05080C68
+Authentication-Results: smtp1.osuosl.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PVnnaoqd
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by smtp3.osuosl.org (Postfix) with ESMTPS id 0378C60A9A
-	for <cti-tac@lists.linuxfoundation.org>; Thu, 29 Jan 2026 22:55:00 +0000 (UTC)
+	by smtp1.osuosl.org (Postfix) with ESMTPS id 5F05080C68
+	for <cti-tac@lists.linuxfoundation.org>; Thu, 29 Jan 2026 23:04:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1769727299;
+	s=mimecast20190719; t=1769727870;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=tK/DhGLx+ThHVX06HVZemVtv/eYI8Mqwmwn9dl3V5mQ=;
-	b=XNzBNdtCaH0TlwgrXnvXVYfWpXXMi/NWc3o+x37bXwNVk2OcBCk4QRcixSx00wTossag2U
-	KLd32WDHZzZwkvvq1oMV2TYCtWqjcBrQucf4xJesiGm10KG2OpmU9U1yr6vk/ymfr1tnDC
-	MDaraPas3osImSvV9549kGJvPiZf6jk=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=HKY+rBMxDYuvu7yxBY/vKHeNShSUJvNl9FPsPI9mjPw=;
+	b=PVnnaoqdaRAff1N/U0e010qJCXKPdoPQJdQ+tnedwYI0C54h6wtPe5q8eMJT303wXEtupM
+	S70U7LE909wK2+dVTarFbdO6Y+datXlI9Kr9ueJITrpWhdvAw9igONHiB+BfAYPIz5jHst
+	JvKqiicpt6r0+iAkiIdPO+BdSGwPpgc=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-528-v0dVPNVsM723NeDcsmIZ4Q-1; Thu, 29 Jan 2026 17:54:57 -0500
-X-MC-Unique: v0dVPNVsM723NeDcsmIZ4Q-1
-X-Mimecast-MFC-AGG-ID: v0dVPNVsM723NeDcsmIZ4Q_1769727297
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-89463017976so42178326d6.2
-        for <cti-tac@lists.linuxfoundation.org>; Thu, 29 Jan 2026 14:54:57 -0800 (PST)
+ us-mta-34-xKESd0lZNtWCmJSMnFuMeg-1; Thu, 29 Jan 2026 18:04:28 -0500
+X-MC-Unique: xKESd0lZNtWCmJSMnFuMeg-1
+X-Mimecast-MFC-AGG-ID: xKESd0lZNtWCmJSMnFuMeg_1769727868
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50143b67424so40055491cf.0
+        for <cti-tac@lists.linuxfoundation.org>; Thu, 29 Jan 2026 15:04:28 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769727297; x=1770332097;
+        d=1e100.net; s=20230601; t=1769727867; x=1770332667;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tK/DhGLx+ThHVX06HVZemVtv/eYI8Mqwmwn9dl3V5mQ=;
-        b=xDKcP0QdRKB8e3zUlEL1bD+hygKhuepVAyfVs8o5tD7nkxj3o2/V5fRkmNzK67Nbnb
-         hTuQ0wXUVBx1ihoBsFF9I9AeyOwJKrf5qxl9LrbYwfwEW8OrBvP29SCVqVXeTq6EeNsc
-         E+L40XOLniv8oe93cth2rC75Skme76fHsUdQRkj7RVBYqBJNHVeRudKb16Lb3ljfYoP8
-         hDILmVUA+Ge6zVjEaqhM3bDaAn26GDrlZGDmloatl/BFeTjzhxHDn87FY+Gpy5njg8bh
-         fO/kmjk2k81FkRDm+ZgmZUZF0XBoMx9XutQM3vTKulOtAeebtdI6BhVsdvHAfHaQjWAE
-         geCw==
-X-Gm-Message-State: AOJu0YwNRg+Y4y7KYfH+9NrDelgPMHh80GgYeNNd6WLNduWRVmkdJ2x6
-	dVz7KQZ5ihDjAO4EPfrNZw6d+aY6eHvXMF/HFV5vHkwWD0UU3nHoPAb+ejVnOd8S8AgvkAgpD84
-	kGvdNR/zZajrLjGmpwgNqXWxCJb1GcxaH1Z0kz0SIrcZHfPp0nHde0bGqI3ivtM2l6O4klj2Sf1
-	nZt9as36TZCs6DMtSy1y+4HDEM3Rb3gVrx/vcXfreFSIvo9wPmIxkWPA==
-X-Gm-Gg: AZuq6aIV7ouH+Me6CoHVIChgep8Z6UXH0ZTAu4eU1SPlq6090KOC5fWlybpv1chkF3j
-	C3VXkCskz8ceo39ZLXlN+MGLHHt8w8QMvZV99T8GPCPBBIV0zEDFYnzaLDsD9DMEhNyU7uzUdAd
-	PSxqhnqiC7bpHHy9tS2oQcT8Yq9uZ2fr3nAxVIu9+/CbIpQQorZJYjOZSoYbGW9xIJhQJzML0lf
-	JGVldnE3qho668bJ1akoIotU9a3U9RDDQ7tiMYf3A5ZgTdmeUdF1XMW48G85nhYa+BY8y5Hf9mO
-	1IU75+B6541UBDsRu7bsU3jL/R/PEDhen/btzPVm7vt26gKHYoi2HSdfBCf7MIIq+n9q8y2ZoIW
-	LAH9UaWCbN2dbuEiFit9+WzKgcSOOqRMl2awMaKAHyIR3KLqv5KZEmgmWBHUk5L/VjergBSW639
-	dM/H+4H+d1q1w=
-X-Received: by 2002:a05:6214:1947:b0:88f:ca79:844a with SMTP id 6a1803df08f44-894ea115386mr14315886d6.48.1769727296665;
-        Thu, 29 Jan 2026 14:54:56 -0800 (PST)
-X-Received: by 2002:a05:6214:1947:b0:88f:ca79:844a with SMTP id 6a1803df08f44-894ea115386mr14315656d6.48.1769727296125;
-        Thu, 29 Jan 2026 14:54:56 -0800 (PST)
+        bh=HKY+rBMxDYuvu7yxBY/vKHeNShSUJvNl9FPsPI9mjPw=;
+        b=so3ogL0E1xXLwd7af0ygdX2ymziu1PB5IPtF/rcuCZ1wuUXFwBMd1K130l99Maz5Ot
+         744qENgfRhhvbEjEga7pZLebhZcIrLQBiaM27LCXkUrTCUU8jOCpGAic0kC1qpoE+HPn
+         KK03rF22BQ6n0pxZPD6kdIiRESGWPAUcYyjMogcLFLz6UEktL88U51+zxr7DO4wstwgi
+         ir8LOttN7n2vfH0yQ2mys6NMFWoeziHa/0VYDH6jFT1jBcw7JJBLhzTQBUQxQXddid2+
+         W+ergMohY1Hqlbqj/jBhys7HTC5axX0YvwxxincJzZBZika52S3NqP7qJedNrseu/ZJt
+         K6eQ==
+X-Gm-Message-State: AOJu0YxsJo+loR6oLu/98QVzkOReDVSqnxNsn2IRR3ncDkjP6JrcMpYS
+	RRvjD7VUSzw6CbRJH2Lw83WPU4iYQUC3THoBEH134UY20q2mPZLx1RMFJ6B15xFBf7GJ4x5DKiy
+	zcY7g7TLPivzvs561Q+k52FVljmY4mt43VZKLYelyYlNmdCNn1ZoQoJ/1RzdJfvkhC+3SS+RzXP
+	XP8bMdM4BdpxKCtVOl6BGRgYphUzj6zCCYRzpK/2r81vK+cFQNDP55aw==
+X-Gm-Gg: AZuq6aKZEaUckuYcr1t0WRLU80uibUjlvMX4L7W9gjCK5YUwFBumIfNlKHa+GbNflLR
+	LyMJqgEhFnqztjX3jO3BPFLmFJzWXMAUI2VapSm47Vz3MpJjl5KIProPbqKQ0sBC0S4U3S9SUrR
+	Pmg463A4DSGAzKhuPSVlJmcmmxjnr3i3H0uPemaGUL+TeifuMr7EjtPzl004CtwjMFLP3b0h3M6
+	YnVsk27JbT80NzOysXFw2Pfe5QJXLhdn5AxRuFhqgnKw6ii3/Ovy//n8LAvzu7HIe8WWxXrQ9mZ
+	rWD5cwSmyqHPZBUJzPbzup9LMZOx94QRSZPEbxXOwKG+4VC7+pv6XQEV3aHVdCWVm6LnxG2bz+w
+	aePElHDL3WrjfsomNl5aTUVqMXISBE87FaDGoTTUTpjk3LU3nykTO8g9xgHARtfAuxNjqMrlV+3
+	CDTT7w04OsJhE=
+X-Received: by 2002:a05:622a:20d:b0:503:4258:93aa with SMTP id d75a77b69052e-505d1ffc375mr16755051cf.0.1769727867114;
+        Thu, 29 Jan 2026 15:04:27 -0800 (PST)
+X-Received: by 2002:a05:622a:20d:b0:503:4258:93aa with SMTP id d75a77b69052e-505d1ffc375mr16754691cf.0.1769727866621;
+        Thu, 29 Jan 2026 15:04:26 -0800 (PST)
 Received: from athas.redhat.com ([198.48.244.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-894d376e65bsm46446006d6.55.2026.01.29.14.54.55
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5033766bb5fsm43848461cf.15.2026.01.29.15.04.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Jan 2026 14:54:55 -0800 (PST)
+        Thu, 29 Jan 2026 15:04:25 -0800 (PST)
 From: Carlos O'Donell <carlos@redhat.com>
 To: cti-tac@lists.linuxfoundation.org
 Cc: Carlos O'Donell <carlos@redhat.com>
-Subject: [COMMITTED] glibc: Update CY26 plan.
-Date: Thu, 29 Jan 2026 17:54:34 -0500
-Message-ID: <20260129225453.1943721-1-carlos@redhat.com>
+Subject: [COMMITTED] glibc: Update instructions to login first.
+Date: Thu, 29 Jan 2026 18:04:07 -0500
+Message-ID: <20260129230422.1946871-1-carlos@redhat.com>
 X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: cti-tac@lists.linuxfoundation.org
@@ -95,74 +95,32 @@ List-Subscribe: <mailto:cti-tac+subscribe@lists.linuxfoundation.org>
 List-Unsubscribe: <mailto:cti-tac+unsubscribe@lists.linuxfoundation.org>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: yeEE4zLCRqwXmKGZ3cMWksrqx1V3DwH9zsIQkPQ_W_Q_1769727297
+X-Mimecast-MFC-PROC-ID: sKJr7Z6gklfsNhIBpKVui5kVmABo1J0zUitu6nXWBkQ_1769727868
 X-Mimecast-Originator: redhat.com
 Content-type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Correct URL.
+
 Signed-off-by: Carlos O'Donell <carlos@redhat.com>
 ---
- source/projects/glibc.rst    | 30 +++++++++++++++++++++++++++++-
- source/spelling_wordlist.txt |  1 +
- 2 files changed, 30 insertions(+), 1 deletion(-)
+ source/projects/glibc.rst | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/source/projects/glibc.rst b/source/projects/glibc.rst
-index c3a01b7..cc5889f 100644
+index cc5889f..f243697 100644
 --- a/source/projects/glibc.rst
 +++ b/source/projects/glibc.rst
-@@ -1,3 +1,32 @@
-+CY26: Migrate glibc to CTI services
-+===================================
-+
-+In 2026 we have started the process of migrating core services for glibc.
-+
-+We will be hosting weekly Office Hours for CTI to discuss developer questions and the migration.
-+
-+ * Video conferencing link: `Office Hours for CTI <https://bbb.linuxfoundation.org/rooms//gq0-ndw-gku-r2e/join>`_
-+
-+The first meeting will be on Friday January 30th from 10am to 11am EST5EDT.
-+
-+Migration plan includes:
-+
-+ * Migrating from git to gitolite.
-+ * Migrating mailing lists.
-+ * Updating the SOW with LF IT.
-+
-+Future steps in the migration plan include:
-+
-+ * Migrating bugzilla.
-+ * Migrating patchwork.
-+ * Migrating the website.
-+ * Migrating the wiki.
-+
-+Current Status
-+--------------
-+
-+Posted the `current next steps to the community <https://inbox.sourceware.org/libc-alpha/287f1496-8f87-4ed3-a18b-3cb8c52c2ab3@redhat.com/>`_.
-+
- CY25: Migrate glibc to CTI services
- ===================================
+@@ -5,7 +5,8 @@ In 2026 we have started the process of migrating core services for glibc.
  
-@@ -10,7 +39,6 @@ As of 2025-08-19 an `evaluation of glibc moving from git to gitolite is in progr
+ We will be hosting weekly Office Hours for CTI to discuss developer questions and the migration.
  
- As of 2025-08-11 moving to new infrastructure is on hold as we discuss the core reasons for the migration.
+- * Video conferencing link: `Office Hours for CTI <https://bbb.linuxfoundation.org/rooms//gq0-ndw-gku-r2e/join>`_
++ * Please `sign in to BBB first <https://bbb.linuxfoundation.org/>`_.
++ * Video conferencing link: `Office Hours for CTI <https://bbb.linuxfoundation.org/rooms/gq0-ndw-gku-r2e/join>`_
  
--
- CY25: Define a SSDLC for the GNU Toolchain
- ==========================================
+ The first meeting will be on Friday January 30th from 10am to 11am EST5EDT.
  
-diff --git a/source/spelling_wordlist.txt b/source/spelling_wordlist.txt
-index ac68c02..dfcd436 100644
---- a/source/spelling_wordlist.txt
-+++ b/source/spelling_wordlist.txt
-@@ -63,6 +63,7 @@ spamassassin
- spammy
- svn
- testresults
-+th
- toolchain
- transferee
- trybot
 -- 
 2.52.0
 
